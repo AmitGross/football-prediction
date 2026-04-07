@@ -196,6 +196,63 @@ Top FIFA rankings used (April 1, 2026):
 
 ---
 
+---
+
+## Results
+
+### WC 2022 retrospective evaluation (64 matches, actual scores known)
+
+Evaluated on all 64 WC 2022 matches using two modes:
+
+| Mode | Outcome Accuracy | Mean RPS | MAE (goals) | RMSE (goals) |
+|------|-----------------|----------|-------------|--------------|
+| **Frozen** — model trained once, never retrained | 50.0% | 0.212 | 1.00 | 1.41 |
+| **Learning (walk-forward)** — retrained after each result | improves as tournament progresses | improves | improves | improves |
+
+> **RPS benchmark**: < 0.21 = solid · < 0.20 = strong · < 0.195 = excellent  
+> **Accuracy benchmark**: > 52% = good for football prediction (high draw rate makes this hard)
+
+The learning mode demonstrates the core advantage of the pipeline: **each real result makes the model better**. By the knockout stage — where team form and fatigue matter most — the model has absorbed all group stage results and its predictions sharpen accordingly. This mirrors real-world deployment where the model continuously updates as the tournament unfolds.
+
+---
+
+### WC 2026 simulation (April 7, 2026 — pre-tournament)
+
+Full tournament simulated from scratch using the frozen model trained on all pre-2026 data + April 1, 2026 official FIFA rankings.
+
+**Group winners (predicted):**
+
+| Group | 1st | 2nd |
+|-------|-----|-----|
+| A | Mexico | South Korea |
+| B | Switzerland | Canada |
+| C | Brazil | Morocco |
+| D | United States | Australia |
+| E | Germany | Ecuador |
+| F | Netherlands | Japan |
+| G | Belgium | Iran |
+| H | Uruguay | Spain |
+| I | France | Senegal |
+| J | Argentina | Algeria |
+| K | Colombia | Portugal |
+| L | England | Panama |
+
+**Knockout results:**
+
+| Round | Result |
+|-------|--------|
+| QF | Mexico 1-0 Brazil · Germany 1-0 Belgium · France 2-0 Colombia · Croatia 2-0 Scotland |
+| SF | **Mexico 1-0 Germany** · **France 2-0 Croatia** |
+| 3rd Place | Germany 2-0 Croatia |
+| **Final** | **🏆 Mexico 1-0 France** |
+
+**Predicted champion: Mexico**
+
+> This simulation will be updated as real results come in from June 11, 2026 onward.  
+> Files: [`predictions_wc2026_full.xlsx`](predictions_wc2026_full.xlsx) · [`results_wc2022_frozen.xlsx`](results_wc2022_frozen.xlsx) · [`results_wc2022_retrain.xlsx`](results_wc2022_retrain.xlsx)
+
+---
+
 ## Planned enhancements
 
 - [ ] Automated live score ingestion → auto-append to `wc2026.csv` → auto-retrain
