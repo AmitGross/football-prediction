@@ -271,19 +271,77 @@ Full tournament simulated from scratch using the frozen model trained on all pre
 | K | Colombia | Portugal |
 | L | England | Panama |
 
-**Knockout results:**
+**Round of 32 (R32) — July 4:**
 
-| Round | Result |
-|-------|--------|
-| QF | Mexico 1-0 Brazil · Germany 1-0 Belgium · France 2-0 Colombia · Croatia 2-0 Scotland |
-| SF | **Mexico 1-0 Germany** · **France 2-0 Croatia** |
-| 3rd Place | Germany 2-0 Croatia |
-| **Final** | **🏆 Mexico 1-0 France** |
+| Match | Score | Win% | Draw% | Loss% | Advances |
+|-------|-------|------|-------|-------|---------|
+| Mexico vs Canada | 1-0 | 51.2 | 39.4 | 9.4 | **Mexico** |
+| Switzerland vs South Korea | 2-0 | 67.0 | 26.7 | 6.3 | **Switzerland** |
+| Brazil vs Australia | 3-0 | 81.0 | 15.6 | 3.4 | **Brazil** |
+| United States vs Morocco | 1-0 | 54.6 | 33.5 | 11.9 | **United States** |
+| Germany vs Japan | 1-0 | 54.4 | 34.6 | 10.9 | **Germany** |
+| Netherlands vs Ecuador | 2-0 | 62.3 | 30.2 | 7.5 | **Netherlands** |
+| Belgium vs Spain | 1-0 | 47.1 | 39.8 | 13.1 | **Belgium** ⚡ |
+| Uruguay vs Iran | 1-0 | 49.0 | 37.2 | 13.8 | **Uruguay** |
+| France vs Algeria | 3-0 | 75.3 | 19.8 | 5.0 | **France** |
+| Argentina vs Senegal | 2-0 | 74.0 | 20.5 | 5.4 | **Argentina** |
+| Colombia vs Panama | 1-0 | 53.2 | 33.8 | 13.0 | **Colombia** |
+| England vs Portugal | 2-0 | 65.1 | 29.3 | 5.6 | **England** |
+| Ivory Coast vs Saudi Arabia | 2-0 | 60.8 | 28.0 | 11.2 | **Ivory Coast** |
+| Croatia vs Sweden | 2-0 | 76.2 | 20.1 | 3.7 | **Croatia** |
+| Scotland vs Turkey | 2-1 | 50.9 | 31.3 | 17.8 | **Scotland** |
+| Egypt vs Norway | 2-0 | 54.1 | 32.6 | 13.3 | **Egypt** |
 
-**Predicted champion: Mexico**
+> ⚡ Belgium knocking out Spain is the biggest upset of R32 (47% vs 13%)
+
+**Round of 16 (R16) — July 8:**
+
+| Match | Score | Win% | Draw% | Loss% | Advances |
+|-------|-------|------|-------|-------|---------|
+| Mexico vs Switzerland | 1-0 | 38.0 | 48.0 | 14.0 | **Mexico** ⚡ |
+| Brazil vs United States | 2-0 | 71.7 | 23.0 | 5.3 | **Brazil** |
+| Germany vs Netherlands | 1-0 | 58.8 | 33.7 | 7.5 | **Germany** |
+| Belgium vs Uruguay | 1-0 | 54.6 | 37.2 | 8.2 | **Belgium** |
+| France vs Argentina | 1-0 | 50.0 | 36.3 | 13.7 | **France** ⚡ |
+| Colombia vs England | 1-1 | 34.4 | 42.4 | 23.1 | **Colombia** (pens) |
+| Ivory Coast vs Croatia | 1-1 | 28.2 | 40.4 | 31.3 | **Croatia** (pens) |
+| Scotland vs Egypt | 1-1 | 50.0 | 32.6 | 17.4 | **Scotland** (pens) |
+
+> ⚡ France eliminates Argentina at R16 (50/50 match) · Mexico sneaks past Switzerland (48% draw probability)
+
+**Quarter-Finals (QF) — July 11:**
+
+| Match | Score | Win% | Draw% | Loss% | Winner |
+|-------|-------|------|-------|-------|--------|
+| **Mexico vs Brazil** | **1-0** | 36.5 | 47.0 | 16.5 | **🇲🇽 Mexico** ⚡ |
+| Germany vs Belgium | 1-0 | 49.0 | 39.1 | 11.9 | **🇩🇪 Germany** |
+| **France vs Colombia** | **2-0** | 71.5 | 22.7 | 5.8 | **🇫🇷 France** |
+| Croatia vs Scotland | 2-0 | 64.8 | 28.1 | 7.1 | **🇭🇷 Croatia** |
+
+> ⚡ Mexico beats Brazil 1-0 — the biggest upset of the tournament (only 36.5% probability)
+
+**Semi-Finals (SF) — July 14:**
+
+| Match | Score | Win% | Draw% | Loss% | Winner |
+|-------|-------|------|-------|-------|--------|
+| **Mexico vs Germany** | **1-0** | 41.9 | 43.3 | 14.8 | **🇲🇽 Mexico** |
+| **France vs Croatia** | **2-0** | 70.4 | 22.8 | 6.8 | **🇫🇷 France** |
+
+**3rd Place — July 18:** Germany 2-0 Croatia
+
+**🏆 Final — July 19, 2026:**
+
+| | Team | | Score | | Team | |
+|-|------|--- |-------|---|------|---|
+| | **Mexico** | | **1 - 0** | | France | |
+
+> Win probability: **Mexico 35.8%** · Draw 44.1% · France 20.1%  
+> Mexico wins the most open final in recent WC history — a coin-flip moment with 44% draw probability
+
+**Predicted champion: 🏆 Mexico**
 
 > This simulation will be updated as real results come in from June 11, 2026 onward.  
-> Files: [`predictions_wc2026_full.xlsx`](predictions_wc2026_full.xlsx) · [`results_wc2022_frozen.xlsx`](results_wc2022_frozen.xlsx) · [`results_wc2022_retrain.xlsx`](results_wc2022_retrain.xlsx)
+> Full bracket file: [`predictions_wc2026_full.xlsx`](predictions_wc2026_full.xlsx)
 
 ---
 
