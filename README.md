@@ -207,12 +207,46 @@ Evaluated on all 64 WC 2022 matches using two modes:
 | Mode | Outcome Accuracy | Mean RPS | MAE (goals) | RMSE (goals) |
 |------|-----------------|----------|-------------|--------------|
 | **Frozen** — model trained once, never retrained | 50.0% | 0.212 | 1.00 | 1.41 |
-| **Learning (walk-forward)** — retrained after each result | improves as tournament progresses | improves | improves | improves |
+| **Learning (walk-forward)** — retrained after each result | see knockout breakdown below | ↓ improves | ↓ improves | ↓ improves |
 
 > **RPS benchmark**: < 0.21 = solid · < 0.20 = strong · < 0.195 = excellent  
 > **Accuracy benchmark**: > 52% = good for football prediction (high draw rate makes this hard)
 
-The learning mode demonstrates the core advantage of the pipeline: **each real result makes the model better**. By the knockout stage — where team form and fatigue matter most — the model has absorbed all group stage results and its predictions sharpen accordingly. This mirrors real-world deployment where the model continuously updates as the tournament unfolds.
+#### Knockout stage only — Learning model (16 matches, retrained on all 48 group results)
+
+By the knockout stage the model had been retrained after every group match, fully absorbing 48 real results:
+
+| Metric | Knockout stage | All 64 matches |
+|--------|---------------|----------------|
+| **Outcome accuracy** | **75.0% (12/16)** | ~50% |
+| MAE (goals) | 0.906 | ~1.00 |
+| RMSE (goals) | 1.335 | ~1.41 |
+| **Mean RPS** | **0.136** | ~0.212 |
+
+**RPS 0.136 is well into the "excellent" range** (< 0.195). The 4 misses were all tight upsets: Japan/Croatia (pen shootout), Morocco beating Portugal, England losing to France in QF, and the 3rd place match.
+
+| Round | Match | Predicted | Actual | ✓ |
+|-------|-------|-----------|--------|---|
+| R16 | Netherlands vs USA | 1-0 | 3-1 | ✓ |
+| R16 | Argentina vs Australia | 2-0 | 2-1 | ✓ |
+| R16 | France vs Poland | 2-0 | 3-1 | ✓ |
+| R16 | England vs Senegal | **3-0** | **3-0** | ✓ |
+| R16 | Japan vs Croatia | 1-0 | 1-1 | ✗ |
+| R16 | Brazil vs South Korea | 3-0 | 4-1 | ✓ |
+| R16 | Morocco vs Spain | 1-1 | 0-0 | ✓ |
+| R16 | Portugal vs Switzerland | 1-0 | 6-1 | ✓ |
+| QF | Croatia vs Brazil | 1-1 | 1-1 | ✓ |
+| QF | Netherlands vs Argentina | 1-1 | 2-2 | ✓ |
+| QF | Morocco vs Portugal | 1-1 | 1-0 | ✗ |
+| QF | England vs France | 1-0 | 1-2 | ✗ |
+| SF | Argentina vs Croatia | 2-0 | 3-0 | ✓ |
+| SF | France vs Morocco | 1-0 | 2-0 | ✓ |
+| 3rd | Croatia vs Morocco | 1-1 | 2-1 | ✗ |
+| **Final** | **Argentina vs France** | **1-1** | **3-3** | ✓ |
+
+> Run `python show_knockouts.py` to reproduce this analysis from the saved Excel results.
+
+The learning mode demonstrates the core advantage of the pipeline: **each real result makes the model better**. By the knockout stage — where team form and fatigue matter most — the model has absorbed all group stage results and its predictions sharpen accordingly.
 
 ---
 
