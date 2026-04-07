@@ -1,0 +1,11 @@
+pandas
+numpy
+scikit-learn
+xgboost
+optuna
+networkx
+scipy
+openpyxl
+fastapi
+uvicorn
+pydantic

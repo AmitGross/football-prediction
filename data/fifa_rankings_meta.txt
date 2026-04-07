@@ -1,0 +1,4 @@
+last_updated=2026-04-01
+source=FIFA/Coca-Cola Men's World Ranking (official)
+url=https://inside.fifa.com/fifa-world-ranking/men
+next_update=2026-06-10

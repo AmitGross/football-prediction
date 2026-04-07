@@ -1,0 +1,37 @@
+# ── Generated model artefacts ──────────────────────────────────────────────
+model.pkl
+classifier.pkl
+dc_ratings.pkl
+calibrator.pkl
+
+# ── Temp / eval files ──────────────────────────────────────────────────────
+data/matches_eval_tmp.csv
+
+# ── Excel exports (generated on each run) ─────────────────────────────────
+*.xlsx
+predictions_wc2022_frozen.csv
+
+# ── Python ────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# ── Environments ──────────────────────────────────────────────────────────
+.env
+.venv
+env/
+venv/
+
+# ── OS ────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── IDE ───────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
