@@ -1,8 +1,6 @@
-# ── Generated model artefacts ──────────────────────────────────────────────
-model.pkl
-classifier.pkl
-dc_ratings.pkl
-calibrator.pkl
+# ── Generated model artefacts (included in repo for convenience) ───────────
+# model.pkl, classifier.pkl, dc_ratings.pkl, calibrator.pkl are committed
+# so users can run simulate2026 / evaluate without training first.
 
 # ── Temp / eval files ──────────────────────────────────────────────────────
 data/matches_eval_tmp.csv
