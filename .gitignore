@@ -5,9 +5,13 @@
 # ── Temp / eval files ──────────────────────────────────────────────────────
 data/matches_eval_tmp.csv
 
-# ── Excel exports (generated on each run) ─────────────────────────────────
-*.xlsx
+# ── Excel exports — only keep the canonical output files ──────────────────
+# Included: predictions_wc2026_full.xlsx, results_wc2022_frozen.xlsx, results_wc2022_retrain.xlsx
+# Excluded: everything else generated on each run
+results_wc2026_*.xlsx
+predictions_wc2026_full_with*.xlsx
 predictions_wc2022_frozen.csv
+predictions_wc2026.csv
 
 # ── Python ────────────────────────────────────────────────────────────────
 __pycache__/
