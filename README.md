@@ -112,7 +112,7 @@ football-prediction/
 
 ## Model overview
 
-**84 features per match (v1.1):**
+**84 features per match:**
 - Elo ratings + differential
 - Kalman filter ratings (attack/defence + uncertainty)
 - Form over last 5 and last 2 matches (wins, draws, losses, goals, weighted goals)
@@ -120,8 +120,7 @@ football-prediction/
 - Days rest
 - FIFA ranking points
 - PageRank, HITS (hub/authority) graph features
-- Neighbourhood aggregation — schedule strength (mean Elo of past opponents)
-- **NEW v1.1** — Performance-aware neighbourhood features:
+- Neighbourhood aggregation — schedule strength + performance context:
   - `weighted_opp_elo` — outcome-weighted opponent Elo (+1 win / 0 draw / −1 loss × opp Elo)
   - `win_rate_vs_top_teams` — win rate vs opponents in the top 30% Elo tier
   - `avg_goal_diff_vs_opp` — average goal difference (GF−GA) across all past opponent matches
@@ -191,12 +190,10 @@ L: England, Croatia, Ghana, Panama
 
 ---
 
-## Current simulation result (April 8, 2026 — model v1.1)
+## Current simulation result (April 8, 2026)
 
 **Predicted champion: Mexico**  
 Path: Switzerland (R16) → Brazil (QF) → Germany (SF) → **France** 0-1 (Final)
-
-> Result unchanged from v1.0. v1.1 improves overall accuracy (53.1% vs 50.0%) and RPS (0.2094 vs 0.2119) while preserving the same tournament bracket prediction.
 
 Top FIFA rankings used (April 1, 2026):  
 `France 1877 · Spain 1876 · Argentina 1875 · England 1826 · Portugal 1798 · Brazil 1761`
@@ -209,14 +206,10 @@ Top FIFA rankings used (April 1, 2026):
 
 ### WC 2022 retrospective evaluation (64 matches, actual scores known)
 
-Evaluated on all 64 WC 2022 matches using two modes, comparing model versions:
-
-| Mode | Version | Outcome Accuracy | Mean RPS | RMSE (goals) |
-|------|---------|-----------------|----------|--------------|
-| **Frozen** | v1.0 (72 features) | 46.9% | 0.2176 | 1.3891 |
-| **Frozen** | **v1.1 (84 features)** | 45.3% | **0.2160** ✅ | 1.4031 |
-| **Learning (walk-forward)** | v1.0 | 50.0% | 0.2119 | 1.4142 |
-| **Learning (walk-forward)** | **v1.1 (84 features)** | **53.1%** ✅ | **0.2094** ✅ | **1.3607** ✅ |
+| Mode | Outcome Accuracy | Mean RPS | RMSE (goals) |
+|------|-----------------|----------|---------------|
+| **Frozen** | 45.3% | 0.2160 | 1.4031 |
+| **Learning (walk-forward)** | **53.1%** | **0.2094** | **1.3607** |
 
 > **RPS benchmark**: < 0.21 = solid · < 0.20 = strong · < 0.195 = excellent  
 > **Accuracy benchmark**: > 52% = good for football prediction (high draw rate makes this hard)
@@ -225,12 +218,11 @@ Evaluated on all 64 WC 2022 matches using two modes, comparing model versions:
 
 By the knockout stage the model had been retrained after every group match, fully absorbing 48 real results:
 
-| Metric | v1.0 Knockout | v1.1 Knockout | All 64 (v1.1) |
-|--------|--------------|--------------|---------------|
-| **Outcome accuracy** | 75.0% (12/16) | **75.0% (12/16)** | 53.1% |
-| MAE (goals) | 0.906 | **0.875** ✅ | ~1.00 |
-| RMSE (goals) | 1.335 | **1.199** ✅ | 1.361 |
-| **Mean RPS** | 0.1364 | **0.1333** ✅ | 0.2094 |
+| Metric | Knockout (16 matches) | All 64 matches |
+|--------|----------------------|----------------|
+| **Outcome accuracy** | **75.0% (12/16)** | 53.1% |
+| RMSE (goals) | **1.199** | 1.361 |
+| **Mean RPS** | **0.1333** | 0.2094 |
 
 **RPS 0.136 is well into the "excellent" range** (< 0.195). The 4 misses were all tight upsets: Japan/Croatia (pen shootout), Morocco beating Portugal, England losing to France in QF, and the 3rd place match.
 
@@ -352,6 +344,30 @@ Full tournament simulated from scratch using the frozen model trained on all pre
 
 > This simulation will be updated as real results come in from June 11, 2026 onward.  
 > Full bracket file: [`predictions_wc2026_full_v1.1.xlsx`](predictions_wc2026_full_v1.1.xlsx)
+
+---
+
+## Experiment log
+
+### v1.2 — Transitive win-graph features (tried, reverted April 8, 2026)
+
+Added `calculate_wingraph_features()` — a 2-hop outcome-conditional win-graph:
+- **hop1_win_score**: `Σ(win_margin × opp_Elo) / n_matches` — direct dominance quality (wins only)
+- **hop2_win_score**: for each team you beat, add their hop1 score × 0.5 decay — transitive dominance
+- **transitive_dominance**: hop1 + hop2 combined
+- 9 new features (A, B, diff per metric), 84 → 93 features total
+
+**Results vs v1.1:**
+
+| Metric | v1.1 Retrain | v1.2 Retrain |
+|---|---|---|
+| Accuracy | **53.1%** | 51.6% |
+| RPS | 0.2094 | **0.2059** |
+| RMSE | 1.3607 | **1.3110** |
+| KO Accuracy | **75.0%** | 68.8% |
+| KO RPS | 0.1333 | **0.1330** |
+
+**Why reverted:** RPS and RMSE improved slightly, but knockout accuracy dropped (68.8% vs 75%). Root cause: hop2 is sparsely populated in walk-forward context (few teams have rich win chains early in the tournament), adding noise to outcome prediction. hop1 is largely redundant with existing `weighted_goal_diff_by_opp` from v1.1. Net: not worth the trade-off.
 
 ---
 
