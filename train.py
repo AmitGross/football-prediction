@@ -13,7 +13,8 @@ feat_module.set_fifa_rankings_year(2026)  # train uses latest (2026) rankings
 from features import build_features
 from ensemble import AveragingEnsemble
 
-PARAMS_PATH = 'best_params.json'
+PARAMS_PATH     = 'best_params.json'
+MODEL_VERSION   = 'v1.1'   # bump when features or model architecture changes
 
 
 def _load_best_params():
@@ -89,8 +90,10 @@ def train(df):
 
 def save_model(model, feature_cols, path=MODEL_PATH):
     with open(path, 'wb') as f:
-        pickle.dump({'model': model, 'features': feature_cols}, f)
-    print(f"Model saved to {path}")
+        pickle.dump({'model': model, 'features': feature_cols, 'version': MODEL_VERSION}, f)
+    with open('model_version.txt', 'w') as f:
+        f.write(f"{MODEL_VERSION} | {len(feature_cols)} features\n")
+    print(f"Model saved to {path} [{MODEL_VERSION}, {len(feature_cols)} features]")
 
 
 def retrain_after_match(team_A, team_B, goals_A, goals_B, date,

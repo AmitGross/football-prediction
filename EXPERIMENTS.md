@@ -1,4 +1,62 @@
-# Football Prediction Project — Experiments & Results
+# Football Prediction Project — Experiments & Iteration Log
+
+> **Current production model: v1.1** (84 features, tagged `v1.1` on GitHub)  
+> To reproduce: `git checkout v1.1` → `python main.py train` → `python main.py evaluate`
+
+## Version Summary
+
+| Version | Features | Retrain Accuracy | Retrain RPS | Retrain RMSE | KO Accuracy | KO RPS | Status |
+|---------|----------|-----------------|-------------|--------------|-------------|--------|--------|
+| v1.0 | 72 | 50.0% | 0.2119 | 1.4142 | 75.0% | 0.1364 | superseded |
+| **v1.1** | **84** | **53.1%** | **0.2094** | **1.3607** | **75.0%** | **0.1333** | ✅ **current** |
+| v1.2 | 93 | 51.6% | 0.2059 | 1.3110 | 68.8% | 0.1330 | reverted |
+| v1.3 | 75 | TBD (reverted early) | — | — | — | — | reverted |
+
+---
+
+## Iteration Details
+
+### v1.0 — Baseline (72 features)
+- Elo, Kalman, form (last 5 + last 2), H2H, days rest, FIFA rankings, PageRank, HITS, neighbourhood Elo aggregation
+- WC 2022 retrain: 50.0% accuracy, RPS 0.2119, RMSE 1.4142
+- Tagged `v1.0-baseline` on GitHub
+
+### v1.1 — Performance-aware neighbourhood features (84 features) ✅ CURRENT
+**What changed:** Extended `calculate_neighbourhood_features()` with 4 outcome-conditional features:
+- `weighted_opp_elo` — opponent Elo × outcome (+1 win / 0 draw / −1 loss)
+- `win_rate_vs_top_teams` — win rate vs top 30% Elo opponents
+- `avg_goal_diff_vs_opp` — average GF−GA across all past opponents
+- `weighted_goal_diff_by_opp` — goal margin scaled by opponent Elo
+
+**Results (WC 2022):**
+- Retrain: 53.1% accuracy (+3.1pp), RPS 0.2094 (↓), RMSE 1.3607 (↓) — all better than v1.0
+- Knockout (16 matches): 75% accuracy, RPS 0.1333, RMSE 1.199
+- WC 2026 simulation: **Mexico wins** (beat France 1-0 in final)
+
+**Tagged `v1.1` on GitHub — this is the trusted production version.**
+
+### v1.2 — Transitive win-graph features (93 features) — REVERTED
+**What changed:** Added `calculate_wingraph_features()` — 2-hop outcome-conditional win graph:
+- `hop1_win_score`: Σ(win_margin × opp_Elo) / n_matches
+- `hop2_win_score`: hop1 of beaten opponents × 0.5 decay (chain dies on draws/losses)
+- `transitive_dominance`: hop1 + hop2
+
+**Results vs v1.1:**
+- RMSE and RPS improved slightly (noise reduction in score prediction)
+- Knockout accuracy dropped: 68.8% vs 75% (1 extra match wrong)
+
+**Why reverted:** hop1 is redundant with `weighted_goal_diff_by_opp` already in v1.1. hop2 is mostly zeros in walk-forward context (sparse win chains early in tournament). Not worth the accuracy trade-off.
+
+### v1.3 — Drop HITS/goal_pr (75 features) — REVERTED
+**What changed:** Removed `goal_pr`, `hub`, `auth` HITS features — kept only `win_pr`
+
+**Rationale tested:** HITS/goal_pr are built on goal graph regardless of win/loss, so fixture-draw randomness pollutes the signal. Only `win_pr` (win graph, outcome-conditional) is theoretically sound.
+
+**Results:** Frozen eval already worse (42.2% accuracy vs 45.3%, RPS 0.2182 vs 0.2160). Reverted before retrain eval completed.
+
+**Why reverted:** Despite the theoretical argument, removing these features hurt empirically. The features may capture some noise but also genuine signal (defensive vulnerability, offensive volume) that the model uses. Leaving them in.
+
+---
 
 ## 1. Baseline Model
 - **Model:** RandomForestRegressor + XGBoostRegressor (AveragingEnsemble)

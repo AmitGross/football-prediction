@@ -347,27 +347,9 @@ Full tournament simulated from scratch using the frozen model trained on all pre
 
 ---
 
-## Experiment log
+## Development history
 
-### v1.2 — Transitive win-graph features (tried, reverted April 8, 2026)
-
-Added `calculate_wingraph_features()` — a 2-hop outcome-conditional win-graph:
-- **hop1_win_score**: `Σ(win_margin × opp_Elo) / n_matches` — direct dominance quality (wins only)
-- **hop2_win_score**: for each team you beat, add their hop1 score × 0.5 decay — transitive dominance
-- **transitive_dominance**: hop1 + hop2 combined
-- 9 new features (A, B, diff per metric), 84 → 93 features total
-
-**Results vs v1.1:**
-
-| Metric | v1.1 Retrain | v1.2 Retrain |
-|---|---|---|
-| Accuracy | **53.1%** | 51.6% |
-| RPS | 0.2094 | **0.2059** |
-| RMSE | 1.3607 | **1.3110** |
-| KO Accuracy | **75.0%** | 68.8% |
-| KO RPS | 0.1333 | **0.1330** |
-
-**Why reverted:** RPS and RMSE improved slightly, but knockout accuracy dropped (68.8% vs 75%). Root cause: hop2 is sparsely populated in walk-forward context (few teams have rich win chains early in the tournament), adding noise to outcome prediction. hop1 is largely redundant with existing `weighted_goal_diff_by_opp` from v1.1. Net: not worth the trade-off.
+Several model versions were iterated before settling on the current one. See [EXPERIMENTS.md](EXPERIMENTS.md) for the full log — what was tried, what the results were, and why each version was accepted or reverted.
 
 ---
 
