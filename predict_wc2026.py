@@ -10,9 +10,11 @@ features.set_fifa_rankings_year(2026)
 
 from predict import predict_match
 
+MODEL_VERSION = 'v1.1'   # bump when features or model architecture changes
+
 TRAIN_PATH = 'data/matches.csv'
 TEST_PATH = 'data/wc2026.csv'
-OUTPUT_PATH = 'predictions_wc2026_frozen.xlsx'
+OUTPUT_PATH = f'predictions_wc2026_frozen_{MODEL_VERSION}.xlsx'
 
 if __name__ == '__main__':
     train_df = pd.read_csv(TRAIN_PATH, parse_dates=['date'])

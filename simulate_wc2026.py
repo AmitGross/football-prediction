@@ -12,9 +12,11 @@ features.set_fifa_rankings_year(2026)
 
 from predict import predict_match
 
+MODEL_VERSION = 'v1.1'   # bump when features or model architecture changes
+
 TRAIN_PATH = 'data/matches.csv'
 GROUP_PATH = 'data/wc2026.csv'
-OUTPUT_PATH = 'predictions_wc2026_full.xlsx'
+OUTPUT_PATH = f'predictions_wc2026_full_{MODEL_VERSION}.xlsx'
 
 # ── Group definitions (order matches wc2026.csv) ──────────────────────────────
 GROUPS = {

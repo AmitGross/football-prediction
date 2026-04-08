@@ -4,9 +4,11 @@
 import pandas as pd
 from predict import predict_match
 
+MODEL_VERSION = 'v1.1'   # bump when features or model architecture changes
+
 TRAIN_PATH = 'data/matches.csv'
 TEST_PATH = 'data/wc2022.csv'
-OUTPUT_PATH = 'predictions_wc2022_frozen.csv'
+OUTPUT_PATH = f'predictions_wc2022_frozen_{MODEL_VERSION}.csv'
 
 
 if __name__ == '__main__':

@@ -59,10 +59,8 @@ def predict_match(team_A, team_B, current_matches):
     pr_A = get_pagerank(pr_features, team_A)
     pr_B = get_pagerank(pr_features, team_B)
 
-    opp_elo_A, opp_scored_A, opp_conceded_A, n_opps_A = calculate_neighbourhood_features(
-        current_matches, team_A, elo_system.ratings)
-    opp_elo_B, opp_scored_B, opp_conceded_B, n_opps_B = calculate_neighbourhood_features(
-        current_matches, team_B, elo_system.ratings)
+    nbr_A = calculate_neighbourhood_features(current_matches, team_A, elo_system.ratings)
+    nbr_B = calculate_neighbourhood_features(current_matches, team_B, elo_system.ratings)
 
     row = {
         'elo_A':        elo_A,
@@ -99,11 +97,23 @@ def predict_match(team_A, team_B, current_matches):
         'hub_diff':       pr_A['hub']     - pr_B['hub'],
         'auth_A':         pr_A['auth'],    'auth_B':     pr_B['auth'],
         'auth_diff':      pr_A['auth']    - pr_B['auth'],
-        'opp_elo_A':      opp_elo_A,      'opp_elo_B':      opp_elo_B,
-        'opp_elo_diff':   opp_elo_A - opp_elo_B,
-        'opp_scored_A':   opp_scored_A,   'opp_scored_B':   opp_scored_B,
-        'opp_conceded_A': opp_conceded_A, 'opp_conceded_B': opp_conceded_B,
-        'n_opps_A':       n_opps_A,        'n_opps_B':       n_opps_B,
+        'opp_elo_A':      nbr_A['avg_opp_elo'],       'opp_elo_B':      nbr_B['avg_opp_elo'],
+        'opp_elo_diff':   nbr_A['avg_opp_elo']       - nbr_B['avg_opp_elo'],
+        'opp_scored_A':   nbr_A['avg_opp_scored'],   'opp_scored_B':   nbr_B['avg_opp_scored'],
+        'opp_conceded_A': nbr_A['avg_opp_conceded'], 'opp_conceded_B': nbr_B['avg_opp_conceded'],
+        'n_opps_A':       nbr_A['n_opponents'],        'n_opps_B':       nbr_B['n_opponents'],
+        'weighted_opp_elo_A':        nbr_A['weighted_opp_elo'],
+        'weighted_opp_elo_B':        nbr_B['weighted_opp_elo'],
+        'weighted_opp_elo_diff':     nbr_A['weighted_opp_elo']          - nbr_B['weighted_opp_elo'],
+        'win_rate_vs_top_A':         nbr_A['win_rate_vs_top_teams'],
+        'win_rate_vs_top_B':         nbr_B['win_rate_vs_top_teams'],
+        'win_rate_vs_top_diff':      nbr_A['win_rate_vs_top_teams']     - nbr_B['win_rate_vs_top_teams'],
+        'avg_goal_diff_vs_opp_A':    nbr_A['avg_goal_diff_vs_opp'],
+        'avg_goal_diff_vs_opp_B':    nbr_B['avg_goal_diff_vs_opp'],
+        'avg_goal_diff_vs_opp_diff': nbr_A['avg_goal_diff_vs_opp']     - nbr_B['avg_goal_diff_vs_opp'],
+        'wtd_goal_diff_opp_A':       nbr_A['weighted_goal_diff_by_opp'],
+        'wtd_goal_diff_opp_B':       nbr_B['weighted_goal_diff_by_opp'],
+        'wtd_goal_diff_opp_diff':    nbr_A['weighted_goal_diff_by_opp'] - nbr_B['weighted_goal_diff_by_opp'],
     }
 
     X = pd.DataFrame([row])[feature_cols]

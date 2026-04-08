@@ -15,7 +15,7 @@ A **machine-learning pipeline** that predicts football (soccer) match scores and
 - **Language**: Python 3.10+, conda env `soccer_game_ml_`
 - **ML**: RandomForestRegressor + XGBRegressor (AveragingEnsemble for λ prediction), XGBClassifier (W/D/L)
 - **Other models**: Dixon-Coles MLE strength ratings, Poisson score-grid probabilities, isotonic calibrator
-- **Features (72 total)**: Elo ratings, Kalman filter ratings, form (last 5 + last 2), H2H, days rest, FIFA rankings, PageRank/HITS graph features, neighbourhood aggregation
+- **Features (84 total, v1.1)**: Elo ratings, Kalman filter ratings, form (last 5 + last 2), H2H, days rest, FIFA rankings, PageRank/HITS graph features, neighbourhood aggregation + performance-aware neighbourhood features (weighted_opp_elo, win_rate_vs_top_teams, avg_goal_diff_vs_opp, weighted_goal_diff_by_opp)
 - **API**: FastAPI (`app.py`) with `/predict` and `/result` endpoints
 - **Deterministic**: `random_state=42` everywhere
 
@@ -124,11 +124,14 @@ If goals columns are empty, `evaluate2026` prints "No results available yet" and
 
 ---
 
-## Current prediction (as of April 7, 2026)
+## Current prediction (as of April 8, 2026 — model v1.1)
 
-Model trained on `data/matches.csv` + Apr-2026 FIFA rankings.  
+Model trained on `data/matches.csv` + Apr-2026 FIFA rankings (84 features).  
 **Predicted WC 2026 champion: Mexico** (beat France 1-0 in final).  
 Mexico's path: Switzerland (R16) → Brazil (QF) → Germany (SF) → France (Final).
+
+**v1.1 WC 2022 benchmarks (walk-forward retrain):** Accuracy 53.1% · RPS 0.2094 · RMSE 1.3607  
+**v1.1 Knockout stage:** Accuracy 75.0% (12/16) · RPS 0.1333 · RMSE 1.199
 
 ---
 

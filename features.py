@@ -307,28 +307,70 @@ def get_pagerank(pr_features, team):
 
 
 # ── 6c. Walk-forward neighbourhood aggregation (1-hop message passing) ────────
-def calculate_neighbourhood_features(past_matches, team, elo_ratings):
+def calculate_neighbourhood_features(past_matches, team, elo_ratings, top_pct=0.70):
     """
-    For each past opponent of `team`, look up:
+    For each past opponent of `team`, aggregates:
       - their Elo rating  (schedule strength)
-      - avg goals they scored in OTHER matches  (quality of defense team faced)
-      - avg goals they conceded in OTHER matches (quality of offense team faced)
+      - avg goals they scored/conceded in OTHER matches
+      - performance-aware features: outcomes and goal diffs vs those opponents
 
     This is exactly what a GNN round-1 message pass computes:
     aggregate neighbours' features into the focal node's representation.
     Fully walk-forward — only uses past_matches.
+
+    Returns a dict of feature values (both original and new).
+    top_pct: percentile threshold for "top teams" (default 0.70 → top 30%).
     """
+    _defaults = {
+        'avg_opp_elo':               1500.0,
+        'avg_opp_scored':            0.0,
+        'avg_opp_conceded':          0.0,
+        'n_opponents':               0.0,
+        # --- NEW FEATURES START ---
+        'weighted_opp_elo':          0.0,   # outcome-weighted opp Elo (+1 win / 0 draw / -1 loss)
+        'win_rate_vs_top_teams':     0.0,   # win rate against opponents above top_pct Elo threshold
+        'avg_goal_diff_vs_opp':      0.0,   # average GF-GA across all matches vs opponents
+        'weighted_goal_diff_by_opp': 0.0,   # goal diff scaled by opponent Elo strength
+        # --- NEW FEATURES END ---
+    }
+
     played = past_matches[
         (past_matches['team_A'] == team) | (past_matches['team_B'] == team)
     ]
     if len(played) == 0:
-        return 0.0, 0.0, 0.0, 1500.0  # defaults
+        return _defaults
+
+    # Elo top-team threshold from current ratings (top 30% = above the 70th percentile)
+    all_elos = list(elo_ratings.values()) if elo_ratings else [ELO_START]
+    top_elo_threshold = float(np.percentile(all_elos, top_pct * 100))
 
     opp_elos, opp_scored, opp_conceded = [], [], []
+    # --- NEW FEATURES START ---
+    outcome_weights = []  # list of (opp_elo, outcome) where outcome ∈ {+1, 0, -1}
+    goal_diffs      = []  # list of (goal_diff, opp_elo) for team in each match
+    # --- NEW FEATURES END ---
 
     for _, row in played.iterrows():
-        opp = row['team_B'] if row['team_A'] == team else row['team_A']
-        opp_elos.append(elo_ratings.get(opp, ELO_START))
+        is_home = row['team_A'] == team
+        opp     = row['team_B'] if is_home else row['team_A']
+        opp_elo = elo_ratings.get(opp, ELO_START)
+        opp_elos.append(opp_elo)
+
+        # Goals for/against team in this specific match
+        gf = float(row['goals_A'] if is_home else row['goals_B'])
+        ga = float(row['goals_B'] if is_home else row['goals_A'])
+
+        # --- NEW FEATURES START ---
+        # Outcome encoding: +1 win, 0 draw, -1 loss
+        if gf > ga:
+            outcome = 1.0
+        elif gf == ga:
+            outcome = 0.0
+        else:
+            outcome = -1.0
+        outcome_weights.append((opp_elo, outcome))
+        goal_diffs.append((gf - ga, opp_elo))   # raw goal difference and opponent Elo
+        # --- NEW FEATURES END ---
 
         # opp's scoring record in matches NOT involving `team`
         opp_other = past_matches[
@@ -347,15 +389,53 @@ def calculate_neighbourhood_features(past_matches, team, elo_ratings):
             opp_scored.append(float(opp_gf))
             opp_conceded.append(float(opp_ga))
 
-    avg_opp_elo      = float(np.mean(opp_elos)) if opp_elos else 1500.0
+    avg_opp_elo      = float(np.mean(opp_elos))    if opp_elos    else 1500.0
     avg_opp_scored   = float(np.mean(opp_scored))   if opp_scored   else 0.0
     avg_opp_conceded = float(np.mean(opp_conceded)) if opp_conceded else 0.0
-    n_opponents      = len(set(
+    n_opponents      = float(len(set(
         list(played[played['team_A'] == team]['team_B']) +
         list(played[played['team_B'] == team]['team_A'])
-    ))
+    )))
 
-    return avg_opp_elo, avg_opp_scored, avg_opp_conceded, float(n_opponents)
+    # --- NEW FEATURES START ---
+
+    # 1. Outcome-weighted opponent Elo: mean(outcome * opp_elo)
+    #    High value → won against strong opponents; low → lost against strong opponents
+    weighted_opp_elo = float(np.mean([elo * out for elo, out in outcome_weights]))
+
+    # 2. Win rate vs top teams (opponents at or above the top_pct Elo percentile)
+    top_matches = [(elo, out) for elo, out in outcome_weights if elo >= top_elo_threshold]
+    if top_matches:
+        win_rate_vs_top_teams = float(np.mean([1.0 if out > 0 else 0.0 for _, out in top_matches]))
+    else:
+        win_rate_vs_top_teams = 0.0  # no top-team encounters yet
+
+    # 3. Average goal difference (GF-GA) across all matches vs opponents
+    avg_goal_diff_vs_opp = float(np.mean([gd for gd, _ in goal_diffs])) if goal_diffs else 0.0
+
+    # 4. Goal difference weighted by opponent Elo strength (relative to avg opponent quality)
+    #    A +2 GD vs Elo-1800 opponent counts more than +2 vs Elo-1400
+    if goal_diffs and avg_opp_elo > 0:
+        weighted_goal_diff_by_opp = float(
+            np.mean([(gd * elo) / avg_opp_elo for gd, elo in goal_diffs])
+        )
+    else:
+        weighted_goal_diff_by_opp = 0.0
+
+    # --- NEW FEATURES END ---
+
+    return {
+        'avg_opp_elo':               avg_opp_elo,
+        'avg_opp_scored':            avg_opp_scored,
+        'avg_opp_conceded':          avg_opp_conceded,
+        'n_opponents':               n_opponents,
+        # --- NEW FEATURES START ---
+        'weighted_opp_elo':          weighted_opp_elo,
+        'win_rate_vs_top_teams':     win_rate_vs_top_teams,
+        'avg_goal_diff_vs_opp':      avg_goal_diff_vs_opp,
+        'weighted_goal_diff_by_opp': weighted_goal_diff_by_opp,
+        # --- NEW FEATURES END ---
+    }
 
 
 # ── 8. Main feature builder (walk-forward, no leakage) ────────────────────────
@@ -418,10 +498,8 @@ def build_features(matches, N=FORM_N):
         pr_B = get_pagerank(pr_features, team_B)
 
         # Neighbourhood aggregation (walk-forward: 1-hop message passing)
-        opp_elo_A, opp_scored_A, opp_conceded_A, n_opps_A = calculate_neighbourhood_features(
-            past, team_A, elo_system.ratings)
-        opp_elo_B, opp_scored_B, opp_conceded_B, n_opps_B = calculate_neighbourhood_features(
-            past, team_B, elo_system.ratings)
+        nbr_A = calculate_neighbourhood_features(past, team_A, elo_system.ratings)
+        nbr_B = calculate_neighbourhood_features(past, team_B, elo_system.ratings)
 
         row = {
             'elo_A':        elo_A,
@@ -460,11 +538,29 @@ def build_features(matches, N=FORM_N):
             'auth_A':         pr_A['auth'],    'auth_B':     pr_B['auth'],
             'auth_diff':      pr_A['auth']    - pr_B['auth'],
             # Neighbourhood / schedule-strength (walk-forward 1-hop aggregation)
-            'opp_elo_A':      opp_elo_A,      'opp_elo_B':      opp_elo_B,
-            'opp_elo_diff':   opp_elo_A - opp_elo_B,
-            'opp_scored_A':   opp_scored_A,   'opp_scored_B':   opp_scored_B,
-            'opp_conceded_A': opp_conceded_A, 'opp_conceded_B': opp_conceded_B,
-            'n_opps_A':       n_opps_A,        'n_opps_B':       n_opps_B,
+            'opp_elo_A':      nbr_A['avg_opp_elo'],        'opp_elo_B':      nbr_B['avg_opp_elo'],
+            'opp_elo_diff':   nbr_A['avg_opp_elo']       - nbr_B['avg_opp_elo'],
+            'opp_scored_A':   nbr_A['avg_opp_scored'],    'opp_scored_B':   nbr_B['avg_opp_scored'],
+            'opp_conceded_A': nbr_A['avg_opp_conceded'],  'opp_conceded_B': nbr_B['avg_opp_conceded'],
+            'n_opps_A':       nbr_A['n_opponents'],         'n_opps_B':       nbr_B['n_opponents'],
+            # --- NEW FEATURES START ---
+            # Outcome-weighted opponent Elo: mean(outcome * opp_elo), +1 win / 0 draw / -1 loss
+            'weighted_opp_elo_A':        nbr_A['weighted_opp_elo'],
+            'weighted_opp_elo_B':        nbr_B['weighted_opp_elo'],
+            'weighted_opp_elo_diff':     nbr_A['weighted_opp_elo']          - nbr_B['weighted_opp_elo'],
+            # Win rate vs top-30% Elo opponents
+            'win_rate_vs_top_A':         nbr_A['win_rate_vs_top_teams'],
+            'win_rate_vs_top_B':         nbr_B['win_rate_vs_top_teams'],
+            'win_rate_vs_top_diff':      nbr_A['win_rate_vs_top_teams']     - nbr_B['win_rate_vs_top_teams'],
+            # Average goal difference (GF-GA) across matches vs past opponents
+            'avg_goal_diff_vs_opp_A':    nbr_A['avg_goal_diff_vs_opp'],
+            'avg_goal_diff_vs_opp_B':    nbr_B['avg_goal_diff_vs_opp'],
+            'avg_goal_diff_vs_opp_diff': nbr_A['avg_goal_diff_vs_opp']     - nbr_B['avg_goal_diff_vs_opp'],
+            # Strength-weighted goal difference (GD × opp_elo / avg_opp_elo)
+            'wtd_goal_diff_opp_A':       nbr_A['weighted_goal_diff_by_opp'],
+            'wtd_goal_diff_opp_B':       nbr_B['weighted_goal_diff_by_opp'],
+            'wtd_goal_diff_opp_diff':    nbr_A['weighted_goal_diff_by_opp'] - nbr_B['weighted_goal_diff_by_opp'],
+            # --- NEW FEATURES END ---
         }
 
         rows.append(row)

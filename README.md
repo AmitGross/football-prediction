@@ -112,7 +112,7 @@ football-prediction/
 
 ## Model overview
 
-**72 features per match:**
+**84 features per match (v1.1):**
 - Elo ratings + differential
 - Kalman filter ratings (attack/defence + uncertainty)
 - Form over last 5 and last 2 matches (wins, draws, losses, goals, weighted goals)
@@ -120,7 +120,12 @@ football-prediction/
 - Days rest
 - FIFA ranking points
 - PageRank, HITS (hub/authority) graph features
-- Neighbourhood aggregation (mean Elo of opponents)
+- Neighbourhood aggregation — schedule strength (mean Elo of past opponents)
+- **NEW v1.1** — Performance-aware neighbourhood features:
+  - `weighted_opp_elo` — outcome-weighted opponent Elo (+1 win / 0 draw / −1 loss × opp Elo)
+  - `win_rate_vs_top_teams` — win rate vs opponents in the top 30% Elo tier
+  - `avg_goal_diff_vs_opp` — average goal difference (GF−GA) across all past opponent matches
+  - `weighted_goal_diff_by_opp` — goal difference scaled by opponent Elo strength
 
 **Training pipeline (`python main.py train`):**
 1. `model.pkl` — AveragingEnsemble (RandomForest + XGBoost) predicting (λ_A, λ_B)
@@ -186,10 +191,12 @@ L: England, Croatia, Ghana, Panama
 
 ---
 
-## Current simulation result (April 7, 2026)
+## Current simulation result (April 8, 2026 — model v1.1)
 
 **Predicted champion: Mexico**  
 Path: Switzerland (R16) → Brazil (QF) → Germany (SF) → **France** 0-1 (Final)
+
+> Result unchanged from v1.0. v1.1 improves overall accuracy (53.1% vs 50.0%) and RPS (0.2094 vs 0.2119) while preserving the same tournament bracket prediction.
 
 Top FIFA rankings used (April 1, 2026):  
 `France 1877 · Spain 1876 · Argentina 1875 · England 1826 · Portugal 1798 · Brazil 1761`
@@ -202,12 +209,14 @@ Top FIFA rankings used (April 1, 2026):
 
 ### WC 2022 retrospective evaluation (64 matches, actual scores known)
 
-Evaluated on all 64 WC 2022 matches using two modes:
+Evaluated on all 64 WC 2022 matches using two modes, comparing model versions:
 
-| Mode | Outcome Accuracy | Mean RPS | MAE (goals) | RMSE (goals) |
-|------|-----------------|----------|-------------|--------------|
-| **Frozen** — model trained once, never retrained | 50.0% | 0.212 | 1.00 | 1.41 |
-| **Learning (walk-forward)** — retrained after each result | see knockout breakdown below | ↓ improves | ↓ improves | ↓ improves |
+| Mode | Version | Outcome Accuracy | Mean RPS | RMSE (goals) |
+|------|---------|-----------------|----------|--------------|
+| **Frozen** | v1.0 (72 features) | 46.9% | 0.2176 | 1.3891 |
+| **Frozen** | **v1.1 (84 features)** | 45.3% | **0.2160** ✅ | 1.4031 |
+| **Learning (walk-forward)** | v1.0 | 50.0% | 0.2119 | 1.4142 |
+| **Learning (walk-forward)** | **v1.1 (84 features)** | **53.1%** ✅ | **0.2094** ✅ | **1.3607** ✅ |
 
 > **RPS benchmark**: < 0.21 = solid · < 0.20 = strong · < 0.195 = excellent  
 > **Accuracy benchmark**: > 52% = good for football prediction (high draw rate makes this hard)
@@ -216,12 +225,12 @@ Evaluated on all 64 WC 2022 matches using two modes:
 
 By the knockout stage the model had been retrained after every group match, fully absorbing 48 real results:
 
-| Metric | Knockout stage | All 64 matches |
-|--------|---------------|----------------|
-| **Outcome accuracy** | **75.0% (12/16)** | ~50% |
-| MAE (goals) | 0.906 | ~1.00 |
-| RMSE (goals) | 1.335 | ~1.41 |
-| **Mean RPS** | **0.136** | ~0.212 |
+| Metric | v1.0 Knockout | v1.1 Knockout | All 64 (v1.1) |
+|--------|--------------|--------------|---------------|
+| **Outcome accuracy** | 75.0% (12/16) | **75.0% (12/16)** | 53.1% |
+| MAE (goals) | 0.906 | **0.875** ✅ | ~1.00 |
+| RMSE (goals) | 1.335 | **1.199** ✅ | 1.361 |
+| **Mean RPS** | 0.1364 | **0.1333** ✅ | 0.2094 |
 
 **RPS 0.136 is well into the "excellent" range** (< 0.195). The 4 misses were all tight upsets: Japan/Croatia (pen shootout), Morocco beating Portugal, England losing to France in QF, and the 3rd place match.
 
@@ -244,7 +253,8 @@ By the knockout stage the model had been retrained after every group match, full
 | 3rd | Croatia vs Morocco | 1-1 | 2-1 | ✗ |
 | **Final** | **Argentina vs France** | **1-1** | **3-3** | ✓ |
 
-> Run `python show_knockouts.py` to reproduce this analysis from the saved Excel results.
+> Run `python compare_knockouts.py` to reproduce this comparison from the saved Excel results.
+> Run `python show_knockouts.py` for a single-model knockout summary.
 
 The learning mode demonstrates the core advantage of the pipeline: **each real result makes the model better**. By the knockout stage — where team form and fatigue matter most — the model has absorbed all group stage results and its predictions sharpen accordingly.
 
@@ -341,7 +351,7 @@ Full tournament simulated from scratch using the frozen model trained on all pre
 **Predicted champion: 🏆 Mexico**
 
 > This simulation will be updated as real results come in from June 11, 2026 onward.  
-> Full bracket file: [`predictions_wc2026_full.xlsx`](predictions_wc2026_full.xlsx)
+> Full bracket file: [`predictions_wc2026_full_v1.1.xlsx`](predictions_wc2026_full_v1.1.xlsx)
 
 ---
 

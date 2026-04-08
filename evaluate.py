@@ -25,6 +25,8 @@ import features
 from predict import predict_match
 from train import train, save_model, load_data
 
+MODEL_VERSION = 'v1.1'   # bump when features or model architecture changes
+
 TRAIN_PATH = 'data/matches.csv'
 _TEST_PATHS = {
     2022: 'data/wc2022.csv',
@@ -212,7 +214,7 @@ def evaluate(retrain=False, limit=None, year=2022):
     )]
     results_df['Mode'] = 'RETRAIN' if retrain else 'FROZEN'
     mode_tag   = 'retrain' if retrain else 'frozen'
-    excel_name = f"results_wc{year}_{mode_tag}.xlsx"
+    excel_name = f"results_wc{year}_{mode_tag}_{MODEL_VERSION}.xlsx"
     results_df.to_excel(excel_name, index=False)
     print(f"\nResults exported to {excel_name}\n")
 
