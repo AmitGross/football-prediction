@@ -469,6 +469,47 @@ The learning mode demonstrates the core advantage of the pipeline: **each real r
 
 ---
 
+### Model vs Market — WC 2026 (April 9, 2026)
+
+Comparison of our v1.4 model predictions against [Polymarket](https://polymarket.com) prediction market odds.
+
+#### Tournament winner
+
+| Team | Polymarket | Our model |
+|------|-----------|-----------|
+| Spain | **16%** 🥇 | Eliminated R16 (by Belgium) |
+| France | 14% | Eliminated QF (by England) |
+| England | 11% | **Final** (runner-up) |
+| Argentina | 9% | Eliminated R16 (by France) |
+| Brazil | 9% | Eliminated R32 (by USA) |
+| Portugal | 7% | Eliminated R16 (by England) |
+| Germany | 5% | Eliminated R16 (by Netherlands) |
+| **Netherlands** | 3% | 🏆 **Predicted champion** |
+
+> Our model strongly disagrees with the market on Netherlands — the market's 8th choice is our predicted winner. Key market misses in our simulation: Spain out in R16 (50/50 vs Belgium), Brazil out in R32 vs USA.
+
+#### Group stage winners
+
+| Group | Teams | Polymarket | Our model v1.4 | Match? |
+|-------|-------|-----------|----------------|--------|
+| A | Mexico, South Africa, South Korea, Czech Republic | Mexico (45%) | Mexico | ✅ |
+| B | Canada, Bosnia, Qatar, Switzerland | Switzerland (51%) | Switzerland | ✅ |
+| C | Brazil, Morocco, Haiti, Scotland | Brazil (77%) | Morocco | ❌ |
+| D | USA, Paraguay, Australia, Turkey | TBD playoff* | United States | ❓ |
+| E | Germany, Curacao, Ivory Coast, Ecuador | Germany (71%) | Germany | ✅ |
+| F | Netherlands, Japan, Sweden, Tunisia | Netherlands (57%) | Netherlands | ✅ |
+| G | Belgium, Egypt, Iran, New Zealand | Belgium (72%) | Belgium | ✅ |
+| H | Spain, Cape Verde, Saudi Arabia, Uruguay | Spain (81%) | Spain | ✅ |
+| I | France, Senegal, Iraq, Norway | France (69%) | France | ✅ |
+| J | Argentina, Algeria, Austria, Jordan | Argentina (77%) | Argentina | ✅ |
+| K | Portugal, DR Congo, Uzbekistan, Colombia | Portugal (64%) | Portugal | ✅ |
+| L | England, Croatia, Ghana, Panama | England (72%) | England | ✅ |
+
+> *Group D on Polymarket shows KOS/ROU/SVK/TUR — these are teams competing in a qualification playoff for the remaining Group D spot, results not yet finalized.  
+> **10/11 group winners match the market.** Only Group C differs — market strongly backs Brazil (77%), our model predicts Morocco advances 1st.
+
+---
+
 ### WC 2026 simulation (April 9, 2026 — model v1.4, pre-tournament)
 
 Full tournament simulated from scratch using the frozen model trained on all pre-2026 data + April 1, 2026 official FIFA rankings.
