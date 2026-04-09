@@ -2,7 +2,7 @@
 
 Machine-learning pipeline that predicts international football match scores and simulates full World Cup tournaments. Retrospectively evaluated on WC 2018 and WC 2022; live prediction active for WC 2026 (June 11 – July 19, 2026).
 
-**Model v1.6 · 68 features · Best result: 54.7% outcome accuracy (WC 2022 walk-forward) · Predicted WC 2026 champion: Spain**
+**Model v1.6 · 68 features · Best result: 54.7% outcome accuracy (WC 2022 walk-forward) · Predicted WC 2026 champion: France**
 
 ---
 
@@ -209,10 +209,10 @@ L: England, Croatia, Ghana, Panama
 
 ---
 
-## Current simulation result (April 9, 2026 — model v1.5)
+## Current simulation result (April 9, 2026 — model v1.6)
 
-**Predicted champion: Spain** (beats France 2–1 in Final)  
-Spain's path: Egypt (R32) → Belgium (R16) → Germany (QF) → France (SF) → Final
+**Predicted champion: France** (beats Mexico 1–1, wins on probabilities in Final)  
+France's path: Argentina (R16) → Portugal (QF) → Scotland (SF) → Final
 
 Top FIFA rankings used (April 1, 2026):  
 `France 1877 · Spain 1876 · Argentina 1875 · England 1826 · Portugal 1798 · Brazil 1761`
@@ -452,11 +452,11 @@ L: England, Croatia, Ghana, Panama
 
 ---
 
-## Current simulation result (April 9, 2026 — model v1.5)
+## Current simulation result (April 9, 2026 — model v1.6)
 
-**Predicted champion: Spain** (beats France 2–1 in Final)  
-Spain's path: Egypt (R32) → Belgium (R16) → Germany (QF) → France (SF) → Final  
-Notable: Netherlands (v1.4 champion) exits R16 to Germany · Mexico reaches 3rd place
+**Predicted champion: France** (beats Mexico 1–1, wins on probabilities in Final)  
+France's path: Argentina (R16) → Portugal (QF) → Scotland (SF) → Final  
+Notable: Spain exits R16 to Belgium · Mexico reaches Final
 
 Top FIFA rankings used (April 1, 2026):  
 `France 1877 · Spain 1876 · Argentina 1875 · England 1826 · Portugal 1798 · Brazil 1761`
@@ -481,9 +481,9 @@ By the knockout stage the model had been retrained after every group match, full
 
 | Metric | Knockout (16 matches) | All 64 matches |
 |--------|----------------------|----------------|
-| **Outcome accuracy** | **75.0% (12/16)** | 53.1% |
-| RMSE (goals) | **1.199** | 1.361 |
-| **Mean RPS** | **0.1333** | 0.2094 |
+| **Outcome accuracy** | **75.0% (12/16)** | 54.7% |
+| RMSE (goals) | **1.199** | 1.349 |
+| **Mean RPS** | **0.1333** | 0.2081 |
 
 **RPS 0.136 is well into the "excellent" range** (< 0.195). The 4 misses were all tight upsets: Japan/Croatia (pen shootout), Morocco beating Portugal, England losing to France in QF, and the 3rd place match.
 
