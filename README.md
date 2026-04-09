@@ -118,7 +118,7 @@ Next FIFA rankings update: **June 10, 2026** — run `python update_rankings.py`
 **Scores → probabilities:**  
 Predicted λ values feed a Poisson score grid → P(win), P(draw), P(loss), calibrated with the isotonic calibrator.
 
-**62 features per match (v1.5):**
+**68 features per match (v1.6):**
 
 | Group | Count | Features |
 |-------|-------|----------|
@@ -130,8 +130,10 @@ Predicted λ values feed a Poisson score grid → P(win), P(draw), P(loss), cali
 | Rest & Match Count | 4 | rest_days_A/B, matches_played_A/B |
 | Neighbourhood Basic | 9 | avg_opp_elo, avg_opp_scored, avg_opp_conceded + diffs |
 | Neighbourhood Perf | 12 | weighted_opp_elo, win_rate_vs_top_teams, avg_goal_diff_vs_opp, weighted_goal_diff_by_opp + diffs |
+| Stage & Volatility | 6 | is_knockout, round_number, games_in_tournament_A/B, goal_diff_std_A/B |
 
-Removed in v1.5 after ablation: Kalman filter (x10) and PageRank/HITS (x12) — both hurt performance.
+Removed in v1.5 after ablation: Kalman filter (x10) and PageRank/HITS (x12) — both hurt performance.  
+Added in v1.6: stage context features (is_knockout, round_number) + tournament momentum (games_in_tournament) + team volatility (goal_diff_std).
 
 ---
 
@@ -245,21 +247,21 @@ Top FIFA rankings used (April 1, 2026):
 
 ## Roadmap
 
-### v1.6 (next — create off main after v1.5 merge)
+### ✅ v1.6 (shipped April 9, 2026)
 
-5 new features → 67 total. Test incrementally, not all at once:
+5 new features → 68 total:
 
-| Feature | Type | Rationale |
-|---------|------|-----------|
-| `is_knockout` | binary 0/1 | Group vs KO context |
-| `round_number` | ordinal 0–5 | Model learns behavior changes as tournament progresses |
-| `games_played_in_tournament` | count | Momentum/fatigue accumulation |
-| `goal_diff_std_A` | float | Team volatility/consistency |
-| `goal_diff_std_B` | float | Team volatility/consistency |
+| Feature | Type | Values | Rationale |
+|---------|------|--------|-----------|
+| `is_knockout` | binary | 0/1 | Group vs KO context |
+| `round_number` | ordinal | 0=qual, 1=group, 2=R32/R16, 3=QF, 4=SF, 5=Final | Model learns stage-specific behaviour |
+| `games_in_tournament_A/B` | count | 0,1,2,3… | Momentum/fatigue accumulation |
+| `goal_diff_std_A` | float | std dev last 5 GF−GA | Team volatility/consistency |
+| `goal_diff_std_B` | float | std dev last 5 GF−GA | Team volatility/consistency |
 
-Testing: add all 5 together, evaluate on WC 2022 frozen + retrain vs v1.5 baseline. If RPS improves → ship. If not → ablate to find the useful subset.
+Result: WC 2022 frozen RPS improved from 0.2348 → 0.2122 (−0.023). WC 2022 retrain improved 0.2088 → 0.2081. Shipped as v1.6.
 
-### Future
+### Future (v1.7)
 - Automated live scoring: fetch real-time scores → append to `wc2026.csv` → auto-retrain
 - Supabase: store predictions/results via `/result` endpoint
 - Vercel frontend: live bracket + predictions
@@ -374,19 +376,20 @@ football-prediction/
 
 ## Model overview
 
-**84 features per match:**
+**68 features per match (v1.6):**
 - Elo ratings + differential
-- Kalman filter ratings (attack/defence + uncertainty)
 - Form over last 5 and last 2 matches (wins, draws, losses, goals, weighted goals)
 - Head-to-head record
-- Days rest
+- Days rest + matches played
 - FIFA ranking points
-- PageRank, HITS (hub/authority) graph features
 - Neighbourhood aggregation — schedule strength + performance context:
-  - `weighted_opp_elo` — outcome-weighted opponent Elo (+1 win / 0 draw / −1 loss × opp Elo)
+  - `weighted_opp_elo` — outcome-weighted opponent Elo
   - `win_rate_vs_top_teams` — win rate vs opponents in the top 30% Elo tier
   - `avg_goal_diff_vs_opp` — average goal difference (GF−GA) across all past opponent matches
   - `weighted_goal_diff_by_opp` — goal difference scaled by opponent Elo strength
+- Stage & volatility: `is_knockout`, `round_number` (0=qual→5=final), `games_in_tournament_A/B`, `goal_diff_std_A/B`
+
+*(Kalman filter ×10 and PageRank/HITS ×12 removed in v1.5 after ablation — both hurt performance.)*
 
 **Training pipeline (`python main.py train`):**
 1. `model.pkl` — AveragingEnsemble (RandomForest + XGBoost) predicting (λ_A, λ_B)
@@ -515,30 +518,30 @@ The learning mode demonstrates the core advantage of the pipeline: **each real r
 
 ### Model vs Market — WC 2026 (April 9, 2026)
 
-Comparison of our v1.5 model predictions against [Polymarket](https://polymarket.com) prediction market odds.
+Comparison of our v1.6 model predictions against [Polymarket](https://polymarket.com) prediction market odds.
 
 #### Tournament winner
 
-| Team | Polymarket | Our model v1.5 |
+| Team | Polymarket | Our model v1.6 |
 |------|-----------|----------------|
-| **Spain** | **16%** 🥇 | 🏆 **Predicted champion** |
-| France | 14% | Eliminated SF (by Spain) |
-| England | 11% | — |
-| Argentina | 9% | — |
-| Brazil | 9% | — |
-| Portugal | 7% | — |
-| Germany | 5% | Eliminated QF (by Spain) |
+| Spain | 16% 🥇 | Eliminated R16 (by Belgium) |
+| **France** | **14%** | 🏆 **Predicted champion** |
+| England | 11% | Eliminated R16 (by Portugal) |
+| Argentina | 9% | Eliminated R16 (by France) |
+| Brazil | 9% | Eliminated R32 (by United States) |
+| Portugal | 7% | Eliminated QF (by France) |
+| Germany | 5% | Eliminated SF (by Mexico) |
 | Netherlands | 3% | Eliminated R16 (by Germany) |
 
-> Our model agrees with the market's top pick: Spain is both Polymarket's #1 and our predicted champion. Key divergence: Netherlands (market 3%) eliminated R16 by Germany in our simulation.
+> Key divergence from market: France (market #2) is our predicted champion. Spain (market #1) exits R16 to Belgium in our simulation. Mexico reaches the Final as a surprise run.
 
 #### Group stage winners
 
-| Group | Teams | Polymarket | Our model v1.5 | Match? |
+| Group | Teams | Polymarket | Our model v1.6 | Match? |
 |-------|-------|-----------|----------------|--------|
 | A | Mexico, South Africa, South Korea, Czech Republic | Mexico (45%) | Mexico | ✅ |
 | B | Canada, Bosnia, Qatar, Switzerland | Switzerland (51%) | Switzerland | ✅ |
-| C | Brazil, Morocco, Haiti, Scotland | Brazil (77%) | Brazil | ✅ |
+| C | Brazil, Morocco, Haiti, Scotland | Brazil (77%) | Morocco ⚡ | ❌ |
 | D | USA, Paraguay, Australia, Turkey | TBD playoff* | United States | ❓ |
 | E | Germany, Curacao, Ivory Coast, Ecuador | Germany (71%) | Germany | ✅ |
 | F | Netherlands, Japan, Sweden, Tunisia | Netherlands (57%) | Netherlands | ✅ |
@@ -550,11 +553,11 @@ Comparison of our v1.5 model predictions against [Polymarket](https://polymarket
 | L | England, Croatia, Ghana, Panama | England (72%) | England | ✅ |
 
 > *Group D on Polymarket shows KOS/ROU/SVK/TUR — these are teams competing in a qualification playoff for the remaining Group D spot, results not yet finalized.  
-> **11/11 group winners match the market** (v1.5 now correctly predicts Brazil 1st in Group C).
+> **10/11 group winners match the market** (v1.6 predicts Morocco 1st in Group C over Brazil — key divergence).
 
 ---
 
-### WC 2026 simulation (April 9, 2026 — model v1.5, pre-tournament)
+### WC 2026 simulation (April 9, 2026 — model v1.6, pre-tournament)
 
 Full tournament simulated from scratch using the frozen model trained on all pre-2026 data + April 1, 2026 official FIFA rankings.
 
@@ -564,16 +567,18 @@ Full tournament simulated from scratch using the frozen model trained on all pre
 |-------|-----|-----|
 | A | Mexico | South Korea |
 | B | Switzerland | Canada |
-| C | Brazil | Morocco |
+| C | Morocco ⚡ | Brazil |
 | D | United States | Turkey |
 | E | Germany | Ecuador |
 | F | Netherlands | Japan |
 | G | Belgium | Egypt |
 | H | Spain | Uruguay |
 | I | France | Norway |
-| J | Argentina | Austria |
+| J | Argentina | Jordan |
 | K | Portugal | Colombia |
 | L | England | Croatia |
+
+> ⚡ Morocco tops Group C ahead of Brazil (FIFA ranking + form advantage)
 
 **Round of 32 (R32):**
 
@@ -581,63 +586,63 @@ Full tournament simulated from scratch using the frozen model trained on all pre
 |-------|-------|---------|
 | Mexico vs Canada | 2-0 | **Mexico** |
 | Switzerland vs South Korea | 1-1 | **Switzerland** |
-| Brazil vs Turkey | 2-1 | **Brazil** |
-| United States vs Morocco | 1-1 | **United States** |
+| Morocco vs Turkey | 2-1 | **Morocco** |
+| United States vs Brazil | 1-1 | **United States** ⚡ |
 | Germany vs Japan | 1-1 | **Germany** |
-| Netherlands vs Ecuador | 1-1 | **Netherlands** |
-| Belgium vs Uruguay | 1-0 | **Belgium** |
+| Netherlands vs Ecuador | 2-1 | **Netherlands** |
+| Belgium vs Uruguay | 1-1 | **Belgium** |
 | Spain vs Egypt | 2-0 | **Spain** |
-| France vs Austria | 2-0 | **France** |
+| France vs Jordan | 3-0 | **France** |
 | Argentina vs Norway | 3-1 | **Argentina** |
 | Portugal vs Croatia | 1-1 | **Portugal** |
 | England vs Colombia | 2-1 | **England** |
-| Panama vs Czech Republic | 2-1 | **Panama** |
-| Ivory Coast vs Iran | 1-1 | **Ivory Coast** |
-| Senegal vs DR Congo | 3-0 | **Senegal** |
-| Tunisia vs Scotland | 1-1 | **Tunisia** |
+| Scotland vs Czech Republic | 2-1 | **Scotland** |
+| Ivory Coast vs Iran | 1-0 | **Ivory Coast** |
+| Senegal vs DR Congo | 2-1 | **Senegal** |
+| Panama vs Cape Verde | 3-0 | **Panama** |
 
 **Round of 16 (R16):**
 
 | Match | Score | Advances |
 |-------|-------|---------|
-| Mexico vs Switzerland | 1-1 | **Mexico** |
-| Brazil vs United States | 2-0 | **Brazil** |
+| Mexico vs Switzerland | 2-1 | **Mexico** |
+| Morocco vs United States | 2-0 | **Morocco** |
 | Germany vs Netherlands | 1-1 | **Germany** |
-| Belgium vs Spain | 1-1 | **Spain** ⚡ |
+| Belgium vs Spain | 1-1 | **Belgium** ⚡ |
 | France vs Argentina | 1-1 | **France** |
 | Portugal vs England | 1-1 | **Portugal** |
-| Panama vs Ivory Coast | 1-1 | **Panama** |
-| Senegal vs Tunisia | 2-1 | **Senegal** |
+| Scotland vs Ivory Coast | 1-1 | **Scotland** |
+| Senegal vs Panama | 2-1 | **Senegal** |
 
-> ⚡ Spain edges Belgium · Germany knocked out by Netherlands (v1.4 champion) eliminated here
+> ⚡ Spain (market favourite) eliminated by Belgium · Brazil knocked out in R32 by United States
 
 **Quarter-Finals (QF):**
 
 | Match | Score | Winner |
 |-------|-------|--------|
-| Mexico vs Brazil | 1-1 | **Mexico** ⚡ |
-| Germany vs Spain | 1-1 | **Spain** |
+| Mexico vs Morocco | 1-1 | **Mexico** |
+| Germany vs Belgium | 2-1 | **Germany** |
 | France vs Portugal | 2-1 | **France** |
-| Panama vs Senegal | 1-1 | **Panama** ⚡ |
+| Scotland vs Senegal | 1-1 | **Scotland** |
 
 **Semi-Finals (SF):**
 
 | Match | Score | Winner |
 |-------|-------|--------|
-| Mexico vs Spain | 1-1 | **Spain** |
-| France vs Panama | 2-0 | **France** |
+| Mexico vs Germany | 1-1 | **Mexico** |
+| France vs Scotland | 3-0 | **France** |
 
-**3rd Place:** Mexico 2-1 Panama
+**3rd Place:** Germany 2-0 Scotland
 
 **🏆 Final — July 19, 2026:**
 
-**Spain 2-1 France**
+**Mexico 1-1 France** (France wins on probabilities — p_win_France=41.1%, p_win_Mexico=22.4%)
 
-**Predicted champion: 🏆 Spain**  
-Spain's path: Egypt (R32) → Belgium (R16) → Germany (QF) → Mexico (SF) → France (Final)
+**Predicted champion: 🏆 France**  
+France's path: Jordan (R32) → Argentina (R16) → Portugal (QF) → Scotland (SF) → Final
 
 > This simulation will be updated as real results come in from June 11, 2026 onward.  
-> Full bracket file: [`predictions_wc2026_full_v1.5.xlsx`](predictions_wc2026_full_v1.5.xlsx)
+> Full bracket file: [`predictions_wc2026_full_v1.6.xlsx`](predictions_wc2026_full_v1.6.xlsx)
 
 ---
 
