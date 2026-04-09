@@ -210,8 +210,8 @@ L: England, Croatia, Ghana, Panama
 
 ## Current simulation result (April 9, 2026 — model v1.4)
 
-**Predicted champion: France**  
-Path: R32 → R16 → QF → SF → **Final vs Germany** (1–1, France win on penalties)
+**Predicted champion: Netherlands**  
+Path: R32 beat Ivory Coast → R16 beat Germany → QF beat Belgium → SF beat Mexico → **Final vs England** (1–1, Netherlands win)
 
 Top FIFA rankings used (April 1, 2026):  
 `France 1877 · Spain 1876 · Argentina 1875 · England 1826 · Portugal 1798 · Brazil 1761`
@@ -407,10 +407,10 @@ L: England, Croatia, Ghana, Panama
 
 ---
 
-## Current simulation result (April 8, 2026)
+## Current simulation result (April 9, 2026 — model v1.4)
 
-**Predicted champion: Mexico**  
-Path: Switzerland (R16) → Brazil (QF) → Germany (SF) → **France** 0-1 (Final)
+**Predicted champion: Netherlands**  
+Path: R32 beat Ivory Coast → R16 beat Germany → QF beat Belgium → SF beat Mexico → **Final vs England** (1–1, Netherlands win)
 
 Top FIFA rankings used (April 1, 2026):  
 `France 1877 · Spain 1876 · Argentina 1875 · England 1826 · Portugal 1798 · Brazil 1761`
@@ -469,7 +469,7 @@ The learning mode demonstrates the core advantage of the pipeline: **each real r
 
 ---
 
-### WC 2026 simulation (April 7, 2026 — pre-tournament)
+### WC 2026 simulation (April 9, 2026 — model v1.4, pre-tournament)
 
 Full tournament simulated from scratch using the frozen model trained on all pre-2026 data + April 1, 2026 official FIFA rankings.
 
@@ -479,88 +479,88 @@ Full tournament simulated from scratch using the frozen model trained on all pre
 |-------|-----|-----|
 | A | Mexico | South Korea |
 | B | Switzerland | Canada |
-| C | Brazil | Morocco |
-| D | United States | Australia |
-| E | Germany | Ecuador |
+| C | Morocco | Brazil |
+| D | United States | Turkey |
+| E | Germany | Ivory Coast |
 | F | Netherlands | Japan |
-| G | Belgium | Iran |
-| H | Uruguay | Spain |
-| I | France | Senegal |
-| J | Argentina | Algeria |
-| K | Colombia | Portugal |
+| G | Belgium | Egypt |
+| H | Spain | Uruguay |
+| I | France | Norway |
+| J | Argentina | Austria |
+| K | Portugal | Colombia |
 | L | England | Panama |
 
 **Round of 32 (R32) — July 4:**
 
 | Match | Score | Win% | Draw% | Loss% | Advances |
 |-------|-------|------|-------|-------|---------|
-| Mexico vs Canada | 1-0 | 51.2 | 39.4 | 9.4 | **Mexico** |
-| Switzerland vs South Korea | 2-0 | 67.0 | 26.7 | 6.3 | **Switzerland** |
-| Brazil vs Australia | 3-0 | 81.0 | 15.6 | 3.4 | **Brazil** |
-| United States vs Morocco | 1-0 | 54.6 | 33.5 | 11.9 | **United States** |
-| Germany vs Japan | 1-0 | 54.4 | 34.6 | 10.9 | **Germany** |
-| Netherlands vs Ecuador | 2-0 | 62.3 | 30.2 | 7.5 | **Netherlands** |
-| Belgium vs Spain | 1-0 | 47.1 | 39.8 | 13.1 | **Belgium** ⚡ |
-| Uruguay vs Iran | 1-0 | 49.0 | 37.2 | 13.8 | **Uruguay** |
-| France vs Algeria | 3-0 | 75.3 | 19.8 | 5.0 | **France** |
-| Argentina vs Senegal | 2-0 | 74.0 | 20.5 | 5.4 | **Argentina** |
-| Colombia vs Panama | 1-0 | 53.2 | 33.8 | 13.0 | **Colombia** |
-| England vs Portugal | 2-0 | 65.1 | 29.3 | 5.6 | **England** |
-| Ivory Coast vs Saudi Arabia | 2-0 | 60.8 | 28.0 | 11.2 | **Ivory Coast** |
-| Croatia vs Sweden | 2-0 | 76.2 | 20.1 | 3.7 | **Croatia** |
-| Scotland vs Turkey | 2-1 | 50.9 | 31.3 | 17.8 | **Scotland** |
-| Egypt vs Norway | 2-0 | 54.1 | 32.6 | 13.3 | **Egypt** |
+| Mexico vs Canada | 2-1 | 55.4 | 28.3 | 16.3 | **Mexico** |
+| Switzerland vs South Korea | 1-1 | 42.4 | 33.8 | 23.8 | **Switzerland** |
+| Morocco vs Turkey | 2-1 | 56.1 | 25.3 | 18.6 | **Morocco** |
+| United States vs Brazil | 1-1 | 41.2 | 32.7 | 26.1 | **United States** ⚡ |
+| Germany vs Japan | 1-1 | 36.1 | 32.6 | 31.4 | **Germany** |
+| Netherlands vs Ivory Coast | 2-1 | 54.9 | 28.6 | 16.5 | **Netherlands** |
+| Belgium vs Uruguay | 2-1 | 50.9 | 30.6 | 18.5 | **Belgium** |
+| Spain vs Egypt | 2-0 | 59.4 | 27.8 | 12.8 | **Spain** |
+| France vs Austria | 2-1 | 56.4 | 26.0 | 17.6 | **France** |
+| Argentina vs Norway | 3-1 | 64.5 | 21.7 | 13.7 | **Argentina** |
+| Portugal vs Panama | 2-1 | 47.7 | 27.1 | 25.2 | **Portugal** |
+| England vs Colombia | 2-1 | 58.8 | 27.3 | 13.9 | **England** |
+| Ecuador vs Tunisia | 1-1 | 44.3 | 31.1 | 24.6 | **Ecuador** |
+| Croatia vs Bosnia and Herzegovina | 4-0 | 85.6 | 11.6 | 2.7 | **Croatia** |
+| Senegal vs Iran | 2-1 | 56.4 | 26.9 | 16.7 | **Senegal** |
+| Scotland vs Czech Republic | 2-1 | 52.9 | 28.1 | 19.0 | **Scotland** |
 
-> ⚡ Belgium knocking out Spain is the biggest upset of R32 (47% vs 13%)
+> ⚡ United States eliminates Brazil 1-1 (on pens) at R32 — 41.2% favourites
 
 **Round of 16 (R16) — July 8:**
 
 | Match | Score | Win% | Draw% | Loss% | Advances |
 |-------|-------|------|-------|-------|---------|
-| Mexico vs Switzerland | 1-0 | 38.0 | 48.0 | 14.0 | **Mexico** ⚡ |
-| Brazil vs United States | 2-0 | 71.7 | 23.0 | 5.3 | **Brazil** |
-| Germany vs Netherlands | 1-0 | 58.8 | 33.7 | 7.5 | **Germany** |
-| Belgium vs Uruguay | 1-0 | 54.6 | 37.2 | 8.2 | **Belgium** |
-| France vs Argentina | 1-0 | 50.0 | 36.3 | 13.7 | **France** ⚡ |
-| Colombia vs England | 1-1 | 34.4 | 42.4 | 23.1 | **Colombia** (pens) |
-| Ivory Coast vs Croatia | 1-1 | 28.2 | 40.4 | 31.3 | **Croatia** (pens) |
-| Scotland vs Egypt | 1-1 | 50.0 | 32.6 | 17.4 | **Scotland** (pens) |
+| Mexico vs Switzerland | 1-1 | 43.7 | 31.3 | 25.0 | **Mexico** |
+| Morocco vs United States | 1-1 | 48.1 | 32.1 | 19.8 | **Morocco** |
+| Germany vs Netherlands | 1-1 | 32.0 | 34.0 | 34.0 | **Netherlands** ⚡ |
+| Belgium vs Spain | 1-1 | 30.8 | 38.4 | 30.8 | **Belgium** ⚡ |
+| France vs Argentina | 1-1 | 43.9 | 31.3 | 24.8 | **France** |
+| Portugal vs England | 1-1 | 28.2 | 33.9 | 37.9 | **England** ⚡ |
+| Ecuador vs Croatia | 1-1 | 35.1 | 37.9 | 27.0 | **Ecuador** ⚡ |
+| Senegal vs Scotland | 2-1 | 63.9 | 22.6 | 13.5 | **Senegal** |
 
-> ⚡ France eliminates Argentina at R16 (50/50 match) · Mexico sneaks past Switzerland (48% draw probability)
+> ⚡ Netherlands eliminate Germany (50/50 split) · Belgium knock out Spain (50/50) · England past Portugal (Portugal only 28.2% to win)
 
 **Quarter-Finals (QF) — July 11:**
 
 | Match | Score | Win% | Draw% | Loss% | Winner |
 |-------|-------|------|-------|-------|--------|
-| **Mexico vs Brazil** | **1-0** | 36.5 | 47.0 | 16.5 | **🇲🇽 Mexico** ⚡ |
-| Germany vs Belgium | 1-0 | 49.0 | 39.1 | 11.9 | **🇩🇪 Germany** |
-| **France vs Colombia** | **2-0** | 71.5 | 22.7 | 5.8 | **🇫🇷 France** |
-| Croatia vs Scotland | 2-0 | 64.8 | 28.1 | 7.1 | **🇭🇷 Croatia** |
+| Mexico vs Morocco | 1-1 | 32.6 | 35.2 | 32.1 | **🇲🇽 Mexico** ⚡ |
+| Netherlands vs Belgium | 1-1 | 42.3 | 34.9 | 22.8 | **🇳🇱 Netherlands** |
+| France vs England | 1-1 | 32.2 | 31.7 | 36.0 | **🏴󠁧󠁢󠁥󠁮󠁧󠁿 England** ⚡ |
+| Ecuador vs Senegal | 1-1 | 33.7 | 38.3 | 28.0 | **🇪🇨 Ecuador** ⚡ |
 
-> ⚡ Mexico beats Brazil 1-0 — the biggest upset of the tournament (only 36.5% probability)
+> ⚡ England eliminates France (England slight favourites at 36%) · Mexico through another coin-flip QF
 
 **Semi-Finals (SF) — July 14:**
 
 | Match | Score | Win% | Draw% | Loss% | Winner |
 |-------|-------|------|-------|-------|--------|
-| **Mexico vs Germany** | **1-0** | 41.9 | 43.3 | 14.8 | **🇲🇽 Mexico** |
-| **France vs Croatia** | **2-0** | 70.4 | 22.8 | 6.8 | **🇫🇷 France** |
+| Mexico vs Netherlands | 1-1 | 30.5 | 34.4 | 35.0 | **🇳🇱 Netherlands** |
+| England vs Ecuador | 2-1 | 60.1 | 26.0 | 13.9 | **🏴󠁧󠁢󠁥󠁮󠁧󠁿 England** |
 
-**3rd Place — July 18:** Germany 2-0 Croatia
+**3rd Place — July 18:** Mexico 2-1 Ecuador
 
 **🏆 Final — July 19, 2026:**
 
 | | Team | | Score | | Team | |
-|-|------|--- |-------|---|------|---|
-| | **Mexico** | | **1 - 0** | | France | |
+|-|------|---|-------|---|------|---|
+| | **Netherlands** | | **1 - 1** | | England | |
 
-> Win probability: **Mexico 35.8%** · Draw 44.1% · France 20.1%  
-> Mexico wins the most open final in recent WC history — a coin-flip moment with 44% draw probability
+> Win probability: **Netherlands 37.9%** · Draw 35.0% · England 27.1%  
+> Netherlands edge England in a tight final — the most evenly contested final in recent WC history
 
-**Predicted champion: 🏆 Mexico**
+**Predicted champion: 🏆 Netherlands**
 
 > This simulation will be updated as real results come in from June 11, 2026 onward.  
-> Full bracket file: [`predictions_wc2026_full_v1.1.xlsx`](predictions_wc2026_full_v1.1.xlsx)
+> Full bracket file: [`predictions_wc2026_full_v1.4.xlsx`](predictions_wc2026_full_v1.4.xlsx)
 
 ---
 
