@@ -217,15 +217,14 @@ Features considered and rejected for v1.6:
 
 What IS missing: the model currently treats group match 1 and the Final identically. Stage features fix this.
 
-### v1.6 incremental ablation plan
+### v1.6 evaluation plan
 
-Do NOT add all 5 features at once. Test in order:
+Add all 5 features together (→ 67 features), evaluate on WC 2022 frozen + retrain vs v1.5 baseline.
 
-1. **Baseline** — v1.5 as-is (62 features)
-2. **+stage** — add `is_knockout`, `round_number`, `games_played_in_tournament` (→ 65 features)
-3. **+stage +volatility** — add `goal_diff_std_A`, `goal_diff_std_B` (→ 67 features)
+- If RPS improves → ship v1.6
+- If RPS does not improve → ablate afterwards to find which subset helps (stage only, volatility only, etc.)
 
-Evaluate each step on WC 2022 frozen + retrain. Only keep a step if RPS improves. Focus evaluation on group stage (most room for improvement) and knockout (where stage signal should matter most).
+Focus comparison on group stage (most room for improvement) and knockout (where stage signal should matter most).
 
 ---
 

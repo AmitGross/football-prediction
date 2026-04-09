@@ -257,7 +257,7 @@ Top FIFA rankings used (April 1, 2026):
 | `goal_diff_std_A` | float | Team volatility/consistency |
 | `goal_diff_std_B` | float | Team volatility/consistency |
 
-Testing order: baseline → +stage (3 features) → +stage+volatility (5 features). Focus eval on group stage (most room for improvement) and knockout (where stage context matters most).
+Testing: add all 5 together, evaluate on WC 2022 frozen + retrain vs v1.5 baseline. If RPS improves → ship. If not → ablate to find the useful subset.
 
 ### Future
 - Automated live scoring: fetch real-time scores → append to `wc2026.csv` → auto-retrain
@@ -452,15 +452,14 @@ L: England, Croatia, Ghana, Panama
 
 ---
 
-## Current simulation result (April 9, 2026 — model v1.4)
+## Current simulation result (April 9, 2026 — model v1.5)
 
-**Predicted champion: Netherlands**  
-Path: R32 beat Ivory Coast → R16 beat Germany → QF beat Belgium → SF beat Mexico → **Final vs England** (1–1, Netherlands win)
+**Predicted champion: Spain** (beats France 2–1 in Final)  
+Spain's path: Egypt (R32) → Belgium (R16) → Germany (QF) → France (SF) → Final  
+Notable: Netherlands (v1.4 champion) exits R16 to Germany · Mexico reaches 3rd place
 
 Top FIFA rankings used (April 1, 2026):  
 `France 1877 · Spain 1876 · Argentina 1875 · England 1826 · Portugal 1798 · Brazil 1761`
-
----
 
 ---
 
@@ -470,8 +469,8 @@ Top FIFA rankings used (April 1, 2026):
 
 | Mode | Outcome Accuracy | Mean RPS | RMSE (goals) |
 |------|-----------------|----------|---------------|
-| **Frozen** | 45.3% | 0.2160 | 1.4031 |
-| **Learning (walk-forward)** | **53.1%** | **0.2094** | **1.3607** |
+| **Frozen** | 50.0% | 0.2147 | 1.369 |
+| **Learning (walk-forward)** | **53.1%** | **0.2088** | **1.3199** |
 
 > **RPS benchmark**: < 0.21 = solid · < 0.20 = strong · < 0.195 = excellent  
 > **Accuracy benchmark**: > 52% = good for football prediction (high draw rate makes this hard)
@@ -516,26 +515,26 @@ The learning mode demonstrates the core advantage of the pipeline: **each real r
 
 ### Model vs Market — WC 2026 (April 9, 2026)
 
-Comparison of our v1.4 model predictions against [Polymarket](https://polymarket.com) prediction market odds.
+Comparison of our v1.5 model predictions against [Polymarket](https://polymarket.com) prediction market odds.
 
 #### Tournament winner
 
-| Team | Polymarket | Our model |
-|------|-----------|-----------|
-| Spain | **16%** 🥇 | Eliminated R16 (by Belgium) |
-| France | 14% | Eliminated QF (by England) |
-| England | 11% | **Final** (runner-up) |
-| Argentina | 9% | Eliminated R16 (by France) |
-| Brazil | 9% | Eliminated R32 (by USA) |
-| Portugal | 7% | Eliminated R16 (by England) |
-| Germany | 5% | Eliminated R16 (by Netherlands) |
-| **Netherlands** | 3% | 🏆 **Predicted champion** |
+| Team | Polymarket | Our model v1.5 |
+|------|-----------|----------------|
+| **Spain** | **16%** 🥇 | 🏆 **Predicted champion** |
+| France | 14% | Eliminated SF (by Spain) |
+| England | 11% | — |
+| Argentina | 9% | — |
+| Brazil | 9% | — |
+| Portugal | 7% | — |
+| Germany | 5% | Eliminated QF (by Spain) |
+| Netherlands | 3% | Eliminated R16 (by Germany) |
 
-> Our model strongly disagrees with the market on Netherlands — the market's 8th choice is our predicted winner. Key market misses in our simulation: Spain out in R16 (50/50 vs Belgium), Brazil out in R32 vs USA.
+> Our model agrees with the market's top pick: Spain is both Polymarket's #1 and our predicted champion. Key divergence: Netherlands (market 3%) eliminated R16 by Germany in our simulation.
 
 #### Group stage winners
 
-| Group | Teams | Polymarket | Our model v1.4 | Match? |
+| Group | Teams | Polymarket | Our model v1.5 | Match? |
 |-------|-------|-----------|----------------|--------|
 | A | Mexico, South Africa, South Korea, Czech Republic | Mexico (45%) | Mexico | ✅ |
 | B | Canada, Bosnia, Qatar, Switzerland | Switzerland (51%) | Switzerland | ✅ |
@@ -555,7 +554,7 @@ Comparison of our v1.4 model predictions against [Polymarket](https://polymarket
 
 ---
 
-### WC 2026 simulation (April 9, 2026 — model v1.4, pre-tournament)
+### WC 2026 simulation (April 9, 2026 — model v1.5, pre-tournament)
 
 Full tournament simulated from scratch using the frozen model trained on all pre-2026 data + April 1, 2026 official FIFA rankings.
 
@@ -643,10 +642,10 @@ Full tournament simulated from scratch using the frozen model trained on all pre
 > Win probability: **Netherlands 37.9%** · Draw 35.0% · England 27.1%  
 > Netherlands edge England in a tight final — the most evenly contested final in recent WC history
 
-**Predicted champion: 🏆 Netherlands**
+**Predicted champion: 🏆 Spain**
 
 > This simulation will be updated as real results come in from June 11, 2026 onward.  
-> Full bracket file: [`predictions_wc2026_full_v1.4.xlsx`](predictions_wc2026_full_v1.4.xlsx)
+> Full bracket file: [`predictions_wc2026_full_v1.5.xlsx`](predictions_wc2026_full_v1.5.xlsx)
 
 ---
 
