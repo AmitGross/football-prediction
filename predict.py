@@ -5,12 +5,13 @@ import pickle
 import numpy as np
 from poisson import predict_from_lambdas, score_grid, result_probabilities
 from ensemble import AveragingEnsemble  # needed for pickle to deserialise model.pkl
+import features as _features_module
 from features import (
     EloRating, KalmanRating, calculate_form_features,
     calculate_h2h, calculate_days_rest,
     build_graph, compute_pagerank_features, get_pagerank,
     calculate_neighbourhood_features,
-    FORM_N, _FIFA_RANKINGS, _FIFA_DEFAULT
+    FORM_N
 )
 
 MODEL_PATH = 'model.pkl'
@@ -86,9 +87,9 @@ def predict_match(team_A, team_B, current_matches):
         'rest_A':         rest_A,        'rest_B':         rest_B,
         'match_count_A':  int(((current_matches['team_A'] == team_A) | (current_matches['team_B'] == team_A)).sum()),
         'match_count_B':  int(((current_matches['team_A'] == team_B) | (current_matches['team_B'] == team_B)).sum()),
-        'fifa_rank_A':    _FIFA_RANKINGS.get(team_A, _FIFA_DEFAULT),
-        'fifa_rank_B':    _FIFA_RANKINGS.get(team_B, _FIFA_DEFAULT),
-        'fifa_rank_diff': _FIFA_RANKINGS.get(team_A, _FIFA_DEFAULT) - _FIFA_RANKINGS.get(team_B, _FIFA_DEFAULT),
+        'fifa_rank_A':    _features_module._FIFA_RANKINGS.get(team_A, _features_module._FIFA_DEFAULT),
+        'fifa_rank_B':    _features_module._FIFA_RANKINGS.get(team_B, _features_module._FIFA_DEFAULT),
+        'fifa_rank_diff': _features_module._FIFA_RANKINGS.get(team_A, _features_module._FIFA_DEFAULT) - _features_module._FIFA_RANKINGS.get(team_B, _features_module._FIFA_DEFAULT),
         'win_pr_A':       pr_A['win_pr'],  'win_pr_B':   pr_B['win_pr'],
         'win_pr_diff':    pr_A['win_pr']  - pr_B['win_pr'],
         'goal_pr_A':      pr_A['goal_pr'], 'goal_pr_B':  pr_B['goal_pr'],

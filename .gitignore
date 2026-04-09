@@ -1,17 +1,23 @@
-# ── Generated model artefacts (included in repo for convenience) ───────────
-# model.pkl, classifier.pkl, dc_ratings.pkl, calibrator.pkl are committed
-# so users can run simulate2026 / evaluate without training first.
+# ── Active model artefacts (committed so users can run without training) ───
+# model.pkl, classifier.pkl, dc_ratings.pkl, calibrator.pkl are committed.
+# Versioned archive copies (model_wc*.pkl etc.) are NOT committed — regenerate
+# them with: python main.py train --year <2018|2022|2026>
+
+# ── Versioned model archives (large, regenerable) ─────────────────────────
+model_wc*.pkl
+classifier_wc*.pkl
+dc_ratings_wc*.pkl
+calibrator_wc*.pkl
+
+# ── Runtime state ─────────────────────────────────────────────────────────
+model_active.txt
 
 # ── Temp / eval files ──────────────────────────────────────────────────────
 data/matches_eval_tmp.csv
 
-# ── Excel exports — only keep v1.1 versioned output files ─────────────────
-# Included: *_v1.1.xlsx files (current baseline)
-# Excluded: old unversioned files + temp files
-results_wc2022_frozen.xlsx
-results_wc2022_retrain.xlsx
-predictions_wc2026_full.xlsx
-results_wc2026_*.xlsx
+# ── Excel exports (generated — not committed) ──────────────────────────────
+results_wc*.xlsx
+predictions_wc2026_full*.xlsx
 predictions_wc2026_full_with*.xlsx
 predictions_wc2022_frozen.csv
 predictions_wc2026.csv

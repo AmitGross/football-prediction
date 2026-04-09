@@ -25,10 +25,75 @@ import features
 from predict import predict_match
 from train import train, save_model, load_data
 
-MODEL_VERSION = 'v1.1'   # bump when features or model architecture changes
+# ── Stage date boundaries ─────────────────────────────────────────────────────
+# Maps each WC year to (stage_name, date_from, date_to) tuples in order.
+# Matches are assigned to the first stage whose window contains their date.
+_STAGE_WINDOWS = {
+    2018: [
+        ('Group Stage',  '2018-06-14', '2018-06-28'),
+        ('Round of 16',  '2018-06-30', '2018-07-03'),
+        ('Quarter-Final','2018-07-06', '2018-07-07'),
+        ('Semi-Final',   '2018-07-10', '2018-07-11'),
+        ('3rd Place',    '2018-07-14', '2018-07-14'),
+        ('Final',        '2018-07-15', '2018-07-15'),
+    ],
+    2022: [
+        ('Group Stage',  '2022-11-20', '2022-12-02'),
+        ('Round of 16',  '2022-12-03', '2022-12-06'),
+        ('Quarter-Final','2022-12-09', '2022-12-10'),
+        ('Semi-Final',   '2022-12-13', '2022-12-14'),
+        ('3rd Place',    '2022-12-17', '2022-12-17'),
+        ('Final',        '2022-12-18', '2022-12-18'),
+    ],
+    2026: [
+        ('Group Stage',  '2026-06-11', '2026-07-02'),
+        ('Round of 32',  '2026-07-04', '2026-07-07'),
+        ('Round of 16',  '2026-07-10', '2026-07-13'),
+        ('Quarter-Final','2026-07-16', '2026-07-17'),
+        ('Semi-Final',   '2026-07-20', '2026-07-21'),
+        ('3rd Place',    '2026-07-24', '2026-07-24'),
+        ('Final',        '2026-07-26', '2026-07-26'),
+    ],
+}
+
+def _get_stage(date, year: int) -> str:
+    """Return the tournament stage name for a given match date and WC year."""
+    date_str = str(date)[:10]
+    for stage, d_from, d_to in _STAGE_WINDOWS.get(year, []):
+        if d_from <= date_str <= d_to:
+            return stage
+    return 'Unknown'
+
+
+def _metrics_for_subset(pred_A, pred_B, act_A, act_B, rps):
+    """Compute all loss metrics for a subset of matches. Returns a dict."""
+    n = len(pred_A)
+    if n == 0:
+        return {'N': 0, 'MAE_A': None, 'MAE_B': None,
+                'RMSE_A': None, 'RMSE_B': None, 'RMSE_combined': None,
+                'Accuracy_%': None, 'Mean_RPS': None}
+    pA, pB = np.array(pred_A), np.array(pred_B)
+    aA, aB = np.array(act_A),  np.array(act_B)
+    correct = sum(
+        1 for pa, pb, aa, ab in zip(pA, pB, aA, aB)
+        if (pa > pb) == (aa > ab) and (pa == pb) == (aa == ab)
+    )
+    return {
+        'N':               n,
+        'MAE_A':           float(mean_absolute_error(aA, pA)),
+        'MAE_B':           float(mean_absolute_error(aB, pB)),
+        'RMSE_A':          float(np.sqrt(np.mean((pA - aA) ** 2))),
+        'RMSE_B':          float(np.sqrt(np.mean((pB - aB) ** 2))),
+        'RMSE_combined':   float(np.sqrt(np.mean(np.concatenate([(pA-aA)**2, (pB-aB)**2])))),
+        'Accuracy_%':      round(correct / n * 100, 1),
+        'Mean_RPS':        round(float(np.mean(rps)), 4),
+    }
+
+MODEL_VERSION = 'v1.4'   # bump when features or model architecture changes
 
 TRAIN_PATH = 'data/matches.csv'
 _TEST_PATHS = {
+    2018: 'data/wc2018.csv',
     2022: 'data/wc2022.csv',
     2026: 'data/wc2026.csv',
 }
@@ -192,31 +257,73 @@ def evaluate(retrain=False, limit=None, year=2022):
     print(f"Outcome accuracy  : {correct_outcomes}/{n}  ({acc:.1f}%)  (benchmark: >0.52 good)")
     print(f"Mean RPS          : {mean_rps:.4f}   (benchmark: <0.21 solid, <0.20 strong, <0.195 excellent)")
 
-    # Export results to Excel
+    # ── Build per-match results DataFrame ─────────────────────────────────────
+    stages = [_get_stage(d, year) for d in test_df['date']]
+    pred_outcomes   = ['win' if pa > pb else 'draw' if pa == pb else 'loss'
+                       for pa, pb in zip(preds_A, preds_B)]
+    actual_outcomes = ['win' if aa > ab else 'draw' if aa == ab else 'loss'
+                       for aa, ab in zip(actuals_A, actuals_B)]
+
     results_df = pd.DataFrame({
-        'team_A': test_df['team_A'],
-        'team_B': test_df['team_B'],
-        'pred_goals_A': preds_A,
-        'pred_goals_B': preds_B,
+        'Stage':          stages,
+        'team_A':         test_df['team_A'].values,
+        'team_B':         test_df['team_B'].values,
+        'pred_goals_A':   preds_A,
+        'pred_goals_B':   preds_B,
         'actual_goals_A': actuals_A,
         'actual_goals_B': actuals_B,
-        'MAE_A': np.abs(np.array(preds_A) - np.array(actuals_A)),
-        'MAE_B': np.abs(np.array(preds_B) - np.array(actuals_B)),
-        'RMSE_A': (np.array(preds_A) - np.array(actuals_A)) ** 2,
-        'RMSE_B': (np.array(preds_B) - np.array(actuals_B)) ** 2,
-        'RPS': rps_scores
+        'pred_outcome':   pred_outcomes,
+        'actual_outcome': actual_outcomes,
+        'Outcome_Correct':[int(p == a) for p, a in zip(pred_outcomes, actual_outcomes)],
+        'MAE_A':          np.abs(np.array(preds_A) - np.array(actuals_A)),
+        'MAE_B':          np.abs(np.array(preds_B) - np.array(actuals_B)),
+        'RMSE_A':         np.sqrt((np.array(preds_A) - np.array(actuals_A)) ** 2),
+        'RMSE_B':         np.sqrt((np.array(preds_B) - np.array(actuals_B)) ** 2),
+        'RPS':            rps_scores,
+        'Mode':           'RETRAIN' if retrain else 'FROZEN',
     })
-    results_df['RMSE_A'] = np.sqrt(results_df['RMSE_A'])
-    results_df['RMSE_B'] = np.sqrt(results_df['RMSE_B'])
-    results_df['Outcome_Correct'] = [int(p == a) for p, a in zip(
-        [ 'win' if pa > pb else 'draw' if pa == pb else 'loss' for pa, pb in zip(preds_A, preds_B) ],
-        [ 'win' if aa > ab else 'draw' if aa == ab else 'loss' for aa, ab in zip(actuals_A, actuals_B) ]
-    )]
-    results_df['Mode'] = 'RETRAIN' if retrain else 'FROZEN'
+
+    # ── Build Summary sheet ────────────────────────────────────────────────────
+    # Define the breakdown groups we want rows for
+    stage_order = ['Full Tournament', 'Group Stage', 'Knockout Rounds',
+                   'Round of 32', 'Round of 16', 'Quarter-Final',
+                   'Semi-Final', '3rd Place', 'Final']
+
+    def _subset(label):
+        if label == 'Full Tournament':
+            return results_df
+        elif label == 'Knockout Rounds':
+            return results_df[results_df['Stage'] != 'Group Stage']
+        else:
+            return results_df[results_df['Stage'] == label]
+
+    summary_rows = []
+    for label in stage_order:
+        sub = _subset(label)
+        if len(sub) == 0:
+            continue
+        m = _metrics_for_subset(
+            sub['pred_goals_A'].tolist(), sub['pred_goals_B'].tolist(),
+            sub['actual_goals_A'].tolist(), sub['actual_goals_B'].tolist(),
+            sub['RPS'].tolist(),
+        )
+        summary_rows.append({'Stage': label, **m})
+
+    summary_df = pd.DataFrame(summary_rows)
+    summary_df.insert(0, 'Model', f"WC {year} — {'RETRAIN (walk-forward)' if retrain else 'FROZEN'}")
+    summary_df.insert(1, 'Version', MODEL_VERSION)
+
+    # ── Write multi-sheet Excel ────────────────────────────────────────────────
     mode_tag   = 'retrain' if retrain else 'frozen'
     excel_name = f"results_wc{year}_{mode_tag}_{MODEL_VERSION}.xlsx"
-    results_df.to_excel(excel_name, index=False)
-    print(f"\nResults exported to {excel_name}\n")
+
+    with pd.ExcelWriter(excel_name, engine='openpyxl') as writer:
+        summary_df.to_excel(writer, sheet_name='Summary', index=False)
+        results_df.to_excel(writer, sheet_name='Predictions', index=False)
+
+    print(f"\nResults exported to {excel_name}")
+    print(f"  Sheet 'Summary'     — metrics by stage ({len(summary_df)} rows)")
+    print(f"  Sheet 'Predictions' — per-match detail ({len(results_df)} rows)\n")
 
 
 if __name__ == '__main__':

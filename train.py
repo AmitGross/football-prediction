@@ -9,12 +9,12 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.multioutput import MultiOutputRegressor
 from xgboost import XGBRegressor, XGBClassifier
 import features as feat_module
-feat_module.set_fifa_rankings_year(2026)  # train uses latest (2026) rankings
+# FIFA rankings year is set by the caller (main.py train --year) before importing
 from features import build_features
 from ensemble import AveragingEnsemble
 
 PARAMS_PATH     = 'best_params.json'
-MODEL_VERSION   = 'v1.1'   # bump when features or model architecture changes
+MODEL_VERSION   = 'v1.4'   # bump when features or model architecture changes
 
 
 def _load_best_params():
@@ -163,6 +163,13 @@ def train_classifier(df, classifier_path=CLASSIFIER_PATH):
 
 
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--year', type=int, default=2026, choices=[2022, 2026],
+                        help='WC year — controls FIFA rankings snapshot (default: 2026)')
+    _args = parser.parse_args()
+    feat_module.set_fifa_rankings_year(_args.year)
+    print(f'Using FIFA {_args.year} rankings.')
     df            = load_data()
     model, features = train(df)
     save_model(model, features)

@@ -82,17 +82,28 @@ DATA_PATH = 'data/matches.csv'
 # ── Commands ──────────────────────────────────────────────────────────────────
 
 def cmd_train(args):
-    import features
-    features.set_fifa_rankings_year(2026)  # train with latest 2026 rankings
-    from train import load_data, train, save_model, train_classifier
+    import shutil
+    year = args.year
+
+    # 1. Fetch the correct training window for this WC year
+    print(f"\n=== Fetching WC {year} training data ===")
+    from fetch_data import fetch_data
+    fetch_data(year=year)
+
+    # 2. Set FIFA rankings snapshot (pre-tournament for this year)
+    import features as feat_module
+    feat_module.set_fifa_rankings_year(year)
+    print(f"Using FIFA {year} rankings snapshot.")
+
+    from train import load_data, train as train_model, save_model, train_classifier, MODEL_VERSION
     from dc_ratings import fit_dc_ratings
     from calibrate import run_calibration
 
     df = load_data(DATA_PATH)
 
     print("\n=== [1/4] Training λ regressor (RF + XGBoost) ===")
-    model, features = train(df)
-    save_model(model, features)
+    model, feat_cols = train_model(df)
+    save_model(model, feat_cols)
 
     print("\n=== [2/4] Training outcome classifier (XGBoost W/D/L) ===")
     train_classifier(df)
@@ -103,12 +114,30 @@ def cmd_train(args):
     print("\n=== [4/4] Fitting isotonic probability calibrator ===")
     run_calibration()
 
-    print("\nDone. All models saved.")
+    # 3. Archive versioned copies so runs aren't overwritten
+    tag = f"wc{year}_{MODEL_VERSION}"
+    artefacts = {
+        'model.pkl':      f'model_{tag}.pkl',
+        'classifier.pkl': f'classifier_{tag}.pkl',
+        'dc_ratings.pkl': f'dc_ratings_{tag}.pkl',
+        'calibrator.pkl': f'calibrator_{tag}.pkl',
+    }
+    print(f"\n=== Archiving versioned copies (tag: {tag}) ===")
+    for src, dst in artefacts.items():
+        shutil.copy2(src, dst)
+        print(f"  {src}  →  {dst}")
+
+    # Also record which year/version is currently active
+    with open('model_active.txt', 'w') as f:
+        f.write(f"year={year}\nversion={MODEL_VERSION}\ntag={tag}\n")
+
+    print("\nDone. Active model files (used by predict/evaluate/simulate):")
     print("  model.pkl          λ regressor")
     print("  classifier.pkl     W/D/L outcome classifier")
     print("  dc_ratings.pkl     Dixon-Coles team strength ratings")
     print("  calibrator.pkl     Isotonic probability calibrator")
-    print("\nNext: python main.py evaluate")
+    data_window = {2018: '2014–2018', 2022: '2018–2022', 2026: '2022–2026'}.get(year, str(year))
+    print(f"\nTrained for WC {year} | data window: {data_window} | FIFA rankings: {year} | version: {MODEL_VERSION}")
 
 
 def cmd_tune(args):
@@ -122,6 +151,11 @@ def cmd_tune(args):
 def cmd_evaluate(args):
     from evaluate import evaluate
     evaluate(retrain=args.retrain, limit=args.limit, year=2022)
+
+
+def cmd_evaluate2018(args):
+    from evaluate import evaluate
+    evaluate(retrain=args.retrain, limit=args.limit, year=2018)
 
 
 def cmd_evaluate2026(args):
@@ -164,7 +198,9 @@ def main():
     sub = parser.add_subparsers(dest='command')
 
     # train
-    sub.add_parser('train', help='Train all models (regressor + classifier + DC ratings + calibrator)')
+    train_p = sub.add_parser('train', help='Train all models (regressor + classifier + DC ratings + calibrator)')
+    train_p.add_argument('--year', type=int, default=2026, choices=[2018, 2022, 2026],
+                         help='Target WC year — controls training data window and FIFA rankings snapshot (default: 2026)')
 
     # tune
     tune_p = sub.add_parser('tune', help='Hyperparameter search with Optuna')
@@ -179,6 +215,15 @@ def main():
                         help='Walk-forward: retrain after each result. Default: frozen.')
     eval_p.add_argument('--limit', type=int, default=None,
                         help='Only evaluate first N matches')
+
+    # evaluate2018 (WC 2018 retrospective)
+    eval18_p = sub.add_parser(
+        'evaluate2018',
+        help='Retrospective evaluation on WC 2018 (all actuals known). FROZEN or --retrain.')
+    eval18_p.add_argument('--retrain', action='store_true',
+                          help='Walk-forward: retrain after each result. Default: frozen.')
+    eval18_p.add_argument('--limit', type=int, default=None,
+                          help='Only evaluate first N matches')
 
     # evaluate2026 (WC 2026 live)
     eval26_p = sub.add_parser(
@@ -211,6 +256,8 @@ def main():
         cmd_tune(args)
     elif args.command == 'evaluate':
         cmd_evaluate(args)
+    elif args.command == 'evaluate2018':
+        cmd_evaluate2018(args)
     elif args.command == 'evaluate2026':
         cmd_evaluate2026(args)
     elif args.command == 'simulate2026':

@@ -1,931 +1,916 @@
 date,team_A,team_B,goals_A,goals_B
-2018-06-14,Russia,Saudi Arabia,5,0
-2018-06-15,Egypt,Uruguay,0,1
-2018-06-15,Morocco,Iran,0,1
-2018-06-15,Portugal,Spain,3,3
-2018-06-16,France,Australia,2,1
-2018-06-16,Argentina,Iceland,1,1
-2018-06-16,Peru,Denmark,0,1
-2018-06-16,Croatia,Nigeria,2,0
-2018-06-17,Costa Rica,Serbia,0,1
-2018-06-17,Germany,Mexico,0,1
-2018-06-17,Brazil,Switzerland,1,1
-2018-06-18,Sweden,South Korea,1,0
-2018-06-18,Belgium,Panama,3,0
-2018-06-18,Tunisia,England,1,2
-2018-06-19,Russia,Egypt,3,1
-2018-06-19,Colombia,Japan,1,2
-2018-06-19,Poland,Senegal,1,2
-2018-06-20,Portugal,Morocco,1,0
-2018-06-20,Uruguay,Saudi Arabia,1,0
-2018-06-20,Iran,Spain,0,1
-2018-06-21,Denmark,Australia,1,1
-2018-06-21,France,Peru,1,0
-2018-06-21,Argentina,Croatia,0,3
-2018-06-22,Brazil,Costa Rica,2,0
-2018-06-22,Nigeria,Iceland,2,0
-2018-06-22,Serbia,Switzerland,1,2
-2018-06-23,Germany,Sweden,2,1
-2018-06-23,Belgium,Tunisia,5,2
-2018-06-23,South Korea,Mexico,1,2
-2018-06-24,Poland,Colombia,0,3
-2018-06-24,Japan,Senegal,2,2
-2018-06-24,England,Panama,6,1
-2018-06-25,Russia,Uruguay,0,3
-2018-06-25,Saudi Arabia,Egypt,2,1
-2018-06-25,Spain,Morocco,2,2
-2018-06-25,Iran,Portugal,1,1
-2018-06-26,Australia,Peru,0,2
-2018-06-26,Denmark,France,0,0
-2018-06-26,Nigeria,Argentina,1,2
-2018-06-26,Iceland,Croatia,1,2
-2018-06-27,South Korea,Germany,2,0
-2018-06-27,Mexico,Sweden,0,3
-2018-06-27,Serbia,Brazil,0,2
-2018-06-27,Switzerland,Costa Rica,2,2
-2018-06-28,England,Belgium,0,1
-2018-06-28,Panama,Tunisia,1,2
-2018-06-28,Senegal,Colombia,0,1
-2018-06-28,Japan,Poland,0,1
-2018-06-30,France,Argentina,4,3
-2018-06-30,Uruguay,Portugal,2,1
-2018-07-01,Russia,Spain,1,1
-2018-07-01,Croatia,Denmark,1,1
-2018-07-02,Brazil,Mexico,2,0
-2018-07-02,Belgium,Japan,3,2
-2018-07-03,Sweden,Switzerland,1,0
-2018-07-03,Colombia,England,1,1
-2018-07-06,Uruguay,France,0,2
-2018-07-06,Brazil,Belgium,1,2
-2018-07-07,Sweden,England,0,2
-2018-07-07,Russia,Croatia,2,2
-2018-07-10,France,Belgium,1,0
-2018-07-11,Croatia,England,2,1
-2018-07-14,Belgium,England,2,0
-2018-07-15,France,Croatia,4,2
-2019-06-06,Bhutan,Guam,1,0
-2019-06-06,Cambodia,Pakistan,2,0
-2019-06-06,Laos,Bangladesh,0,1
-2019-06-06,Macau,Sri Lanka,1,0
-2019-06-06,Mongolia,Brunei,2,0
-2019-06-07,Malaysia,Timor-Leste,7,1
-2019-06-11,Malaysia,Timor-Leste,5,1
-2019-06-11,Sri Lanka,Macau,3,0
-2019-06-11,Pakistan,Cambodia,1,2
-2019-06-11,Bangladesh,Laos,0,0
-2019-06-11,Brunei,Mongolia,2,1
-2019-06-11,Guam,Bhutan,5,0
-2019-09-04,Mauritius,Mozambique,0,1
-2019-09-04,South Sudan,Equatorial Guinea,1,1
-2019-09-04,São Tomé and Príncipe,Guinea-Bissau,0,1
-2019-09-04,Liberia,Sierra Leone,3,1
-2019-09-04,Djibouti,Eswatini,2,1
-2019-09-04,Eritrea,Namibia,1,2
-2019-09-04,Burundi,Tanzania,1,1
-2019-09-04,Ethiopia,Lesotho,0,0
-2019-09-05,Tajikistan,Kyrgyzstan,1,0
-2019-09-05,Somalia,Zimbabwe,1,0
-2019-09-05,Seychelles,Rwanda,0,3
-2019-09-05,Chad,Sudan,1,3
-2019-09-05,Sri Lanka,Turkmenistan,0,2
-2019-09-05,North Korea,Lebanon,2,0
-2019-09-05,Indonesia,Malaysia,2,3
-2019-09-05,Thailand,Vietnam,0,0
-2019-09-05,Mongolia,Myanmar,1,0
-2019-09-05,India,Oman,1,2
-2019-09-05,Singapore,Yemen,2,2
-2019-09-05,Palestine,Uzbekistan,2,0
-2019-09-05,Bahrain,Iraq,1,1
-2019-09-05,Cambodia,Hong Kong,1,1
-2019-09-05,Kuwait,Nepal,7,0
-2019-09-05,Taiwan,Jordan,1,2
-2019-09-05,Philippines,Syria,2,5
-2019-09-05,Guam,Maldives,0,1
-2019-09-05,Qatar,Afghanistan,6,0
-2019-09-06,Gambia,Angola,0,1
-2019-09-06,Comoros,Togo,1,1
-2019-09-07,Botswana,Malawi,0,0
-2019-09-08,Tanzania,Burundi,1,1
-2019-09-08,Sierra Leone,Liberia,1,0
-2019-09-08,Equatorial Guinea,South Sudan,1,0
-2019-09-08,Lesotho,Ethiopia,1,1
-2019-09-10,Malawi,Botswana,1,0
-2019-09-10,Sri Lanka,North Korea,0,1
-2019-09-10,Angola,Gambia,2,1
-2019-09-10,Guinea-Bissau,São Tomé and Príncipe,2,1
-2019-09-10,Mozambique,Mauritius,2,0
-2019-09-10,Turkmenistan,South Korea,0,2
-2019-09-10,Rwanda,Seychelles,7,0
-2019-09-10,Sudan,Chad,0,0
-2019-09-10,Eswatini,Djibouti,0,0
-2019-09-10,Togo,Comoros,2,0
-2019-09-10,Zimbabwe,Somalia,3,1
-2019-09-10,Namibia,Eritrea,2,0
-2019-09-10,Malaysia,United Arab Emirates,1,2
-2019-09-10,Cambodia,Bahrain,0,1
-2019-09-10,Myanmar,Japan,0,2
-2019-09-10,Guam,Philippines,1,4
-2019-09-10,Maldives,China PR,0,5
-2019-09-10,Kuwait,Australia,0,3
-2019-09-10,Taiwan,Nepal,0,2
-2019-09-10,Hong Kong,Iran,0,2
-2019-09-10,Indonesia,Thailand,0,3
-2019-09-10,Singapore,Palestine,2,1
-2019-09-10,Afghanistan,Bangladesh,1,0
-2019-09-10,Qatar,India,0,0
-2019-09-10,Mongolia,Tajikistan,0,1
-2019-09-10,Yemen,Saudi Arabia,2,2
-2019-10-10,Vietnam,Malaysia,1,0
-2019-10-10,South Korea,Sri Lanka,8,0
-2019-10-10,Lebanon,Turkmenistan,2,1
-2019-10-10,United Arab Emirates,Indonesia,5,0
-2019-10-10,Kyrgyzstan,Myanmar,7,0
-2019-10-10,Japan,Mongolia,6,0
-2019-10-10,Bangladesh,Qatar,0,2
-2019-10-10,Oman,Afghanistan,3,0
-2019-10-10,Uzbekistan,Yemen,5,0
-2019-10-10,Iraq,Hong Kong,2,0
-2019-10-10,Iran,Cambodia,14,0
-2019-10-10,Australia,Nepal,5,0
-2019-10-10,Jordan,Kuwait,0,0
-2019-10-10,China PR,Guam,7,0
-2019-10-10,Syria,Maldives,2,1
-2019-10-10,Saudi Arabia,Singapore,3,0
-2019-10-15,Qatar,Oman,2,1
-2019-10-15,Sri Lanka,Lebanon,0,3
-2019-10-15,North Korea,South Korea,0,0
-2019-10-15,Indonesia,Vietnam,1,3
-2019-10-15,Thailand,United Arab Emirates,2,1
-2019-10-15,Tajikistan,Japan,0,3
-2019-10-15,Mongolia,Kyrgyzstan,1,2
-2019-10-15,India,Bangladesh,1,1
-2019-10-15,Syria,Guam,4,0
-2019-10-15,Palestine,Saudi Arabia,0,0
-2019-10-15,Bahrain,Iran,1,0
-2019-10-15,Cambodia,Iraq,0,4
-2019-10-15,Taiwan,Australia,1,7
-2019-10-15,Jordan,Nepal,3,0
-2019-10-15,Philippines,China PR,0,0
-2019-10-15,Singapore,Uzbekistan,1,3
-2019-11-14,Oman,Bangladesh,4,1
-2019-11-14,Lebanon,South Korea,0,0
-2019-11-14,Malaysia,Thailand,2,1
-2019-11-14,Vietnam,United Arab Emirates,1,0
-2019-11-14,Kyrgyzstan,Japan,0,2
-2019-11-14,Myanmar,Tajikistan,4,3
-2019-11-14,Turkmenistan,North Korea,3,1
-2019-11-14,Afghanistan,India,1,1
-2019-11-14,Uzbekistan,Saudi Arabia,2,3
-2019-11-14,Hong Kong,Bahrain,0,0
-2019-11-14,Iraq,Iran,2,1
-2019-11-14,Kuwait,Taiwan,9,0
-2019-11-14,Jordan,Australia,0,1
-2019-11-14,Syria,China PR,2,1
-2019-11-14,Maldives,Philippines,1,2
-2019-11-14,Yemen,Palestine,1,0
-2019-11-19,Turkmenistan,Sri Lanka,2,0
-2019-11-19,Malaysia,Indonesia,2,0
-2019-11-19,Vietnam,Thailand,0,0
-2019-11-19,Kyrgyzstan,Tajikistan,1,1
-2019-11-19,Myanmar,Mongolia,1,0
-2019-11-19,Oman,India,1,0
-2019-11-19,Afghanistan,Qatar,0,1
-2019-11-19,Iraq,Bahrain,0,0
-2019-11-19,Uzbekistan,Palestine,2,0
-2019-11-19,Hong Kong,Cambodia,2,0
-2019-11-19,Lebanon,North Korea,0,0
-2019-11-19,Jordan,Taiwan,5,0
-2019-11-19,Nepal,Kuwait,0,1
-2019-11-19,Syria,Philippines,1,0
-2019-11-19,Maldives,Guam,3,1
-2019-11-19,Yemen,Singapore,1,2
-2020-10-08,Uruguay,Chile,2,1
-2020-10-08,Argentina,Ecuador,1,0
-2020-10-08,Paraguay,Peru,2,2
-2020-10-09,Colombia,Venezuela,3,0
-2020-10-09,Brazil,Bolivia,5,0
-2020-10-13,Bolivia,Argentina,1,2
-2020-10-13,Ecuador,Uruguay,4,2
-2020-10-13,Venezuela,Paraguay,0,1
-2020-10-13,Peru,Brazil,2,4
-2020-10-13,Chile,Colombia,2,2
-2020-11-12,Bolivia,Ecuador,2,3
-2020-11-12,Argentina,Paraguay,1,1
-2020-11-13,Colombia,Uruguay,0,3
-2020-11-13,Chile,Peru,2,0
-2020-11-13,Brazil,Venezuela,1,0
-2020-11-17,Uruguay,Brazil,0,2
-2020-11-17,Paraguay,Bolivia,2,2
-2020-11-17,Ecuador,Colombia,6,1
-2020-11-17,Venezuela,Chile,2,1
-2020-11-17,Peru,Argentina,0,2
-2020-12-04,Qatar,Bangladesh,5,0
-2021-03-24,Gibraltar,Norway,0,3
-2021-03-24,Turkey,Netherlands,4,2
-2021-03-24,Latvia,Montenegro,1,2
-2021-03-24,Belgium,Wales,3,1
-2021-03-24,Slovenia,Croatia,1,0
-2021-03-24,Cyprus,Slovakia,0,0
-2021-03-24,Malta,Russia,1,3
-2021-03-24,Finland,Bosnia and Herzegovina,2,2
-2021-03-24,Estonia,Czech Republic,2,6
-2021-03-24,Serbia,Republic of Ireland,3,2
-2021-03-24,France,Ukraine,1,1
-2021-03-24,Portugal,Azerbaijan,1,0
-2021-03-24,Saint Kitts and Nevis,Puerto Rico,1,0
-2021-03-24,Dominican Republic,Dominica,1,0
-2021-03-24,Guatemala,Cuba,1,0
-2021-03-24,Suriname,Cayman Islands,3,0
-2021-03-24,Antigua and Barbuda,Montserrat,2,2
-2021-03-25,Moldova,Faroe Islands,1,1
-2021-03-25,England,San Marino,5,0
-2021-03-25,Andorra,Albania,0,1
-2021-03-25,Tajikistan,Mongolia,3,0
-2021-03-25,Germany,Iceland,3,0
-2021-03-25,Liechtenstein,Armenia,0,1
-2021-03-25,Scotland,Austria,2,2
-2021-03-25,Hungary,Poland,3,3
-2021-03-25,Israel,Denmark,0,2
-2021-03-25,Romania,North Macedonia,3,2
-2021-03-25,Bulgaria,Switzerland,1,3
-2021-03-25,El Salvador,Grenada,2,0
-2021-03-25,Canada,Bermuda,5,1
-2021-03-25,Curaçao,Saint Vincent and the Grenadines,5,0
-2021-03-25,Panama,Barbados,1,0
-2021-03-25,Italy,Northern Ireland,2,0
-2021-03-25,Trinidad and Tobago,Guyana,3,0
-2021-03-25,Spain,Greece,1,1
-2021-03-25,Sweden,Georgia,1,0
-2021-03-25,Haiti,Belize,2,0
-2021-03-27,Belarus,Estonia,4,2
-2021-03-27,Croatia,Cyprus,1,0
-2021-03-27,Russia,Slovenia,2,1
-2021-03-27,Norway,Turkey,0,3
-2021-03-27,Netherlands,Latvia,2,0
-2021-03-27,Montenegro,Gibraltar,4,1
-2021-03-27,Czech Republic,Belgium,1,1
-2021-03-27,Slovakia,Malta,2,2
-2021-03-27,Serbia,Portugal,2,2
-2021-03-27,Bahamas,Saint Kitts and Nevis,0,4
-2021-03-27,Turks and Caicos Islands,Nicaragua,0,7
-2021-03-27,Anguilla,Dominican Republic,0,6
-2021-03-27,British Virgin Islands,Guatemala,0,3
-2021-03-27,Aruba,Suriname,0,6
-2021-03-27,United States Virgin Islands,Antigua and Barbuda,0,3
-2021-03-27,Republic of Ireland,Luxembourg,0,1
-2021-03-28,Austria,Faroe Islands,3,1
-2021-03-28,Romania,Germany,0,1
-2021-03-28,North Macedonia,Liechtenstein,5,0
-2021-03-28,Armenia,Iceland,2,0
-2021-03-28,San Marino,Hungary,0,3
-2021-03-28,Poland,Andorra,3,0
-2021-03-28,Albania,England,0,2
-2021-03-28,Israel,Scotland,1,1
-2021-03-28,Ukraine,Finland,1,1
-2021-03-28,Denmark,Moldova,8,0
-2021-03-28,Montserrat,El Salvador,1,1
-2021-03-28,Bulgaria,Italy,0,2
-2021-03-28,Switzerland,Lithuania,1,0
-2021-03-28,Kosovo,Sweden,0,3
-2021-03-28,Georgia,Spain,1,2
-2021-03-28,Puerto Rico,Trinidad and Tobago,1,1
-2021-03-28,Dominica,Panama,1,2
-2021-03-28,Cuba,Curaçao,1,2
-2021-03-28,Kazakhstan,France,0,2
-2021-03-29,Cayman Islands,Canada,0,11
-2021-03-30,Montenegro,Norway,0,1
-2021-03-30,Turkey,Latvia,3,3
-2021-03-30,Cyprus,Slovenia,1,0
-2021-03-30,Japan,Mongolia,14,0
-2021-03-30,Saudi Arabia,Palestine,5,0
-2021-03-30,Gibraltar,Netherlands,0,7
-2021-03-30,Croatia,Malta,3,0
-2021-03-30,Belgium,Belarus,8,0
-2021-03-30,Slovakia,Russia,2,1
-2021-03-30,Luxembourg,Portugal,1,3
-2021-03-30,Azerbaijan,Serbia,1,2
-2021-03-30,Guyana,Bahamas,4,0
-2021-03-30,Belize,Turks and Caicos Islands,5,0
-2021-03-30,Barbados,Anguilla,1,0
-2021-03-30,Saint Vincent and the Grenadines,British Virgin Islands,3,0
-2021-03-30,Bermuda,Aruba,5,0
-2021-03-30,Grenada,United States Virgin Islands,1,0
-2021-03-30,Wales,Czech Republic,1,0
-2021-03-31,Liechtenstein,Iceland,1,4
-2021-03-31,Germany,North Macedonia,1,2
-2021-03-31,Armenia,Romania,3,2
-2021-03-31,San Marino,Albania,0,2
-2021-03-31,Andorra,Hungary,1,4
-2021-03-31,England,Poland,2,1
-2021-03-31,Moldova,Israel,1,4
-2021-03-31,Austria,Denmark,0,4
-2021-03-31,Ukraine,Kazakhstan,1,1
-2021-03-31,Bosnia and Herzegovina,France,0,1
-2021-03-31,Lithuania,Italy,0,2
-2021-03-31,Northern Ireland,Bulgaria,0,0
-2021-03-31,Greece,Georgia,1,1
-2021-03-31,Spain,Kosovo,3,1
-2021-03-31,Scotland,Faroe Islands,4,0
-2021-05-28,Japan,Myanmar,10,0
-2021-05-30,China PR,Guam,7,0
-2021-06-02,Montserrat,United States Virgin Islands,4,0
-2021-06-02,Cayman Islands,Aruba,1,3
-2021-06-02,Cuba,British Virgin Islands,5,0
-2021-06-02,Dominica,Anguilla,3,0
-2021-06-02,Puerto Rico,Bahamas,7,0
-2021-06-03,Uruguay,Paraguay,0,0
-2021-06-03,Argentina,Chile,1,1
-2021-06-03,Bolivia,Venezuela,3,1
-2021-06-03,Kuwait,Australia,0,3
-2021-06-03,Peru,Colombia,0,3
-2021-06-03,Thailand,Indonesia,2,2
-2021-06-03,Qatar,India,1,0
-2021-06-03,Bangladesh,Afghanistan,1,1
-2021-06-03,Nepal,Taiwan,2,0
-2021-06-03,Iran,Hong Kong,3,1
-2021-06-03,United Arab Emirates,Malaysia,4,0
-2021-06-03,Palestine,Singapore,4,0
-2021-06-03,Bahrain,Cambodia,8,0
-2021-06-04,Maldives,Syria,0,4
-2021-06-04,Antigua and Barbuda,Grenada,1,0
-2021-06-04,Suriname,Bermuda,6,0
-2021-06-04,Guatemala,Saint Vincent and the Grenadines,10,0
-2021-06-04,Dominican Republic,Barbados,1,1
-2021-06-04,Nicaragua,Belize,3,0
-2021-06-04,Saint Kitts and Nevis,Guyana,3,0
-2021-06-04,Brazil,Ecuador,2,0
-2021-06-05,Bahamas,Trinidad and Tobago,0,0
-2021-06-05,Turks and Caicos Islands,Haiti,0,10
-2021-06-05,Panama,Anguilla,13,0
-2021-06-05,British Virgin Islands,Curaçao,0,8
-2021-06-05,Lebanon,Sri Lanka,3,2
-2021-06-05,United States Virgin Islands,El Salvador,0,7
-2021-06-05,South Korea,Turkmenistan,5,0
-2021-06-05,Saudi Arabia,Yemen,3,0
-2021-06-05,Aruba,Canada,0,7
-2021-06-07,Qatar,Oman,1,0
-2021-06-07,Bahrain,Iran,0,3
-2021-06-07,Vietnam,Indonesia,4,0
-2021-06-07,United Arab Emirates,Thailand,3,1
-2021-06-07,Kyrgyzstan,Mongolia,0,1
-2021-06-07,Japan,Tajikistan,4,1
-2021-06-07,Bangladesh,India,0,2
-2021-06-07,Iraq,Cambodia,4,1
-2021-06-07,Australia,Taiwan,5,1
-2021-06-07,Nepal,Jordan,0,3
-2021-06-07,China PR,Philippines,2,0
-2021-06-07,Guam,Syria,0,3
-2021-06-07,Uzbekistan,Singapore,5,0
-2021-06-08,Chile,Bolivia,1,1
-2021-06-08,Paraguay,Brazil,0,2
-2021-06-08,Venezuela,Uruguay,0,0
-2021-06-08,Colombia,Argentina,2,2
-2021-06-08,Ecuador,Peru,1,2
-2021-06-08,Trinidad and Tobago,Saint Kitts and Nevis,2,0
-2021-06-08,Guyana,Puerto Rico,0,2
-2021-06-08,Haiti,Nicaragua,1,0
-2021-06-08,Panama,Dominican Republic,3,0
-2021-06-08,Curaçao,Guatemala,0,0
-2021-06-08,Saint Vincent and the Grenadines,Cuba,0,1
-2021-06-08,Bermuda,Cayman Islands,1,1
-2021-06-08,Canada,Suriname,4,0
-2021-06-08,El Salvador,Antigua and Barbuda,3,0
-2021-06-08,Grenada,Montserrat,1,2
-2021-06-08,Barbados,Dominica,1,1
-2021-06-09,Turkmenistan,Lebanon,3,2
-2021-06-09,South Korea,Sri Lanka,5,0
-2021-06-11,United Arab Emirates,Indonesia,5,0
-2021-06-11,Saudi Arabia,Singapore,3,0
-2021-06-11,Malaysia,Vietnam,1,2
-2021-06-11,Myanmar,Kyrgyzstan,1,8
-2021-06-11,Afghanistan,Oman,1,2
-2021-06-11,Yemen,Uzbekistan,0,1
-2021-06-11,Cambodia,Iran,0,10
-2021-06-11,Kuwait,Jordan,0,0
-2021-06-11,Nepal,Australia,0,3
-2021-06-11,China PR,Maldives,5,0
-2021-06-11,Philippines,Guam,3,0
-2021-06-11,Hong Kong,Iraq,0,1
-2021-06-12,Panama,Curaçao,2,1
-2021-06-12,Saint Kitts and Nevis,El Salvador,0,4
-2021-06-12,Haiti,Canada,0,1
-2021-06-13,South Korea,Lebanon,2,1
-2021-06-15,Japan,Kyrgyzstan,5,1
-2021-06-15,Kuwait,Taiwan,2,1
-2021-06-15,El Salvador,Saint Kitts and Nevis,2,0
-2021-06-15,Curaçao,Panama,0,0
-2021-06-15,Canada,Haiti,3,0
-2021-06-15,United Arab Emirates,Vietnam,3,2
-2021-06-15,Thailand,Malaysia,0,1
-2021-06-15,Tajikistan,Myanmar,4,0
-2021-06-15,Bangladesh,Oman,0,3
-2021-06-15,Saudi Arabia,Uzbekistan,3,0
-2021-06-15,Palestine,Yemen,3,0
-2021-06-15,Iran,Iraq,1,0
-2021-06-15,Bahrain,Hong Kong,4,0
-2021-06-15,Australia,Jordan,1,0
-2021-06-15,China PR,Syria,3,1
-2021-06-15,Philippines,Maldives,1,1
-2021-06-15,India,Afghanistan,1,1
-2021-09-01,Denmark,Scotland,2,0
-2021-09-01,Moldova,Austria,0,2
-2021-09-01,Norway,Netherlands,1,1
-2021-09-01,Latvia,Gibraltar,3,1
-2021-09-01,Slovenia,Slovakia,1,1
-2021-09-01,Turkey,Montenegro,2,2
-2021-09-01,Malta,Cyprus,3,0
-2021-09-01,Russia,Croatia,0,0
-2021-09-01,Faroe Islands,Israel,0,4
-2021-09-01,Libya,Gabon,2,1
-2021-09-01,Kazakhstan,Ukraine,2,2
-2021-09-01,Luxembourg,Azerbaijan,2,1
-2021-09-01,Portugal,Republic of Ireland,2,1
-2021-09-01,Guinea-Bissau,Guinea,1,1
-2021-09-01,Senegal,Togo,2,0
-2021-09-01,Egypt,Angola,1,0
-2021-09-01,Mali,Rwanda,1,0
-2021-09-01,Central African Republic,Cape Verde,1,1
-2021-09-01,France,Bosnia and Herzegovina,1,1
-2021-09-02,Hungary,England,0,4
-2021-09-02,Poland,Albania,4,1
-2021-09-02,Iceland,Romania,0,2
-2021-09-02,Liechtenstein,Germany,0,2
-2021-09-02,North Macedonia,Armenia,0,0
-2021-09-02,Bolivia,Colombia,1,1
-2021-09-02,Ecuador,Paraguay,2,0
-2021-09-02,Canada,Honduras,1,1
-2021-09-02,Venezuela,Argentina,1,3
-2021-09-02,Chile,Brazil,0,1
-2021-09-02,El Salvador,United States,0,0
-2021-09-02,Panama,Costa Rica,0,0
-2021-09-02,Mexico,Jamaica,2,1
-2021-09-02,Andorra,San Marino,2,0
-2021-09-02,Peru,Uruguay,1,1
-2021-09-02,Estonia,Belgium,2,5
-2021-09-02,Czech Republic,Belarus,1,0
-2021-09-02,Lithuania,Northern Ireland,1,4
-2021-09-02,Niger,Burkina Faso,0,2
-2021-09-02,Algeria,Djibouti,8,0
-2021-09-02,Kenya,Uganda,0,0
-2021-09-02,Namibia,Congo,1,1
-2021-09-02,Morocco,Sudan,2,0
-2021-09-02,DR Congo,Tanzania,1,1
-2021-09-02,Madagascar,Benin,0,1
-2021-09-02,South Korea,Iraq,0,0
-2021-09-02,United Arab Emirates,Lebanon,0,0
-2021-09-02,Japan,Oman,0,1
-2021-09-02,Australia,China PR,3,0
-2021-09-02,Saudi Arabia,Vietnam,3,1
-2021-09-02,Georgia,Kosovo,0,1
-2021-09-02,Sweden,Spain,2,1
-2021-09-02,Italy,Bulgaria,1,1
-2021-09-02,Iran,Syria,1,0
-2021-09-03,Cameroon,Malawi,2,0
-2021-09-03,Zimbabwe,South Africa,0,0
-2021-09-03,Mozambique,Ivory Coast,0,0
-2021-09-03,Ghana,Ethiopia,1,0
-2021-09-03,Tunisia,Equatorial Guinea,3,0
-2021-09-03,Mauritania,Zambia,1,2
-2021-09-03,Nigeria,Liberia,2,0
-2021-09-04,Slovakia,Croatia,0,1
-2021-09-04,Cyprus,Russia,0,2
-2021-09-04,Netherlands,Montenegro,4,0
-2021-09-04,Gibraltar,Turkey,0,3
-2021-09-04,Latvia,Norway,0,2
-2021-09-04,Israel,Austria,5,2
-2021-09-04,Slovenia,Malta,1,0
-2021-09-04,Faroe Islands,Denmark,0,1
-2021-09-04,Ukraine,France,1,1
-2021-09-04,Finland,Kazakhstan,1,0
-2021-09-04,Serbia,Luxembourg,4,1
-2021-09-04,Republic of Ireland,Azerbaijan,1,1
-2021-09-04,Scotland,Moldova,1,0
-2021-09-05,Romania,Liechtenstein,2,0
-2021-09-05,Ecuador,Chile,0,0
-2021-09-05,Paraguay,Colombia,1,1
-2021-09-05,Uruguay,Bolivia,4,2
-2021-09-05,El Salvador,Honduras,0,0
-2021-09-05,Costa Rica,Mexico,0,1
-2021-09-05,Jamaica,Panama,0,3
-2021-09-05,United States,Canada,1,1
-2021-09-05,Iceland,North Macedonia,2,2
-2021-09-05,Peru,Venezuela,1,0
-2021-09-05,San Marino,Poland,1,7
-2021-09-05,Germany,Armenia,6,0
-2021-09-05,England,Andorra,4,0
-2021-09-05,Albania,Hungary,1,0
-2021-09-05,Belgium,Czech Republic,3,0
-2021-09-05,Belarus,Wales,2,3
-2021-09-05,Switzerland,Italy,0,0
-2021-09-05,Bulgaria,Lithuania,1,0
-2021-09-05,Spain,Georgia,4,0
-2021-09-05,Kosovo,Greece,1,1
-2021-09-05,Togo,Namibia,0,1
-2021-09-05,Gabon,Egypt,1,1
-2021-09-05,Rwanda,Kenya,1,1
-2021-09-06,Benin,DR Congo,1,1
-2021-09-06,Uganda,Mali,0,0
-2021-09-06,South Africa,Ghana,1,0
-2021-09-06,Liberia,Central African Republic,1,0
-2021-09-06,Djibouti,Niger,2,4
-2021-09-06,Ivory Coast,Cameroon,2,1
-2021-09-07,Azerbaijan,Portugal,0,3
-2021-09-07,Bosnia and Herzegovina,Kazakhstan,2,2
-2021-09-07,Russia,Malta,2,0
-2021-09-07,France,Finland,2,0
-2021-09-07,Faroe Islands,Moldova,2,1
-2021-09-07,Austria,Scotland,0,1
-2021-09-07,Denmark,Israel,5,0
-2021-09-07,Netherlands,Turkey,6,1
-2021-09-07,Norway,Gibraltar,5,1
-2021-09-07,Croatia,Slovenia,3,0
-2021-09-07,Slovakia,Cyprus,2,0
-2021-09-07,Republic of Ireland,Serbia,1,1
-2021-09-07,Montenegro,Latvia,0,0
-2021-09-07,Oman,Saudi Arabia,0,1
-2021-09-07,Tanzania,Madagascar,3,2
-2021-09-07,China PR,Japan,0,1
-2021-09-07,Burkina Faso,Algeria,1,1
-2021-09-07,Zambia,Tunisia,0,2
-2021-09-07,Vietnam,Australia,0,1
-2021-09-07,Cape Verde,Nigeria,1,2
-2021-09-07,Malawi,Mozambique,1,0
-2021-09-07,Angola,Libya,0,1
-2021-09-07,Equatorial Guinea,Mauritania,1,0
-2021-09-07,Congo,Senegal,1,3
-2021-09-07,Sudan,Guinea-Bissau,2,4
-2021-09-07,Syria,United Arab Emirates,1,1
-2021-09-07,South Korea,Lebanon,1,0
-2021-09-07,Iraq,Iran,0,3
-2021-09-07,Ethiopia,Zimbabwe,1,0
-2021-09-08,Iceland,Germany,0,4
-2021-09-08,Honduras,United States,1,4
-2021-09-08,Canada,El Salvador,3,0
-2021-09-08,Panama,Mexico,1,1
-2021-09-08,North Macedonia,Romania,0,0
-2021-09-08,Armenia,Liechtenstein,1,1
-2021-09-08,Poland,England,1,1
-2021-09-08,Costa Rica,Jamaica,1,1
-2021-09-08,Albania,San Marino,5,0
-2021-09-08,Belarus,Belgium,0,1
-2021-09-08,Wales,Estonia,0,0
-2021-09-08,Italy,Lithuania,5,0
-2021-09-08,Hungary,Andorra,2,1
-2021-09-08,Northern Ireland,Switzerland,0,0
-2021-09-08,Greece,Sweden,2,1
-2021-09-08,Kosovo,Spain,0,2
-2021-09-09,Brazil,Peru,2,0
-2021-09-09,Argentina,Bolivia,3,0
-2021-09-09,Colombia,Chile,3,1
-2021-09-09,Paraguay,Venezuela,2,1
-2021-09-09,Uruguay,Ecuador,1,0
-2021-10-06,Sudan,Guinea,1,1
-2021-10-06,Morocco,Guinea-Bissau,5,0
-2021-10-07,Peru,Chile,2,0
-2021-10-07,Paraguay,Argentina,0,0
-2021-10-07,Venezuela,Brazil,1,3
-2021-10-07,Ecuador,Bolivia,3,0
-2021-10-07,Tanzania,Benin,0,1
-2021-10-07,DR Congo,Madagascar,2,0
-2021-10-07,Mali,Kenya,5,0
-2021-10-07,Rwanda,Uganda,0,1
-2021-10-07,Nigeria,Central African Republic,0,1
-2021-10-07,Liberia,Cape Verde,1,2
-2021-10-07,Tunisia,Mauritania,3,0
-2021-10-07,Uruguay,Colombia,0,0
-2021-10-07,Mexico,Canada,1,1
-2021-10-07,South Korea,Syria,2,1
-2021-10-07,United Arab Emirates,Iran,0,1
-2021-10-07,Saudi Arabia,Japan,1,0
-2021-10-07,China PR,Vietnam,3,2
-2021-10-07,Iraq,Lebanon,0,0
-2021-10-07,Honduras,Costa Rica,0,0
-2021-10-07,United States,Jamaica,2,0
-2021-10-07,El Salvador,Panama,1,0
-2021-10-07,Australia,Oman,3,1
-2021-10-07,Equatorial Guinea,Zambia,2,0
-2021-10-08,Germany,Romania,2,1
-2021-10-08,Egypt,Libya,1,0
-2021-10-08,Angola,Gabon,3,1
-2021-10-08,Cameroon,Mozambique,3,1
-2021-10-08,Malawi,Ivory Coast,0,3
-2021-10-08,Djibouti,Burkina Faso,0,4
-2021-10-08,Algeria,Niger,6,1
-2021-10-08,Liechtenstein,North Macedonia,0,4
-2021-10-08,Russia,Slovakia,1,0
-2021-10-08,Cyprus,Croatia,0,3
-2021-10-08,Malta,Slovenia,0,4
-2021-10-08,Turkey,Norway,1,1
-2021-10-08,Latvia,Netherlands,0,1
-2021-10-08,Gibraltar,Montenegro,0,3
-2021-10-08,Estonia,Belarus,2,0
-2021-10-08,Czech Republic,Wales,2,2
-2021-10-08,Iceland,Armenia,1,1
-2021-10-09,Hungary,Albania,0,1
-2021-10-09,Morocco,Guinea-Bissau,3,0
-2021-10-09,Poland,San Marino,5,0
-2021-10-09,Ethiopia,South Africa,1,3
-2021-10-09,Guinea,Sudan,2,2
-2021-10-09,Togo,Congo,1,1
-2021-10-09,Senegal,Namibia,4,1
-2021-10-09,Andorra,England,0,5
-2021-10-09,Ghana,Zimbabwe,3,1
-2021-10-09,Moldova,Denmark,0,4
-2021-10-09,Finland,Ukraine,1,2
-2021-10-09,Scotland,Israel,3,2
-2021-10-09,Faroe Islands,Austria,0,2
-2021-10-09,Azerbaijan,Republic of Ireland,0,3
-2021-10-09,Sweden,Kosovo,3,0
-2021-10-09,Luxembourg,Serbia,0,1
-2021-10-09,Lithuania,Bulgaria,3,1
-2021-10-09,Georgia,Greece,0,2
-2021-10-09,Switzerland,Northern Ireland,2,0
-2021-10-09,Kazakhstan,Bosnia and Herzegovina,0,2
-2021-10-10,Argentina,Uruguay,3,0
-2021-10-10,Colombia,Brazil,0,0
-2021-10-10,Bolivia,Peru,1,0
-2021-10-10,Madagascar,DR Congo,1,0
-2021-10-10,Benin,Tanzania,0,1
-2021-10-10,Uganda,Rwanda,1,0
-2021-10-10,Kenya,Mali,0,1
-2021-10-10,Chile,Paraguay,2,0
-2021-10-10,Central African Republic,Nigeria,0,2
-2021-10-10,Cape Verde,Liberia,1,0
-2021-10-10,Costa Rica,El Salvador,2,1
-2021-10-10,Jamaica,Canada,0,0
-2021-10-10,Venezuela,Ecuador,2,1
-2021-10-10,Mexico,Honduras,3,0
-2021-10-10,Zambia,Equatorial Guinea,1,1
-2021-10-10,Mauritania,Tunisia,0,0
-2021-10-10,Panama,United States,1,0
-2021-10-11,Libya,Egypt,0,3
-2021-10-11,Gabon,Angola,2,0
-2021-10-11,Ivory Coast,Malawi,2,1
-2021-10-11,Mozambique,Cameroon,0,1
-2021-10-11,Burkina Faso,Djibouti,2,0
-2021-10-11,Romania,Armenia,1,0
-2021-10-11,North Macedonia,Germany,0,4
-2021-10-11,Iceland,Liechtenstein,4,0
-2021-10-11,Croatia,Slovakia,2,2
-2021-10-11,Latvia,Turkey,1,2
-2021-10-11,Norway,Montenegro,2,0
-2021-10-11,Netherlands,Gibraltar,6,0
-2021-10-11,Estonia,Wales,0,1
-2021-10-11,Belarus,Czech Republic,0,2
-2021-10-11,Slovenia,Russia,1,2
-2021-10-11,Cyprus,Malta,2,2
-2021-10-12,San Marino,Andorra,0,3
-2021-10-12,Denmark,Austria,1,0
-2021-10-12,Israel,Moldova,2,1
-2021-10-12,England,Hungary,1,1
-2021-10-12,Albania,Poland,0,1
-2021-10-12,Zimbabwe,Ghana,0,1
-2021-10-12,Namibia,Senegal,1,3
-2021-10-12,Congo,Togo,1,2
-2021-10-12,Morocco,Guinea,4,1
-2021-10-12,Faroe Islands,Scotland,0,1
-2021-10-12,South Africa,Ethiopia,1,0
-2021-10-12,Ukraine,Bosnia and Herzegovina,1,1
-2021-10-12,Niger,Algeria,0,4
-2021-10-12,Lithuania,Switzerland,0,4
-2021-10-12,Iran,South Korea,1,1
-2021-10-12,Syria,Lebanon,2,3
-2021-10-12,United Arab Emirates,Iraq,2,2
-2021-10-12,Oman,Vietnam,3,1
-2021-10-12,Kazakhstan,Finland,0,2
-2021-10-12,Japan,Australia,2,1
-2021-10-12,Portugal,Luxembourg,5,0
-2021-10-12,Serbia,Azerbaijan,3,1
-2021-10-12,Kosovo,Georgia,1,2
-2021-10-12,Sweden,Greece,2,0
-2021-10-12,Bulgaria,Northern Ireland,2,1
-2021-10-12,Saudi Arabia,China PR,3,2
-2021-10-13,Honduras,Jamaica,0,2
-2021-10-13,United States,Costa Rica,2,1
-2021-10-13,Canada,Panama,4,1
-2021-10-13,El Salvador,Mexico,0,2
-2021-10-14,Chile,Venezuela,3,0
-2021-10-14,Brazil,Uruguay,4,1
-2021-10-14,Bolivia,Paraguay,4,0
-2021-10-14,Colombia,Ecuador,0,0
-2021-10-14,Argentina,Peru,1,0
-2021-11-11,Azerbaijan,Luxembourg,1,3
-2021-11-11,Brazil,Colombia,1,0
-2021-11-11,Peru,Bolivia,3,0
-2021-11-11,Paraguay,Chile,0,1
-2021-11-11,Ecuador,Venezuela,1,0
-2021-11-11,Romania,Iceland,0,0
-2021-11-11,Armenia,North Macedonia,0,5
-2021-11-11,Germany,Liechtenstein,9,0
-2021-11-11,Slovakia,Slovenia,2,2
-2021-11-11,Malta,Croatia,1,7
-2021-11-11,Russia,Cyprus,6,0
-2021-11-11,Greece,Spain,0,1
-2021-11-11,Georgia,Sweden,2,0
-2021-11-11,Republic of Ireland,Portugal,0,0
-2021-11-11,Benin,Madagascar,2,0
-2021-11-11,Vietnam,Japan,0,1
-2021-11-11,Uganda,Kenya,1,1
-2021-11-11,Rwanda,Mali,0,3
-2021-11-11,Australia,Saudi Arabia,0,0
-2021-11-11,South Africa,Zimbabwe,1,0
-2021-11-11,Congo,Namibia,1,1
-2021-11-11,Togo,Senegal,1,1
-2021-11-11,Ethiopia,Ghana,1,1
-2021-11-11,Lebanon,Iran,1,2
-2021-11-11,Iraq,Syria,1,1
-2021-11-11,South Korea,United Arab Emirates,1,0
-2021-11-11,China PR,Oman,1,1
-2021-11-11,Tanzania,DR Congo,0,3
-2021-11-12,Northern Ireland,Lithuania,1,0
-2021-11-12,Uruguay,Argentina,0,1
-2021-11-12,Hungary,San Marino,4,0
-2021-11-12,Andorra,Poland,1,4
-2021-11-12,England,Albania,5,0
-2021-11-12,Austria,Israel,4,2
-2021-11-12,Denmark,Faroe Islands,3,1
-2021-11-12,Italy,Switzerland,1,1
-2021-11-12,United States,Mexico,2,0
-2021-11-12,Moldova,Scotland,0,2
-2021-11-12,Honduras,Panama,2,3
-2021-11-12,Canada,Costa Rica,1,0
-2021-11-12,El Salvador,Jamaica,1,1
-2021-11-12,Morocco,Sudan,3,0
-2021-11-12,Guinea,Guinea-Bissau,0,0
-2021-11-12,Angola,Egypt,2,2
-2021-11-12,Gabon,Libya,1,0
-2021-11-12,Djibouti,Algeria,0,4
-2021-11-12,Burkina Faso,Niger,1,1
-2021-11-13,Montenegro,Netherlands,2,2
-2021-11-13,Turkey,Gibraltar,6,0
-2021-11-13,Norway,Latvia,0,0
-2021-11-13,Belgium,Estonia,3,1
-2021-11-13,Wales,Belarus,5,1
-2021-11-13,France,Kazakhstan,8,0
-2021-11-13,Ivory Coast,Mozambique,3,0
-2021-11-13,Malawi,Cameroon,0,4
-2021-11-13,Liberia,Nigeria,0,2
-2021-11-13,Cape Verde,Central African Republic,2,1
-2021-11-13,Equatorial Guinea,Tunisia,1,0
-2021-11-13,Zambia,Mauritania,4,0
-2021-11-13,Bosnia and Herzegovina,Finland,1,3
-2021-11-14,Greece,Kosovo,1,1
-2021-11-14,North Macedonia,Iceland,3,1
-2021-11-14,Liechtenstein,Romania,0,2
-2021-11-14,Slovenia,Cyprus,2,1
-2021-11-14,Malta,Slovakia,0,6
-2021-11-14,Armenia,Germany,1,4
-2021-11-14,Spain,Sweden,1,0
-2021-11-14,Croatia,Russia,1,0
-2021-11-14,Portugal,Serbia,1,2
-2021-11-14,Madagascar,Tanzania,1,1
-2021-11-14,DR Congo,Benin,2,0
-2021-11-14,Senegal,Congo,2,0
-2021-11-14,Ghana,South Africa,1,0
-2021-11-14,Zimbabwe,Ethiopia,1,1
-2021-11-14,Mali,Uganda,1,0
-2021-11-14,Luxembourg,Republic of Ireland,0,3
-2021-11-15,San Marino,England,0,10
-2021-11-15,Poland,Hungary,1,2
-2021-11-15,Israel,Faroe Islands,3,2
-2021-11-15,Austria,Moldova,4,1
-2021-11-15,Scotland,Denmark,2,0
-2021-11-15,Albania,Andorra,1,0
-2021-11-15,Northern Ireland,Italy,0,0
-2021-11-15,Guinea-Bissau,Sudan,0,0
-2021-11-15,Namibia,Togo,0,1
-2021-11-15,Kenya,Rwanda,2,1
-2021-11-15,Niger,Djibouti,7,2
-2021-11-15,Switzerland,Bulgaria,4,0
-2021-11-16,Costa Rica,Honduras,2,1
-2021-11-16,Panama,El Salvador,2,1
-2021-11-16,Bosnia and Herzegovina,Ukraine,0,2
-2021-11-16,Finland,France,0,2
-2021-11-16,Chile,Ecuador,0,2
-2021-11-16,Wales,Belgium,1,1
-2021-11-16,Czech Republic,Estonia,2,0
-2021-11-16,Netherlands,Norway,2,0
-2021-11-16,Montenegro,Turkey,1,2
-2021-11-16,Bolivia,Uruguay,3,0
-2021-11-16,Venezuela,Peru,1,2
-2021-11-16,Colombia,Paraguay,0,0
-2021-11-16,Argentina,Brazil,0,0
-2021-11-16,Canada,Mexico,2,1
-2021-11-16,Gibraltar,Latvia,1,3
-2021-11-16,Jamaica,United States,1,1
-2021-11-16,Morocco,Guinea,3,0
-2021-11-16,Vietnam,Saudi Arabia,0,1
-2021-11-16,Oman,Japan,0,1
-2021-11-16,Algeria,Burkina Faso,2,2
-2021-11-16,Mauritania,Equatorial Guinea,1,1
-2021-11-16,Tunisia,Zambia,3,1
-2021-11-16,Nigeria,Cape Verde,1,1
-2021-11-16,Mozambique,Malawi,1,0
-2021-11-16,Liberia,Central African Republic,3,1
-2021-11-16,Egypt,Gabon,2,1
-2021-11-16,Libya,Angola,1,1
-2021-11-16,Lebanon,United Arab Emirates,0,1
-2021-11-16,Iraq,South Korea,0,3
-2021-11-16,Syria,Iran,0,3
-2021-11-16,China PR,Australia,1,1
-2021-11-16,Cameroon,Ivory Coast,1,0
-2022-01-27,Australia,Vietnam,4,0
-2022-01-27,Chile,Argentina,1,2
-2022-01-27,Paraguay,Uruguay,0,1
-2022-01-27,Ecuador,Brazil,1,1
-2022-01-27,Saudi Arabia,Oman,1,0
-2022-01-27,Japan,China PR,2,0
-2022-01-27,Jamaica,Mexico,1,2
-2022-01-27,Iran,Iraq,1,0
-2022-01-27,Lebanon,South Korea,0,1
-2022-01-27,Costa Rica,Panama,1,0
-2022-01-27,Honduras,Canada,0,2
-2022-01-27,United States,El Salvador,1,0
-2022-01-27,United Arab Emirates,Syria,2,0
-2022-01-28,Colombia,Peru,0,1
-2022-01-28,Venezuela,Bolivia,4,1
-2022-01-30,Honduras,El Salvador,0,2
-2022-01-30,Panama,Jamaica,3,2
-2022-01-30,Mexico,Costa Rica,0,0
-2022-01-30,Canada,United States,2,0
-2022-02-01,Lebanon,Iraq,1,1
-2022-02-01,Iran,United Arab Emirates,1,0
-2022-02-01,Syria,South Korea,0,2
-2022-02-01,Vietnam,China PR,3,1
-2022-02-01,Japan,Saudi Arabia,2,0
-2022-02-01,Oman,Australia,2,2
-2022-02-01,Bolivia,Chile,2,3
-2022-02-01,Uruguay,Venezuela,4,1
-2022-02-01,Argentina,Colombia,1,0
-2022-02-01,Peru,Ecuador,1,1
-2022-02-01,Brazil,Paraguay,4,0
-2022-02-02,El Salvador,Canada,0,2
-2022-02-02,Mexico,Panama,1,0
-2022-02-02,United States,Honduras,3,0
-2022-02-02,Jamaica,Costa Rica,0,1
-2022-03-17,Cook Islands,Solomon Islands,0,2
-2022-03-18,Papua New Guinea,New Zealand,0,1
-2022-03-18,New Caledonia,Fiji,1,2
-2022-03-21,Papua New Guinea,New Caledonia,1,0
-2022-03-21,New Zealand,Fiji,4,0
-2022-03-24,Colombia,Bolivia,3,0
-2022-03-24,Brazil,Chile,4,0
-2022-03-24,Paraguay,Ecuador,3,1
-2022-03-24,Uruguay,Peru,1,0
-2022-03-24,Portugal,Turkey,3,1
-2022-03-24,Wales,Austria,2,1
-2022-03-24,Sweden,Czech Republic,1,0
-2022-03-24,New Zealand,New Caledonia,7,1
-2022-03-24,Italy,North Macedonia,0,1
-2022-03-24,Fiji,Papua New Guinea,1,2
-2022-03-24,Panama,Honduras,1,1
-2022-03-24,Australia,Japan,0,2
-2022-03-24,Vietnam,Oman,0,1
-2022-03-24,China PR,Saudi Arabia,1,1
-2022-03-24,South Korea,Iran,2,0
-2022-03-24,Iraq,United Arab Emirates,1,0
-2022-03-24,Lebanon,Syria,0,3
-2022-03-24,Costa Rica,Canada,1,0
-2022-03-24,Mexico,United States,0,0
-2022-03-24,Jamaica,El Salvador,1,1
-2022-03-24,Solomon Islands,Tahiti,3,1
-2022-03-25,Mali,Tunisia,0,1
-2022-03-25,Ghana,Nigeria,0,0
-2022-03-25,Argentina,Venezuela,3,0
-2022-03-25,DR Congo,Morocco,1,1
-2022-03-25,Cameroon,Algeria,0,1
-2022-03-25,Egypt,Senegal,1,0
-2022-03-27,New Zealand,Tahiti,1,0
-2022-03-27,United States,Panama,5,1
-2022-03-27,Solomon Islands,Papua New Guinea,3,2
-2022-03-27,Canada,Jamaica,4,0
-2022-03-27,El Salvador,Costa Rica,1,2
-2022-03-27,Honduras,Mexico,0,1
-2022-03-29,Saudi Arabia,Australia,1,0
-2022-03-29,Poland,Sweden,2,0
-2022-03-29,Portugal,North Macedonia,2,0
-2022-03-29,Chile,Uruguay,0,2
-2022-03-29,Venezuela,Colombia,0,1
-2022-03-29,Bolivia,Brazil,0,4
-2022-03-29,Peru,Paraguay,2,0
-2022-03-29,Ecuador,Argentina,1,1
-2022-03-29,Oman,China PR,2,0
-2022-03-29,Morocco,DR Congo,4,1
-2022-03-29,United Arab Emirates,South Korea,1,0
-2022-03-29,Syria,Iraq,1,1
-2022-03-29,Iran,Lebanon,2,0
-2022-03-29,Tunisia,Mali,0,0
-2022-03-29,Senegal,Egypt,1,0
-2022-03-29,Nigeria,Ghana,1,1
-2022-03-29,Algeria,Cameroon,1,2
-2022-03-29,Japan,Vietnam,1,1
-2022-03-30,Mexico,El Salvador,2,0
-2022-03-30,Costa Rica,United States,2,0
-2022-03-30,Panama,Canada,1,0
-2022-03-30,Jamaica,Honduras,2,1
-2022-03-30,Solomon Islands,New Zealand,0,5
-2022-06-01,Scotland,Ukraine,1,3
-2022-06-05,Wales,Ukraine,1,0
-2022-06-07,United Arab Emirates,Australia,1,2
-2022-06-13,Australia,Peru,0,0
-2022-06-14,Costa Rica,New Zealand,1,0
+2014-06-12,Brazil,Croatia,3,1
+2014-06-13,Chile,Australia,3,1
+2014-06-13,Mexico,Cameroon,1,0
+2014-06-13,Spain,Netherlands,1,5
+2014-06-14,Colombia,Greece,3,0
+2014-06-14,England,Italy,1,2
+2014-06-14,Ivory Coast,Japan,2,1
+2014-06-14,Uruguay,Costa Rica,1,3
+2014-06-15,Argentina,Bosnia and Herzegovina,2,1
+2014-06-15,France,Honduras,3,0
+2014-06-15,Switzerland,Ecuador,2,1
+2014-06-16,Ghana,United States,1,2
+2014-06-16,Iran,Nigeria,0,0
+2014-06-16,Germany,Portugal,4,0
+2014-06-17,Belgium,Algeria,2,1
+2014-06-17,Brazil,Mexico,0,0
+2014-06-17,Russia,South Korea,1,1
+2014-06-18,Australia,Netherlands,2,3
+2014-06-18,Cameroon,Croatia,0,4
+2014-06-18,Spain,Chile,0,2
+2014-06-19,Colombia,Ivory Coast,2,1
+2014-06-19,Japan,Greece,0,0
+2014-06-19,Uruguay,England,2,1
+2014-06-20,Switzerland,France,2,5
+2014-06-20,Honduras,Ecuador,1,2
+2014-06-20,Italy,Costa Rica,0,1
+2014-06-21,Nigeria,Bosnia and Herzegovina,1,0
+2014-06-21,Germany,Ghana,2,2
+2014-06-21,Argentina,Iran,1,0
+2014-06-22,Belgium,Russia,1,0
+2014-06-22,South Korea,Algeria,2,4
+2014-06-22,United States,Portugal,2,2
+2014-06-23,Australia,Spain,0,3
+2014-06-23,Brazil,Cameroon,4,1
+2014-06-23,Croatia,Mexico,1,3
+2014-06-23,Netherlands,Chile,2,0
+2014-06-24,Costa Rica,England,0,0
+2014-06-24,Greece,Ivory Coast,2,1
+2014-06-24,Italy,Uruguay,0,1
+2014-06-24,Japan,Colombia,1,4
+2014-06-25,Nigeria,Argentina,2,3
+2014-06-25,Honduras,Switzerland,0,3
+2014-06-25,Ecuador,France,0,0
+2014-06-25,Bosnia and Herzegovina,Iran,3,1
+2014-06-26,Algeria,Russia,1,1
+2014-06-26,South Korea,Belgium,0,1
+2014-06-26,Portugal,Ghana,2,1
+2014-06-26,United States,Germany,0,1
+2014-06-28,Brazil,Chile,1,1
+2014-06-28,Colombia,Uruguay,2,0
+2014-06-29,Costa Rica,Greece,1,1
+2014-06-29,Netherlands,Mexico,2,1
+2014-06-30,France,Nigeria,2,0
+2014-06-30,Germany,Algeria,2,1
+2014-07-01,Argentina,Switzerland,1,0
+2014-07-01,Belgium,United States,2,1
+2014-07-04,France,Germany,0,1
+2014-07-04,Brazil,Colombia,2,1
+2014-07-05,Argentina,Belgium,1,0
+2014-07-05,Netherlands,Costa Rica,0,0
+2014-07-08,Brazil,Germany,1,7
+2014-07-09,Netherlands,Argentina,0,0
+2014-07-12,Brazil,Netherlands,0,3
+2014-07-13,Germany,Argentina,1,0
+2015-03-12,Cambodia,Macau,3,0
+2015-03-12,Timor-Leste,Mongolia,0,3
+2015-03-12,India,Nepal,2,0
+2015-03-12,Sri Lanka,Bhutan,0,1
+2015-03-12,Yemen,Pakistan,3,1
+2015-03-12,Taiwan,Brunei,0,1
+2015-03-17,Nepal,India,0,0
+2015-03-17,Mongolia,Timor-Leste,3,0
+2015-03-17,Brunei,Taiwan,0,2
+2015-03-17,Bhutan,Sri Lanka,2,1
+2015-03-17,Macau,Cambodia,1,1
+2015-03-22,Barbados,United States Virgin Islands,0,1
+2015-03-23,Pakistan,Yemen,0,0
+2015-03-23,Nicaragua,Anguilla,5,0
+2015-03-23,Saint Kitts and Nevis,Turks and Caicos Islands,6,2
+2015-03-25,Bahamas,Bermuda,0,5
+2015-03-26,United States Virgin Islands,Barbados,0,4
+2015-03-26,Dominica,British Virgin Islands,3,2
+2015-03-26,Turks and Caicos Islands,Saint Kitts and Nevis,2,6
+2015-03-27,Curaçao,Montserrat,2,1
+2015-03-29,Cayman Islands,Belize,1,1
+2015-03-29,Dominica,British Virgin Islands,0,0
+2015-03-29,Bermuda,Bahamas,3,0
+2015-03-29,Anguilla,Nicaragua,0,3
+2015-03-31,Montserrat,Curaçao,2,2
+2015-05-24,Thailand,Vietnam,1,0
+2015-06-07,Nicaragua,Suriname,1,0
+2015-06-10,Curaçao,Cuba,0,0
+2015-06-10,Antigua and Barbuda,Saint Lucia,1,3
+2015-06-10,Aruba,Barbados,0,2
+2015-06-10,Saint Vincent and the Grenadines,Guyana,2,2
+2015-06-11,Saint Kitts and Nevis,El Salvador,2,2
+2015-06-11,Dominica,Canada,0,2
+2015-06-11,Yemen,North Korea,0,3
+2015-06-11,Tajikistan,Jordan,1,3
+2015-06-11,Saudi Arabia,Palestine,3,2
+2015-06-11,Philippines,Bahrain,2,1
+2015-06-11,Maldives,Qatar,0,1
+2015-06-11,Malaysia,Timor-Leste,3,0
+2015-06-11,Hong Kong,Bhutan,7,0
+2015-06-11,Laos,Myanmar,2,2
+2015-06-11,India,Oman,1,2
+2015-06-11,Guam,Turkmenistan,1,0
+2015-06-11,Dominican Republic,Belize,1,2
+2015-06-11,Cambodia,Singapore,0,4
+2015-06-11,Bangladesh,Kyrgyzstan,1,3
+2015-06-11,Afghanistan,Syria,0,6
+2015-06-11,Lebanon,Kuwait,0,1
+2015-06-12,Puerto Rico,Grenada,1,0
+2015-06-12,Guatemala,Bermuda,0,0
+2015-06-14,Guyana,Saint Vincent and the Grenadines,4,4
+2015-06-14,Belize,Dominican Republic,3,0
+2015-06-14,Antigua and Barbuda,Saint Lucia,4,1
+2015-06-14,Barbados,Aruba,0,3
+2015-06-14,Cuba,Curaçao,1,1
+2015-06-15,Bermuda,Guatemala,0,1
+2015-06-16,Taiwan,Thailand,0,2
+2015-06-16,El Salvador,Saint Kitts and Nevis,4,1
+2015-06-16,Canada,Dominica,4,0
+2015-06-16,Yemen,Philippines,0,2
+2015-06-16,Suriname,Nicaragua,1,3
+2015-06-16,Malaysia,Palestine,0,6
+2015-06-16,Laos,Lebanon,0,2
+2015-06-16,Kyrgyzstan,Australia,1,2
+2015-06-16,North Korea,Uzbekistan,4,2
+2015-06-16,Turkmenistan,Iran,1,1
+2015-06-16,Hong Kong,Maldives,2,0
+2015-06-16,Guam,India,2,1
+2015-06-16,Grenada,Puerto Rico,2,0
+2015-06-16,Timor-Leste,United Arab Emirates,0,3
+2015-06-16,Cambodia,Afghanistan,0,1
+2015-06-16,Myanmar,South Korea,0,2
+2015-06-16,Bhutan,China PR,0,6
+2015-06-16,Bangladesh,Tajikistan,1,1
+2015-06-16,Japan,Singapore,0,0
+2015-08-31,Tonga,Cook Islands,0,3
+2015-08-31,Samoa,American Samoa,3,2
+2015-09-02,Cook Islands,Samoa,1,0
+2015-09-02,Tonga,American Samoa,1,2
+2015-09-03,Uzbekistan,Yemen,1,0
+2015-09-03,United Arab Emirates,Malaysia,10,0
+2015-09-03,Syria,Singapore,1,0
+2015-09-03,Saudi Arabia,Timor-Leste,7,0
+2015-09-03,Qatar,Bhutan,15,0
+2015-09-03,Oman,Turkmenistan,3,1
+2015-09-03,Kuwait,Myanmar,9,0
+2015-09-03,Iraq,Taiwan,5,1
+2015-09-03,Jordan,Kyrgyzstan,0,0
+2015-09-03,South Korea,Laos,8,0
+2015-09-03,Australia,Bangladesh,5,0
+2015-09-03,Bahrain,North Korea,0,1
+2015-09-03,Iran,Guam,6,0
+2015-09-03,China PR,Hong Kong,0,0
+2015-09-03,Japan,Cambodia,3,0
+2015-09-04,Saint Vincent and the Grenadines,Aruba,2,0
+2015-09-04,Jamaica,Nicaragua,2,3
+2015-09-04,Antigua and Barbuda,Guatemala,1,0
+2015-09-04,Canada,Belize,3,0
+2015-09-04,Grenada,Haiti,1,3
+2015-09-04,Curaçao,El Salvador,0,1
+2015-09-04,American Samoa,Cook Islands,2,0
+2015-09-04,Tonga,Samoa,0,3
+2015-09-08,Taiwan,Vietnam,1,2
+2015-09-08,Nicaragua,Jamaica,0,2
+2015-09-08,Haiti,Grenada,3,0
+2015-09-08,Guatemala,Antigua and Barbuda,2,0
+2015-09-08,Belize,Canada,1,1
+2015-09-08,Aruba,Saint Vincent and the Grenadines,2,1
+2015-09-08,Yemen,Bahrain,0,4
+2015-09-08,Thailand,Iraq,2,2
+2015-09-08,Tajikistan,Australia,0,3
+2015-09-08,Philippines,Uzbekistan,1,5
+2015-09-08,Palestine,United Arab Emirates,0,0
+2015-09-08,Lebanon,South Korea,0,3
+2015-09-08,Laos,Kuwait,0,2
+2015-09-08,India,Iran,0,3
+2015-09-08,Hong Kong,Qatar,2,3
+2015-09-08,Guam,Oman,0,0
+2015-09-08,El Salvador,Curaçao,1,0
+2015-09-08,China PR,Maldives,3,0
+2015-09-08,Cambodia,Syria,0,6
+2015-09-08,Bangladesh,Jordan,0,4
+2015-09-08,Afghanistan,Japan,0,6
+2015-09-08,Malaysia,Saudi Arabia,0,3
+2015-10-07,Tanzania,Malawi,2,0
+2015-10-07,South Sudan,Mauritania,1,1
+2015-10-07,Mauritius,Kenya,2,5
+2015-10-07,Comoros,Lesotho,0,0
+2015-10-07,Seychelles,Burundi,0,1
+2015-10-08,Liberia,Guinea-Bissau,1,1
+2015-10-08,Venezuela,Paraguay,0,1
+2015-10-08,Turkmenistan,India,2,1
+2015-10-08,Syria,Japan,0,3
+2015-10-08,Singapore,Afghanistan,1,0
+2015-10-08,Saudi Arabia,United Arab Emirates,2,1
+2015-10-08,São Tomé and Príncipe,Ethiopia,1,0
+2015-10-08,Vietnam,Iraq,1,1
+2015-10-08,Oman,Iran,1,1
+2015-10-08,Kyrgyzstan,Tajikistan,2,2
+2015-10-08,Qatar,China PR,1,0
+2015-10-08,North Korea,Philippines,0,0
+2015-10-08,Jordan,Australia,2,0
+2015-10-08,Timor-Leste,Palestine,0,3
+2015-10-08,Colombia,Peru,2,0
+2015-10-08,Chile,Brazil,2,0
+2015-10-08,Myanmar,Lebanon,0,2
+2015-10-08,Bolivia,Uruguay,0,2
+2015-10-08,Bhutan,Maldives,3,4
+2015-10-08,Bahrain,Uzbekistan,0,4
+2015-10-08,Argentina,Ecuador,0,2
+2015-10-08,Kuwait,South Korea,0,1
+2015-10-09,Djibouti,Eswatini,0,6
+2015-10-09,Gambia,Namibia,1,1
+2015-10-09,Somalia,Niger,0,2
+2015-10-10,Eritrea,Botswana,0,2
+2015-10-10,Madagascar,Central African Republic,3,0
+2015-10-10,Chad,Sierra Leone,1,0
+2015-10-11,Ethiopia,São Tomé and Príncipe,3,0
+2015-10-11,Kenya,Mauritius,0,0
+2015-10-11,Malawi,Tanzania,1,0
+2015-10-13,Mauritania,South Sudan,4,0
+2015-10-13,Namibia,Gambia,2,1
+2015-10-13,Niger,Somalia,4,0
+2015-10-13,Oman,India,3,0
+2015-10-13,Paraguay,Argentina,0,0
+2015-10-13,Peru,Chile,3,4
+2015-10-13,Singapore,Cambodia,2,1
+2015-10-13,Sierra Leone,Chad,2,1
+2015-10-13,Syria,Afghanistan,5,2
+2015-10-13,Turkmenistan,Guam,1,0
+2015-10-13,Uruguay,Colombia,3,0
+2015-10-13,Vietnam,Thailand,0,3
+2015-10-13,Qatar,Maldives,4,0
+2015-10-13,Madagascar,Central African Republic,2,2
+2015-10-13,Guinea-Bissau,Liberia,1,3
+2015-10-13,Kyrgyzstan,Bangladesh,2,0
+2015-10-13,Bahrain,Philippines,2,0
+2015-10-13,Bhutan,Hong Kong,0,1
+2015-10-13,Botswana,Eritrea,3,1
+2015-10-13,Brazil,Venezuela,3,1
+2015-10-13,Myanmar,Laos,3,1
+2015-10-13,Burundi,Seychelles,2,0
+2015-10-13,Lesotho,Comoros,1,1
+2015-10-13,Ecuador,Bolivia,2,0
+2015-10-13,Timor-Leste,Malaysia,0,3
+2015-10-13,Jordan,Tajikistan,3,0
+2015-10-13,North Korea,Yemen,1,0
+2015-10-13,Kuwait,Lebanon,0,0
+2015-10-17,Eswatini,Djibouti,2,1
+2015-11-09,Palestine,Saudi Arabia,0,0
+2015-11-11,Mozambique,Gabon,1,0
+2015-11-11,Sudan,Zambia,0,1
+2015-11-12,Namibia,Guinea,0,1
+2015-11-12,Palestine,Malaysia,6,0
+2015-11-12,Philippines,Yemen,0,1
+2015-11-12,Singapore,Japan,0,3
+2015-11-12,Uzbekistan,North Korea,3,1
+2015-11-12,Thailand,Taiwan,4,2
+2015-11-12,Togo,Uganda,0,1
+2015-11-12,United Arab Emirates,Timor-Leste,8,0
+2015-11-12,Morocco,Equatorial Guinea,2,0
+2015-11-12,Tajikistan,Bangladesh,5,0
+2015-11-12,Maldives,Hong Kong,0,1
+2015-11-12,South Korea,Myanmar,4,0
+2015-11-12,Australia,Kyrgyzstan,3,0
+2015-11-12,Iran,Turkmenistan,3,1
+2015-11-12,India,Guam,1,0
+2015-11-12,Ecuador,Uruguay,2,1
+2015-11-12,China PR,Bhutan,12,0
+2015-11-12,Chile,Colombia,1,1
+2015-11-12,Burundi,DR Congo,2,3
+2015-11-12,Bolivia,Venezuela,4,2
+2015-11-12,Benin,Burkina Faso,2,1
+2015-11-12,Lebanon,Laos,7,0
+2015-11-12,Afghanistan,Cambodia,3,0
+2015-11-13,Peru,Paraguay,1,0
+2015-11-13,Eswatini,Nigeria,0,0
+2015-11-13,Canada,Honduras,1,0
+2015-11-13,Niger,Cameroon,0,3
+2015-11-13,Jamaica,Panama,0,2
+2015-11-13,Mexico,El Salvador,3,0
+2015-11-13,Guatemala,Trinidad and Tobago,1,2
+2015-11-13,Mauritania,Tunisia,1,2
+2015-11-13,United States,Saint Vincent and the Grenadines,6,1
+2015-11-13,Libya,Rwanda,1,0
+2015-11-13,Liberia,Ivory Coast,0,1
+2015-11-13,Kenya,Cape Verde,1,0
+2015-11-13,Costa Rica,Haiti,1,0
+2015-11-13,Comoros,Ghana,0,0
+2015-11-13,Argentina,Brazil,1,1
+2015-11-13,Angola,South Africa,1,3
+2015-11-13,Madagascar,Senegal,2,2
+2015-11-14,Tanzania,Algeria,2,2
+2015-11-14,Ethiopia,Congo,3,4
+2015-11-14,Gabon,Mozambique,1,0
+2015-11-14,Chad,Egypt,1,0
+2015-11-14,Botswana,Mali,2,1
+2015-11-15,DR Congo,Burundi,3,0
+2015-11-15,Equatorial Guinea,Morocco,1,0
+2015-11-15,Guinea,Namibia,2,0
+2015-11-15,Uganda,Togo,3,0
+2015-11-15,Zambia,Sudan,2,0
+2015-11-17,Malaysia,United Arab Emirates,1,2
+2015-11-17,Mali,Botswana,2,0
+2015-11-17,Nigeria,Eswatini,2,0
+2015-11-17,Paraguay,Bolivia,2,1
+2015-11-17,Rwanda,Libya,1,3
+2015-11-17,Senegal,Madagascar,3,0
+2015-11-17,Singapore,Syria,1,2
+2015-11-17,South Africa,Angola,1,0
+2015-11-17,Kyrgyzstan,Jordan,1,0
+2015-11-17,Turkmenistan,Oman,2,1
+2015-11-17,Uruguay,Chile,3,0
+2015-11-17,Laos,South Korea,0,5
+2015-11-17,Yemen,Uzbekistan,1,3
+2015-11-17,Haiti,Jamaica,0,1
+2015-11-17,Panama,Costa Rica,1,2
+2015-11-17,Saint Vincent and the Grenadines,Guatemala,0,4
+2015-11-17,Taiwan,Iraq,0,2
+2015-11-17,Tunisia,Mauritania,2,1
+2015-11-17,Venezuela,Ecuador,1,3
+2015-11-17,Guam,Iran,0,6
+2015-11-17,Ivory Coast,Liberia,3,0
+2015-11-17,Algeria,Tanzania,7,0
+2015-11-17,Bangladesh,Australia,0,4
+2015-11-17,Bhutan,Qatar,0,3
+2015-11-17,Brazil,Peru,3,0
+2015-11-17,North Korea,Bahrain,2,0
+2015-11-17,Myanmar,Kuwait,3,0
+2015-11-17,Cambodia,Japan,0,2
+2015-11-17,Cameroon,Niger,0,0
+2015-11-17,Burkina Faso,Benin,2,0
+2015-11-17,Colombia,Argentina,0,1
+2015-11-17,Congo,Ethiopia,2,1
+2015-11-17,Timor-Leste,Saudi Arabia,0,10
+2015-11-17,Egypt,Chad,4,0
+2015-11-17,Ghana,Comoros,2,0
+2015-11-17,Honduras,Mexico,0,2
+2015-11-17,Hong Kong,China PR,0,0
+2015-11-17,Cape Verde,Kenya,2,0
+2016-03-24,Oman,Guam,1,0
+2016-03-24,Peru,Venezuela,2,2
+2016-03-24,Qatar,Hong Kong,2,0
+2016-03-24,Uzbekistan,Philippines,1,0
+2016-03-24,Syria,Cambodia,6,0
+2016-03-24,United Arab Emirates,Palestine,2,0
+2016-03-24,South Korea,Lebanon,1,0
+2016-03-24,Saudi Arabia,Malaysia,2,0
+2016-03-24,Vietnam,Taiwan,4,1
+2016-03-24,Japan,Afghanistan,5,0
+2016-03-24,Iraq,Thailand,2,2
+2016-03-24,Australia,Tajikistan,7,0
+2016-03-24,Bahrain,Yemen,3,0
+2016-03-24,Bolivia,Colombia,2,3
+2016-03-24,Jordan,Bangladesh,8,0
+2016-03-24,China PR,Maldives,4,0
+2016-03-24,Ecuador,Paraguay,2,2
+2016-03-24,Iran,India,4,0
+2016-03-24,Chile,Argentina,1,2
+2016-03-25,Brazil,Uruguay,2,2
+2016-03-25,Canada,Mexico,0,3
+2016-03-25,El Salvador,Honduras,2,2
+2016-03-25,Guatemala,United States,2,0
+2016-03-25,Haiti,Panama,0,0
+2016-03-25,Jamaica,Costa Rica,1,1
+2016-03-25,Saint Vincent and the Grenadines,Trinidad and Tobago,2,3
+2016-03-29,Palestine,Timor-Leste,7,0
+2016-03-29,Panama,Haiti,1,0
+2016-03-29,Paraguay,Brazil,2,2
+2016-03-29,Philippines,North Korea,3,2
+2016-03-29,Tajikistan,Kyrgyzstan,0,1
+2016-03-29,Venezuela,Chile,1,4
+2016-03-29,Uruguay,Peru,1,0
+2016-03-29,United States,Guatemala,4,0
+2016-03-29,Uzbekistan,Bahrain,1,0
+2016-03-29,Trinidad and Tobago,Saint Vincent and the Grenadines,6,0
+2016-03-29,United Arab Emirates,Saudi Arabia,1,1
+2016-03-29,Maldives,Bhutan,4,2
+2016-03-29,Mexico,Canada,2,0
+2016-03-29,Japan,Syria,5,0
+2016-03-29,Lebanon,Myanmar,1,1
+2016-03-29,Afghanistan,Singapore,2,1
+2016-03-29,Argentina,Bolivia,2,0
+2016-03-29,China PR,Qatar,2,0
+2016-03-29,Colombia,Ecuador,3,1
+2016-03-29,Australia,Jordan,5,1
+2016-03-29,Honduras,El Salvador,2,0
+2016-03-29,India,Turkmenistan,1,2
+2016-03-29,Iran,Oman,2,0
+2016-03-29,Iraq,Vietnam,1,0
+2016-03-29,Costa Rica,Jamaica,3,0
+2016-09-01,South Korea,China PR,3,2
+2016-09-01,Uzbekistan,Syria,1,0
+2016-09-01,Saudi Arabia,Thailand,1,0
+2016-09-01,Paraguay,Chile,2,1
+2016-09-01,Japan,United Arab Emirates,1,2
+2016-09-01,Argentina,Uruguay,1,0
+2016-09-01,Ecuador,Brazil,0,3
+2016-09-01,Colombia,Venezuela,2,0
+2016-09-01,Bolivia,Peru,0,3
+2016-09-01,Australia,Iraq,2,0
+2016-09-01,Iran,Qatar,2,0
+2016-09-02,Trinidad and Tobago,Guatemala,2,2
+2016-09-02,Saint Vincent and the Grenadines,United States,0,6
+2016-09-02,Panama,Jamaica,2,0
+2016-09-02,Haiti,Costa Rica,0,1
+2016-09-02,El Salvador,Mexico,1,3
+2016-09-02,Honduras,Canada,2,1
+2016-09-04,Czech Republic,Northern Ireland,0,0
+2016-09-04,Denmark,Armenia,1,0
+2016-09-04,Kazakhstan,Poland,2,2
+2016-09-04,Lithuania,Slovenia,2,2
+2016-09-04,Malta,Scotland,1,5
+2016-09-04,Norway,Germany,0,3
+2016-09-04,Romania,Montenegro,1,1
+2016-09-04,San Marino,Azerbaijan,0,1
+2016-09-04,Slovakia,England,0,1
+2016-09-05,Wales,Moldova,4,0
+2016-09-05,Ukraine,Iceland,1,1
+2016-09-05,Spain,Liechtenstein,8,0
+2016-09-05,Serbia,Republic of Ireland,2,2
+2016-09-05,Israel,Italy,1,3
+2016-09-05,Georgia,Austria,1,2
+2016-09-05,Finland,Kosovo,1,1
+2016-09-05,Croatia,Turkey,1,1
+2016-09-05,Albania,North Macedonia,2,1
+2016-09-06,Peru,Ecuador,2,1
+2016-09-06,Qatar,Uzbekistan,0,1
+2016-09-06,Sweden,Netherlands,1,1
+2016-09-06,Guatemala,Saint Vincent and the Grenadines,9,3
+2016-09-06,Switzerland,Portugal,2,0
+2016-09-06,Thailand,Japan,0,2
+2016-09-06,Mexico,Honduras,0,0
+2016-09-06,United Arab Emirates,Australia,0,1
+2016-09-06,Uruguay,Paraguay,4,0
+2016-09-06,United States,Trinidad and Tobago,4,0
+2016-09-06,Venezuela,Argentina,2,2
+2016-09-06,Syria,South Korea,0,0
+2016-09-06,Jamaica,Haiti,0,2
+2016-09-06,China PR,Iran,0,0
+2016-09-06,Gibraltar,Greece,1,4
+2016-09-06,Iraq,Saudi Arabia,1,2
+2016-09-06,Belarus,France,0,0
+2016-09-06,Bosnia and Herzegovina,Estonia,5,0
+2016-09-06,Brazil,Colombia,2,1
+2016-09-06,Bulgaria,Luxembourg,4,3
+2016-09-06,Andorra,Latvia,0,1
+2016-09-06,Chile,Bolivia,3,0
+2016-09-06,Costa Rica,Panama,3,1
+2016-09-06,Cyprus,Belgium,0,3
+2016-09-06,Faroe Islands,Hungary,0,0
+2016-09-06,Canada,El Salvador,3,1
+2016-10-06,North Macedonia,Israel,1,2
+2016-10-06,Uzbekistan,Iran,0,1
+2016-10-06,Uruguay,Venezuela,3,0
+2016-10-06,United Arab Emirates,Thailand,3,1
+2016-10-06,Turkey,Ukraine,2,2
+2016-10-06,Saudi Arabia,Australia,2,2
+2016-10-06,Peru,Argentina,2,2
+2016-10-06,Paraguay,Colombia,0,1
+2016-10-06,Moldova,Serbia,0,3
+2016-10-06,Liechtenstein,Albania,0,2
+2016-10-06,Brazil,Bolivia,5,0
+2016-10-06,South Korea,Qatar,3,2
+2016-10-06,Japan,Iraq,2,1
+2016-10-06,Italy,Spain,1,1
+2016-10-06,Republic of Ireland,Georgia,1,0
+2016-10-06,Iceland,Finland,3,2
+2016-10-06,Ecuador,Chile,3,0
+2016-10-06,China PR,Syria,0,1
+2016-10-06,Kosovo,Croatia,0,6
+2016-10-06,Austria,Wales,2,2
+2016-10-07,Portugal,Andorra,6,0
+2016-10-07,Netherlands,Belarus,4,1
+2016-10-07,Luxembourg,Sweden,0,1
+2016-10-07,Latvia,Faroe Islands,0,2
+2016-10-07,Hungary,Switzerland,2,3
+2016-10-07,Ghana,Uganda,0,0
+2016-10-07,France,Bulgaria,4,1
+2016-10-07,Estonia,Gibraltar,4,0
+2016-10-07,Belgium,Bosnia and Herzegovina,4,0
+2016-10-07,Greece,Cyprus,2,0
+2016-10-08,Montenegro,Kazakhstan,5,0
+2016-10-08,Senegal,Cape Verde,2,0
+2016-10-08,Scotland,Lithuania,1,1
+2016-10-08,Poland,Denmark,3,2
+2016-10-08,Northern Ireland,San Marino,4,0
+2016-10-08,Ivory Coast,Mali,3,1
+2016-10-08,Slovenia,Slovakia,1,0
+2016-10-08,Gabon,Morocco,0,0
+2016-10-08,England,Malta,2,0
+2016-10-08,DR Congo,Libya,4,0
+2016-10-08,Burkina Faso,South Africa,1,1
+2016-10-08,Azerbaijan,Norway,1,0
+2016-10-08,Armenia,Romania,0,5
+2016-10-08,Germany,Czech Republic,3,0
+2016-10-09,Wales,Georgia,1,1
+2016-10-09,Ukraine,Kosovo,3,0
+2016-10-09,Tunisia,Guinea,2,0
+2016-10-09,Serbia,Austria,3,2
+2016-10-09,Moldova,Republic of Ireland,1,3
+2016-10-09,North Macedonia,Italy,2,3
+2016-10-09,Zambia,Nigeria,1,2
+2016-10-09,Iceland,Turkey,2,0
+2016-10-09,Finland,Croatia,0,1
+2016-10-09,Congo,Egypt,1,2
+2016-10-09,Algeria,Cameroon,1,1
+2016-10-09,Albania,Spain,0,2
+2016-10-09,Israel,Liechtenstein,2,1
+2016-10-10,Sweden,Bulgaria,3,0
+2016-10-10,Netherlands,France,0,1
+2016-10-10,Gibraltar,Belgium,0,6
+2016-10-10,Faroe Islands,Portugal,0,6
+2016-10-10,Latvia,Hungary,0,2
+2016-10-10,Bosnia and Herzegovina,Cyprus,2,0
+2016-10-10,Belarus,Luxembourg,1,1
+2016-10-10,Andorra,Switzerland,1,2
+2016-10-10,Estonia,Greece,0,2
+2016-10-11,Lithuania,Malta,2,0
+2016-10-11,Venezuela,Brazil,0,2
+2016-10-11,Uzbekistan,China PR,2,0
+2016-10-11,Slovenia,England,0,0
+2016-10-11,Slovakia,Scotland,3,0
+2016-10-11,Saudi Arabia,United Arab Emirates,3,0
+2016-10-11,Qatar,Syria,1,0
+2016-10-11,Poland,Armenia,2,1
+2016-10-11,Norway,San Marino,4,1
+2016-10-11,Kazakhstan,Romania,0,0
+2016-10-11,Bolivia,Ecuador,2,2
+2016-10-11,Iran,South Korea,1,0
+2016-10-11,Germany,Northern Ireland,2,0
+2016-10-11,Denmark,Montenegro,0,1
+2016-10-11,Czech Republic,Azerbaijan,0,0
+2016-10-11,Colombia,Uruguay,2,2
+2016-10-11,Chile,Peru,2,1
+2016-10-11,Iraq,Thailand,4,0
+2016-10-11,Australia,Japan,1,1
+2016-10-11,Argentina,Paraguay,0,1
+2016-11-07,Tahiti,Solomon Islands,3,0
+2016-11-10,Venezuela,Bolivia,5,0
+2016-11-10,Uruguay,Ecuador,2,1
+2016-11-10,Brazil,Argentina,3,0
+2016-11-10,Colombia,Chile,0,0
+2016-11-10,Paraguay,Peru,1,4
+2016-11-11,Northern Ireland,Azerbaijan,4,0
+2016-11-11,Trinidad and Tobago,Costa Rica,0,2
+2016-11-11,Slovakia,Lithuania,4,0
+2016-11-11,San Marino,Germany,0,8
+2016-11-11,United States,Mexico,1,2
+2016-11-11,Malta,Slovenia,0,1
+2016-11-11,Romania,Poland,0,3
+2016-11-11,Honduras,Panama,0,1
+2016-11-11,France,Sweden,2,1
+2016-11-11,England,Scotland,3,0
+2016-11-11,Denmark,Kazakhstan,4,1
+2016-11-11,Czech Republic,Norway,2,1
+2016-11-11,Armenia,Montenegro,3,2
+2016-11-11,Libya,Tunisia,0,1
+2016-11-12,Wales,Serbia,1,1
+2016-11-12,Ukraine,Finland,1,0
+2016-11-12,Uganda,Congo,1,0
+2016-11-12,Turkey,Kosovo,2,0
+2016-11-12,Spain,North Macedonia,4,0
+2016-11-12,Nigeria,Algeria,3,1
+2016-11-12,New Zealand,New Caledonia,2,0
+2016-11-12,Morocco,Ivory Coast,0,0
+2016-11-12,Liechtenstein,Italy,0,4
+2016-11-12,Georgia,Moldova,1,1
+2016-11-12,Croatia,Iceland,2,0
+2016-11-12,Cape Verde,Burkina Faso,0,2
+2016-11-12,Cameroon,Zambia,1,1
+2016-11-12,Austria,Republic of Ireland,0,1
+2016-11-12,Albania,Israel,0,3
+2016-11-12,Mali,Gabon,0,0
+2016-11-13,Luxembourg,Netherlands,1,3
+2016-11-13,Solomon Islands,Tahiti,1,0
+2016-11-13,Switzerland,Faroe Islands,2,0
+2016-11-13,Portugal,Latvia,4,1
+2016-11-13,Hungary,Andorra,4,0
+2016-11-13,Bulgaria,Belarus,1,0
+2016-11-13,Greece,Bosnia and Herzegovina,1,1
+2016-11-13,Egypt,Ghana,2,0
+2016-11-13,Cyprus,Gibraltar,3,1
+2016-11-13,Belgium,Estonia,8,1
+2016-11-13,Guinea,DR Congo,1,2
+2016-11-15,United Arab Emirates,Iraq,2,0
+2016-11-15,Thailand,Australia,2,2
+2016-11-15,Syria,Iran,0,0
+2016-11-15,Peru,Brazil,0,2
+2016-11-15,Panama,Mexico,0,0
+2016-11-15,New Caledonia,New Zealand,0,0
+2016-11-15,South Korea,Uzbekistan,2,1
+2016-11-15,Japan,Saudi Arabia,2,1
+2016-11-15,Honduras,Trinidad and Tobago,3,1
+2016-11-15,Ecuador,Venezuela,3,0
+2016-11-15,Costa Rica,United States,4,0
+2016-11-15,China PR,Qatar,0,0
+2016-11-15,Chile,Uruguay,3,1
+2016-11-15,Bolivia,Paraguay,1,0
+2016-11-15,Argentina,Colombia,3,0
+2017-03-23,Venezuela,Peru,2,2
+2017-03-23,Uruguay,Brazil,1,4
+2017-03-23,United Arab Emirates,Japan,0,2
+2017-03-23,Thailand,Saudi Arabia,0,3
+2017-03-23,Syria,Uzbekistan,1,0
+2017-03-23,Qatar,Iran,0,1
+2017-03-23,Iraq,Australia,1,1
+2017-03-23,Papua New Guinea,Tahiti,1,3
+2017-03-23,Colombia,Bolivia,1,0
+2017-03-23,China PR,South Korea,1,0
+2017-03-23,Argentina,Chile,1,0
+2017-03-23,Paraguay,Ecuador,2,1
+2017-03-24,United States,Honduras,6,0
+2017-03-24,Turkey,Finland,2,0
+2017-03-24,Trinidad and Tobago,Panama,1,0
+2017-03-24,Spain,Israel,4,1
+2017-03-24,Mexico,Costa Rica,2,0
+2017-03-24,Liechtenstein,North Macedonia,0,3
+2017-03-24,Kosovo,Iceland,1,2
+2017-03-24,Republic of Ireland,Wales,0,0
+2017-03-24,Georgia,Serbia,1,3
+2017-03-24,Croatia,Ukraine,1,0
+2017-03-24,Austria,Moldova,2,0
+2017-03-24,Italy,Albania,2,0
+2017-03-25,Luxembourg,France,1,3
+2017-03-25,Sweden,Belarus,4,0
+2017-03-25,Portugal,Hungary,3,0
+2017-03-25,Fiji,New Zealand,0,2
+2017-03-25,Switzerland,Latvia,1,0
+2017-03-25,Bulgaria,Netherlands,2,0
+2017-03-25,Bosnia and Herzegovina,Gibraltar,5,0
+2017-03-25,Belgium,Greece,1,1
+2017-03-25,Andorra,Faroe Islands,0,0
+2017-03-25,Cyprus,Estonia,0,0
+2017-03-26,Scotland,Slovenia,1,0
+2017-03-26,San Marino,Czech Republic,0,6
+2017-03-26,Romania,Denmark,0,0
+2017-03-26,Montenegro,Poland,1,2
+2017-03-26,Northern Ireland,Norway,2,0
+2017-03-26,England,Lithuania,2,0
+2017-03-26,Azerbaijan,Germany,1,4
+2017-03-26,Armenia,Kazakhstan,2,0
+2017-03-26,Malta,Slovakia,1,3
+2017-03-28,New Zealand,Fiji,2,0
+2017-03-28,Uzbekistan,Qatar,1,0
+2017-03-28,Trinidad and Tobago,Mexico,0,1
+2017-03-28,Saudi Arabia,Iraq,1,0
+2017-03-28,Peru,Uruguay,2,1
+2017-03-28,Panama,United States,1,1
+2017-03-28,South Korea,Syria,1,0
+2017-03-28,Tahiti,Papua New Guinea,1,2
+2017-03-28,Iran,China PR,1,0
+2017-03-28,Australia,United Arab Emirates,2,0
+2017-03-28,Bolivia,Argentina,2,0
+2017-03-28,Brazil,Paraguay,3,0
+2017-03-28,Japan,Thailand,4,0
+2017-03-28,Ecuador,Colombia,0,2
+2017-03-28,Honduras,Costa Rica,1,1
+2017-03-28,Chile,Venezuela,3,1
+2017-06-07,Fiji,New Caledonia,2,2
+2017-06-08,Australia,Saudi Arabia,3,2
+2017-06-08,Costa Rica,Panama,0,0
+2017-06-08,Mexico,Honduras,3,0
+2017-06-08,United States,Trinidad and Tobago,2,0
+2017-06-09,Sweden,France,2,1
+2017-06-09,Latvia,Portugal,0,3
+2017-06-09,Solomon Islands,Papua New Guinea,3,2
+2017-06-09,Netherlands,Luxembourg,5,0
+2017-06-09,Gibraltar,Cyprus,1,2
+2017-06-09,Estonia,Belgium,0,2
+2017-06-09,Bosnia and Herzegovina,Greece,0,0
+2017-06-09,Belarus,Bulgaria,2,1
+2017-06-09,Andorra,Hungary,1,0
+2017-06-09,Faroe Islands,Switzerland,0,2
+2017-06-10,Slovenia,Malta,2,0
+2017-06-10,Scotland,England,2,2
+2017-06-10,Poland,Romania,3,1
+2017-06-10,Norway,Czech Republic,1,1
+2017-06-10,Montenegro,Armenia,4,1
+2017-06-10,Kazakhstan,Denmark,1,3
+2017-06-10,Germany,San Marino,7,0
+2017-06-10,Azerbaijan,Northern Ireland,0,1
+2017-06-10,Lithuania,Slovakia,1,2
+2017-06-11,Serbia,Wales,1,1
+2017-06-11,New Caledonia,Fiji,2,1
+2017-06-11,Moldova,Georgia,2,2
+2017-06-11,Mexico,United States,1,1
+2017-06-11,North Macedonia,Spain,1,2
+2017-06-11,Israel,Albania,0,3
+2017-06-11,Italy,Liechtenstein,5,0
+2017-06-11,Republic of Ireland,Austria,1,1
+2017-06-11,Iceland,Croatia,1,0
+2017-06-11,Finland,Ukraine,1,2
+2017-06-11,Kosovo,Turkey,1,4
+2017-06-12,Iran,Uzbekistan,2,0
+2017-06-13,Thailand,United Arab Emirates,1,1
+2017-06-13,Qatar,South Korea,3,2
+2017-06-13,Papua New Guinea,Solomon Islands,1,2
+2017-06-13,Syria,China PR,2,2
+2017-06-13,Iraq,Japan,1,1
+2017-06-13,Costa Rica,Trinidad and Tobago,2,1
+2017-06-13,Panama,Honduras,2,2
+2017-08-29,United Arab Emirates,Saudi Arabia,2,1
+2017-08-31,Luxembourg,Belarus,1,0
+2017-08-31,Venezuela,Colombia,0,0
+2017-08-31,Uruguay,Argentina,0,0
+2017-08-31,Uganda,Egypt,1,0
+2017-08-31,Thailand,Iraq,1,2
+2017-08-31,Syria,Qatar,3,1
+2017-08-31,Switzerland,Andorra,3,0
+2017-08-31,Portugal,Faroe Islands,5,1
+2017-08-31,Peru,Bolivia,2,1
+2017-08-31,South Korea,Iran,0,0
+2017-08-31,Greece,Estonia,0,0
+2017-08-31,Hungary,Latvia,3,1
+2017-08-31,Belgium,Gibraltar,9,0
+2017-08-31,Japan,Australia,2,0
+2017-08-31,Bulgaria,Sweden,3,2
+2017-08-31,Chile,Paraguay,0,3
+2017-08-31,Brazil,Ecuador,2,0
+2017-08-31,Cyprus,Bosnia and Herzegovina,3,2
+2017-08-31,France,Netherlands,4,0
+2017-08-31,Guinea,Libya,3,2
+2017-08-31,China PR,Uzbekistan,1,0
+2017-09-01,Nigeria,Cameroon,4,0
+2017-09-01,United States,Costa Rica,0,2
+2017-09-01,Tunisia,DR Congo,2,1
+2017-09-01,Trinidad and Tobago,Honduras,1,2
+2017-09-01,San Marino,Northern Ireland,0,3
+2017-09-01,Romania,Armenia,1,0
+2017-09-01,Norway,Azerbaijan,2,0
+2017-09-01,New Zealand,Solomon Islands,6,1
+2017-09-01,Slovakia,Slovenia,1,0
+2017-09-01,Mexico,Panama,1,0
+2017-09-01,Malta,England,0,4
+2017-09-01,Lithuania,Scotland,0,3
+2017-09-01,Kazakhstan,Montenegro,0,3
+2017-09-01,Ghana,Congo,1,1
+2017-09-01,Morocco,Mali,6,0
+2017-09-01,Denmark,Poland,4,0
+2017-09-01,Czech Republic,Germany,1,2
+2017-09-01,Cape Verde,South Africa,2,1
+2017-09-02,Zambia,Algeria,3,1
+2017-09-02,Wales,Austria,1,0
+2017-09-02,Ukraine,Turkey,2,0
+2017-09-02,Spain,Italy,3,0
+2017-09-02,Serbia,Moldova,3,0
+2017-09-02,Senegal,Burkina Faso,0,0
+2017-09-02,Gabon,Ivory Coast,0,3
+2017-09-02,Georgia,Republic of Ireland,1,1
+2017-09-02,Finland,Iceland,1,0
+2017-09-02,Croatia,Kosovo,1,0
+2017-09-02,Albania,Liechtenstein,2,0
+2017-09-02,Israel,North Macedonia,0,1
+2017-09-03,Greece,Belgium,1,2
+2017-09-03,Latvia,Switzerland,0,3
+2017-09-03,Netherlands,Bulgaria,3,1
+2017-09-03,Gibraltar,Bosnia and Herzegovina,0,4
+2017-09-03,Hungary,Portugal,0,1
+2017-09-03,Faroe Islands,Andorra,1,0
+2017-09-03,Estonia,Cyprus,1,0
+2017-09-03,Belarus,Sweden,0,4
+2017-09-03,France,Luxembourg,0,0
+2017-09-04,Scotland,Malta,2,0
+2017-09-04,Poland,Kazakhstan,3,0
+2017-09-04,Northern Ireland,Czech Republic,2,0
+2017-09-04,Montenegro,Romania,1,0
+2017-09-04,Libya,Guinea,1,0
+2017-09-04,Slovenia,Lithuania,4,0
+2017-09-04,England,Slovakia,2,1
+2017-09-04,Cameroon,Nigeria,1,1
+2017-09-04,Azerbaijan,San Marino,5,1
+2017-09-04,Armenia,Denmark,1,4
+2017-09-04,Germany,Norway,6,0
+2017-09-05,Ivory Coast,Gabon,1,2
+2017-09-05,Kosovo,Finland,0,1
+2017-09-05,Liechtenstein,Spain,0,8
+2017-09-05,North Macedonia,Albania,1,1
+2017-09-05,Mali,Morocco,0,0
+2017-09-05,Moldova,Wales,0,2
+2017-09-05,Qatar,China PR,1,2
+2017-09-05,Uzbekistan,South Korea,0,0
+2017-09-05,Saudi Arabia,Japan,1,0
+2017-09-05,Solomon Islands,New Zealand,2,2
+2017-09-05,South Africa,Cape Verde,1,2
+2017-09-05,Turkey,Croatia,1,0
+2017-09-05,Italy,Israel,1,0
+2017-09-05,Panama,Trinidad and Tobago,3,0
+2017-09-05,Republic of Ireland,Serbia,0,1
+2017-09-05,Paraguay,Uruguay,1,2
+2017-09-05,Iran,Syria,2,2
+2017-09-05,Iraq,United Arab Emirates,1,0
+2017-09-05,Algeria,Zambia,0,1
+2017-09-05,Argentina,Venezuela,1,1
+2017-09-05,Australia,Thailand,2,1
+2017-09-05,Bolivia,Chile,1,0
+2017-09-05,Burkina Faso,Senegal,2,2
+2017-09-05,Colombia,Brazil,1,1
+2017-09-05,Austria,Georgia,1,1
+2017-09-05,DR Congo,Tunisia,2,2
+2017-09-05,Costa Rica,Mexico,1,1
+2017-09-05,Ecuador,Peru,1,2
+2017-09-05,Egypt,Uganda,1,0
+2017-09-05,Honduras,United States,1,1
+2017-09-05,Iceland,Ukraine,2,0
+2017-09-05,Congo,Ghana,1,5
+2017-10-05,Montenegro,Denmark,0,1
+2017-10-05,Venezuela,Uruguay,0,0
+2017-10-05,Syria,Australia,1,1
+2017-10-05,Scotland,Slovakia,1,0
+2017-10-05,San Marino,Norway,0,8
+2017-10-05,Romania,Kazakhstan,3,1
+2017-10-05,Malta,Lithuania,1,1
+2017-10-05,Northern Ireland,Germany,1,3
+2017-10-05,Colombia,Paraguay,1,2
+2017-10-05,Chile,Ecuador,2,1
+2017-10-05,Bolivia,Brazil,0,0
+2017-10-05,Azerbaijan,Czech Republic,1,2
+2017-10-05,Armenia,Poland,1,6
+2017-10-05,Argentina,Peru,0,0
+2017-10-05,England,Slovenia,1,0
+2017-10-06,United States,Panama,4,0
+2017-10-06,Turkey,Iceland,0,3
+2017-10-06,Spain,Albania,3,0
+2017-10-06,Mexico,Trinidad and Tobago,3,1
+2017-10-06,Mali,Ivory Coast,0,0
+2017-10-06,Liechtenstein,Israel,0,1
+2017-10-06,Italy,North Macedonia,1,1
+2017-10-06,Republic of Ireland,Moldova,2,0
+2017-10-06,Georgia,Wales,0,1
+2017-10-06,Croatia,Finland,1,1
+2017-10-06,Austria,Serbia,3,2
+2017-10-06,Kosovo,Ukraine,0,2
+2017-10-07,Guinea,Tunisia,1,4
+2017-10-07,Switzerland,Hungary,5,2
+2017-10-07,Sweden,Luxembourg,8,0
+2017-10-07,South Africa,Burkina Faso,3,1
+2017-10-07,Nigeria,Zambia,1,0
+2017-10-07,Morocco,Gabon,3,0
+2017-10-07,Libya,DR Congo,1,2
+2017-10-07,Gibraltar,Estonia,0,6
+2017-10-07,Uganda,Ghana,0,0
+2017-10-07,Cyprus,Greece,1,2
+2017-10-07,Costa Rica,Honduras,1,1
+2017-10-07,Cape Verde,Senegal,0,2
+2017-10-07,Cameroon,Algeria,2,0
+2017-10-07,Bulgaria,France,0,1
+2017-10-07,Bosnia and Herzegovina,Belgium,3,4
+2017-10-07,Belarus,Netherlands,1,3
+2017-10-07,Andorra,Portugal,0,2
+2017-10-07,Faroe Islands,Latvia,0,0
+2017-10-08,Slovakia,Malta,3,0
+2017-10-08,Poland,Montenegro,4,2
+2017-10-08,Norway,Northern Ireland,1,0
+2017-10-08,Lithuania,England,0,1
+2017-10-08,Slovenia,Scotland,2,2
+2017-10-08,Germany,Azerbaijan,5,1
+2017-10-08,Egypt,Congo,2,1
+2017-10-08,Denmark,Romania,1,1
+2017-10-08,Czech Republic,San Marino,5,0
+2017-10-08,Kazakhstan,Armenia,1,1
+2017-10-09,Wales,Republic of Ireland,0,1
+2017-10-09,Ukraine,Croatia,0,2
+2017-10-09,Moldova,Austria,0,1
+2017-10-09,North Macedonia,Liechtenstein,4,0
+2017-10-09,Serbia,Georgia,1,0
+2017-10-09,Iceland,Kosovo,2,0
+2017-10-09,Finland,Turkey,2,2
+2017-10-09,Albania,Italy,0,1
+2017-10-09,Israel,Spain,0,1
+2017-10-10,Luxembourg,Bulgaria,1,1
+2017-10-10,Trinidad and Tobago,United States,2,1
+2017-10-10,Portugal,Switzerland,2,0
+2017-10-10,Peru,Colombia,1,1
+2017-10-10,Paraguay,Venezuela,0,1
+2017-10-10,Panama,Costa Rica,2,1
+2017-10-10,Netherlands,Sweden,2,0
+2017-10-10,Uruguay,Bolivia,4,2
+2017-10-10,Latvia,Andorra,4,0
+2017-10-10,Greece,Gibraltar,4,0
+2017-10-10,Honduras,Mexico,3,2
+2017-10-10,France,Belarus,2,1
+2017-10-10,Estonia,Bosnia and Herzegovina,1,2
+2017-10-10,Ecuador,Argentina,1,3
+2017-10-10,Brazil,Chile,3,0
+2017-10-10,Belgium,Cyprus,4,0
+2017-10-10,Australia,Syria,2,1
+2017-10-10,Hungary,Faroe Islands,1,0
+2017-11-09,Northern Ireland,Switzerland,0,1
+2017-11-09,Croatia,Greece,4,1
+2017-11-10,Algeria,Nigeria,3,0
+2017-11-10,Honduras,Australia,0,0
+2017-11-10,South Africa,Senegal,0,2
+2017-11-10,Sweden,Italy,1,0
+2017-11-11,Tunisia,Libya,0,0
+2017-11-11,Zambia,Cameroon,2,2
+2017-11-11,New Zealand,Peru,0,0
+2017-11-11,Denmark,Republic of Ireland,0,0
+2017-11-11,Gabon,Mali,0,0
+2017-11-11,DR Congo,Guinea,3,1
+2017-11-11,Ivory Coast,Morocco,0,2
+2017-11-12,Congo,Uganda,1,1
+2017-11-12,Ghana,Egypt,1,1
+2017-11-12,Greece,Croatia,0,0
+2017-11-12,Switzerland,Northern Ireland,0,0
+2017-11-13,Italy,Sweden,0,0
+2017-11-14,Burkina Faso,Cape Verde,4,0
+2017-11-14,Republic of Ireland,Denmark,1,5
+2017-11-14,Senegal,South Africa,2,1
+2017-11-15,Australia,Honduras,3,1
+2017-11-15,Peru,New Zealand,2,0

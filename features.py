@@ -11,10 +11,12 @@ FORM_N      = 5
 
 _FIFA_DEFAULT = 1200.0
 
-# Versioned ranking files:
+# Versioned ranking files — one snapshot per WC year, just before the tournament:
+#   data/fifa_rankings_2018.csv  — Jun 2018 rankings (use with WC 2018 evaluation)
 #   data/fifa_rankings_2022.csv  — Nov 2022 rankings (use with WC 2022 evaluation)
 #   data/fifa_rankings_2026.csv  — Apr 2026 rankings (use with WC 2026 simulation)
 _FIFA_RANKINGS_FILES = {
+    2018: 'data/fifa_rankings_2018.csv',
     2022: 'data/fifa_rankings_2022.csv',
     2026: 'data/fifa_rankings_2026.csv',
 }

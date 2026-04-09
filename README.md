@@ -1,4 +1,221 @@
-# Football Prediction — WC 2022 & WC 2026
+# Football Prediction — WC 2018, 2022 & 2026
+
+Machine-learning pipeline that predicts international football match scores and simulates full World Cup tournaments. Retrospectively evaluated on WC 2018 and WC 2022; live prediction active for WC 2026 (June 11 – July 19, 2026).
+
+**Model v1.4 · 84 features · Best result: 50% outcome accuracy, 75% knockout accuracy (WC 2022 walk-forward)**
+
+---
+
+## Quick start
+
+```bash
+# 1. Install dependencies
+pip install -r requirements.txt
+
+# 2. Train for a specific WC year (fetches correct data window automatically)
+python main.py train --year 2026
+
+# 3. Evaluate retrospectively
+python main.py evaluate          # WC 2022 frozen
+python main.py evaluate --retrain  # WC 2022 walk-forward
+
+# 4. Simulate the full WC 2026 bracket
+python main.py simulate2026
+```
+
+---
+
+## All CLI commands
+
+```
+python main.py train [--year 2018|2022|2026]          Train all models for a WC year
+python main.py tune [--trials N]                       Hyperparameter search (Optuna)
+python main.py evaluate   [--retrain] [--limit N]      WC 2022 retrospective evaluation
+python main.py evaluate2018 [--retrain] [--limit N]    WC 2018 retrospective evaluation
+python main.py evaluate2026 [--retrain] [--limit N]    WC 2026 live evaluation
+python main.py simulate2026                            Full WC 2026 tournament simulation
+python main.py predict "France" "Brazil"               Single match prediction
+```
+
+Every script also runs standalone: `python train.py`, `python evaluate.py --year 2022`, `python simulate_wc2026.py`.
+
+---
+
+## Frozen vs Learning (walk-forward) modes
+
+| Flag | Behaviour | When to use |
+|------|-----------|-------------|
+| *(none — default)* | **Frozen**: model trained once before tournament, never retrained | Benchmarking, pre-tournament simulation |
+| `--retrain` | **Walk-forward**: model retrains after each real result | Live tournament — model continuously improves |
+
+---
+
+## Evaluation results (model v1.4)
+
+### WC 2022 — real Nov 2022 FIFA rankings, 930 training matches
+
+| Mode | Full Tournament | Group Stage | Knockout Rounds | Final |
+|------|----------------|-------------|----------------|-------|
+| Frozen | 42.2% · RPS 0.235 · RMSE 1.46 | 37.5% | 56.2% | ❌ |
+| **Retrain** | **50.0% · RPS 0.216 · RMSE 1.38** | 41.7% | **75.0%** | ✅ |
+
+### WC 2018 — real Jun 7 2018 FIFA rankings, 915 training matches
+
+| Mode | Full Tournament | Group Stage | Knockout Rounds | Final |
+|------|----------------|-------------|----------------|-------|
+| Frozen | 37.5% · RPS 0.240 · RMSE 1.22 | 35.4% | 43.8% | ✅ |
+| Retrain | 40.6% · RPS 0.238 · RMSE 1.22 | 43.8% | 31.2% | ❌ |
+
+**Benchmarks:** Accuracy > 52% = good · RPS < 0.21 = solid · RMSE < 1.65 = strong
+
+### WC 2026
+
+| Mode | Status |
+|------|--------|
+| Frozen | ⏳ Available from June 11, 2026 |
+| Retrain | ⏳ Available from June 11, 2026 |
+
+---
+
+## Year-aware data pipeline
+
+Each WC year uses its own correctly-scoped training window and pre-tournament FIFA rankings snapshot — preventing any data leakage.
+
+| Year | Training window | FIFA rankings snapshot | Rankings file |
+|------|----------------|----------------------|--------------|
+| 2018 | WC2014 + 2015–2018 quals (915 matches) | June 7, 2018 — 211 teams | `data/fifa_rankings_2018.csv` |
+| 2022 | WC2018 + 2019–2022 quals (930 matches) | November 2022 — 212 teams | `data/fifa_rankings_2022.csv` |
+| 2026 | WC2022 + 2023–2026 quals (965 matches) | April 1, 2026 — 213 teams | `data/fifa_rankings_2026.csv` |
+
+`python main.py train --year <year>` fetches the correct data window, loads the right rankings snapshot, trains all 4 models, and archives versioned copies automatically.
+
+---
+
+## WC 2026 live workflow (from June 11, 2026)
+
+1. A match is played → fill in `goals_A` / `goals_B` in `data/wc2026.csv`
+2. Frozen eval — how did the pre-trained model do?  
+   `python main.py evaluate2026`
+3. Walk-forward — model improves with each result:  
+   `python main.py evaluate2026 --retrain`
+4. Re-simulate the remaining bracket:  
+   `python main.py simulate2026`
+
+> If `data/wc2026.csv` has no scores yet, `evaluate2026` prints *"No results available yet"* and exits cleanly.
+
+Next FIFA rankings update: **June 10, 2026** — run `python update_rankings.py` after updating values, then retrain.
+
+---
+
+## Model overview
+
+**Training pipeline (`python main.py train --year <year>`):**
+1. `model.pkl` — AveragingEnsemble (RandomForest + XGBoost) predicting (λ_A, λ_B)
+2. `classifier.pkl` — XGBClassifier predicting W/D/L directly
+3. `dc_ratings.pkl` — Dixon-Coles MLE team strength ratings
+4. `calibrator.pkl` — Isotonic regression probability calibrator
+
+**Scores → probabilities:**  
+Predicted λ values feed a Poisson score grid → P(win), P(draw), P(loss), calibrated with the isotonic calibrator.
+
+**84 features per match:**
+- Elo ratings + differential
+- Kalman filter ratings (attack/defence + uncertainty)
+- Form over last 5 and last 2 matches (wins, draws, losses, goals, weighted goals)
+- Head-to-head record
+- Days rest
+- FIFA ranking points (year-correct snapshot)
+- PageRank, HITS (hub/authority) graph features with temporal decay
+- Neighbourhood aggregation — schedule strength + performance context:
+  - `weighted_opp_elo` — outcome-weighted opponent Elo
+  - `win_rate_vs_top_teams` — win rate vs opponents in top 30% Elo tier
+  - `avg_goal_diff_vs_opp` — average goal difference across all past opponent matches
+  - `weighted_goal_diff_by_opp` — goal difference scaled by opponent Elo strength
+
+---
+
+## Project structure
+
+```
+football-prediction/
+├── main.py                     ← Unified CLI entry point (start here)
+├── train.py                    ← Train RF + XGBoost ensemble + classifier
+├── evaluate.py                 ← Walk-forward evaluation (2018, 2022 or 2026)
+├── simulate_wc2026.py          ← Full WC 2026 bracket simulation
+├── predict.py                  ← predict_match() — single match prediction
+├── predict_wc2026.py           ← Batch prediction for 2026 group stage
+├── features.py                 ← Feature engineering (Elo, Kalman, form, FIFA, graph)
+├── ensemble.py                 ← AveragingEnsemble (RF + XGBoost)
+├── poisson.py                  ← Score grid + result probabilities
+├── dc_ratings.py               ← Dixon-Coles MLE team strength ratings
+├── calibrate.py                ← Isotonic probability calibrator
+├── tune.py                     ← Optuna hyperparameter search
+├── app.py                      ← FastAPI: /predict, /result, /health
+├── fetch_data.py               ← Download & filter training data (year-aware)
+├── fetch_rankings_2018.py      ← Fetch real Jun 2018 FIFA rankings from GitHub archive
+├── update_rankings.py          ← Update FIFA rankings CSV with new values
+├── run_pipeline.py             ← Shell-style full pipeline runner
+├── batch_predict.py            ← Predict a batch of matches from CSV
+├── requirements.txt
+├── best_params.json            ← Generated by tune.py
+├── data/
+│   ├── matches.csv             ← Training data (set by last train --year run)
+│   ├── wc2018.csv              ← WC 2018 fixtures + actual scores (64 matches)
+│   ├── wc2022.csv              ← WC 2022 fixtures + actual scores (64 matches)
+│   ├── wc2026.csv              ← WC 2026 fixtures (fill goals as played)
+│   ├── fifa_rankings_2018.csv  ← FIFA rankings, June 7 2018 (211 teams, official)
+│   ├── fifa_rankings_2022.csv  ← FIFA rankings, November 2022 (212 teams)
+│   └── fifa_rankings_2026.csv  ← FIFA rankings, April 1 2026 (213 teams)
+└── .github/
+    └── copilot-instructions.md ← Full project context (auto-loaded by GitHub Copilot)
+```
+
+**Active model files (committed):** `model.pkl`, `classifier.pkl`, `dc_ratings.pkl`, `calibrator.pkl`  
+**Versioned archives (not committed, regenerable):** `model_wc{year}_v1.4.pkl` etc — recreated by `train --year`
+
+---
+
+## API (FastAPI)
+
+```bash
+uvicorn app:app --reload
+```
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/predict` | POST | Predict a match: `{"team_A": "France", "team_B": "Brazil"}` |
+| `/result` | POST | Submit a real result — appends to CSV and retrains model |
+| `/health` | GET | Health check |
+
+---
+
+## WC 2026 group draw
+
+```
+A: Mexico, South Africa, South Korea, Czech Republic
+B: Canada, Bosnia and Herzegovina, Qatar, Switzerland
+C: Brazil, Morocco, Haiti, Scotland
+D: United States, Paraguay, Australia, Turkey
+E: Germany, Curacao, Ivory Coast, Ecuador
+F: Netherlands, Japan, Sweden, Tunisia
+G: Belgium, Egypt, Iran, New Zealand
+H: Spain, Cape Verde, Saudi Arabia, Uruguay
+I: France, Senegal, Iraq, Norway
+J: Argentina, Algeria, Austria, Jordan
+K: Portugal, DR Congo, Uzbekistan, Colombia
+L: England, Croatia, Ghana, Panama
+```
+
+---
+
+## Current simulation result (April 9, 2026 — model v1.4)
+
+**Predicted champion: France**  
+Path: R32 → R16 → QF → SF → **Final vs Germany** (1–1, France win on penalties)
+
+Top FIFA rankings used (April 1, 2026):  
+`France 1877 · Spain 1876 · Argentina 1875 · England 1826 · Portugal 1798 · Brazil 1761`
+
 
 Machine-learning pipeline that predicts football match scores and simulates full World Cup tournaments.
 

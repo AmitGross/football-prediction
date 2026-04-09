@@ -11,8 +11,7 @@ import features
 features.set_fifa_rankings_year(2026)
 
 from predict import predict_match
-
-MODEL_VERSION = 'v1.1'   # bump when features or model architecture changes
+from train import MODEL_VERSION
 
 TRAIN_PATH = 'data/matches.csv'
 GROUP_PATH = 'data/wc2026.csv'
