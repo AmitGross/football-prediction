@@ -17,7 +17,7 @@ data/matches_eval_tmp.csv
 
 # ── Excel exports (generated — not committed) ──────────────────────────────
 results_wc*.xlsx
-predictions_wc2026_full*.xlsx
+predictions_wc2026_full_with*.xlsx
 predictions_wc2026_full_with*.xlsx
 predictions_wc2022_frozen.csv
 predictions_wc2026.csv
