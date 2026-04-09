@@ -538,7 +538,7 @@ Comparison of our v1.5 model predictions against [Polymarket](https://polymarket
 |-------|-------|-----------|----------------|--------|
 | A | Mexico, South Africa, South Korea, Czech Republic | Mexico (45%) | Mexico | ✅ |
 | B | Canada, Bosnia, Qatar, Switzerland | Switzerland (51%) | Switzerland | ✅ |
-| C | Brazil, Morocco, Haiti, Scotland | Brazil (77%) | Morocco | ❌ |
+| C | Brazil, Morocco, Haiti, Scotland | Brazil (77%) | Brazil | ✅ |
 | D | USA, Paraguay, Australia, Turkey | TBD playoff* | United States | ❓ |
 | E | Germany, Curacao, Ivory Coast, Ecuador | Germany (71%) | Germany | ✅ |
 | F | Netherlands, Japan, Sweden, Tunisia | Netherlands (57%) | Netherlands | ✅ |
@@ -550,7 +550,7 @@ Comparison of our v1.5 model predictions against [Polymarket](https://polymarket
 | L | England, Croatia, Ghana, Panama | England (72%) | England | ✅ |
 
 > *Group D on Polymarket shows KOS/ROU/SVK/TUR — these are teams competing in a qualification playoff for the remaining Group D spot, results not yet finalized.  
-> **10/11 group winners match the market.** Only Group C differs — market strongly backs Brazil (77%), our model predicts Morocco advances 1st.
+> **11/11 group winners match the market** (v1.5 now correctly predicts Brazil 1st in Group C).
 
 ---
 
@@ -564,85 +564,77 @@ Full tournament simulated from scratch using the frozen model trained on all pre
 |-------|-----|-----|
 | A | Mexico | South Korea |
 | B | Switzerland | Canada |
-| C | Morocco | Brazil |
+| C | Brazil | Morocco |
 | D | United States | Turkey |
-| E | Germany | Ivory Coast |
+| E | Germany | Ecuador |
 | F | Netherlands | Japan |
 | G | Belgium | Egypt |
 | H | Spain | Uruguay |
 | I | France | Norway |
 | J | Argentina | Austria |
 | K | Portugal | Colombia |
-| L | England | Panama |
+| L | England | Croatia |
 
-**Round of 32 (R32) — July 4:**
+**Round of 32 (R32):**
 
-| Match | Score | Win% | Draw% | Loss% | Advances |
-|-------|-------|------|-------|-------|---------|
-| Mexico vs Canada | 2-1 | 55.4 | 28.3 | 16.3 | **Mexico** |
-| Switzerland vs South Korea | 1-1 | 42.4 | 33.8 | 23.8 | **Switzerland** |
-| Morocco vs Turkey | 2-1 | 56.1 | 25.3 | 18.6 | **Morocco** |
-| United States vs Brazil | 1-1 | 41.2 | 32.7 | 26.1 | **United States** ⚡ |
-| Germany vs Japan | 1-1 | 36.1 | 32.6 | 31.4 | **Germany** |
-| Netherlands vs Ivory Coast | 2-1 | 54.9 | 28.6 | 16.5 | **Netherlands** |
-| Belgium vs Uruguay | 2-1 | 50.9 | 30.6 | 18.5 | **Belgium** |
-| Spain vs Egypt | 2-0 | 59.4 | 27.8 | 12.8 | **Spain** |
-| France vs Austria | 2-1 | 56.4 | 26.0 | 17.6 | **France** |
-| Argentina vs Norway | 3-1 | 64.5 | 21.7 | 13.7 | **Argentina** |
-| Portugal vs Panama | 2-1 | 47.7 | 27.1 | 25.2 | **Portugal** |
-| England vs Colombia | 2-1 | 58.8 | 27.3 | 13.9 | **England** |
-| Ecuador vs Tunisia | 1-1 | 44.3 | 31.1 | 24.6 | **Ecuador** |
-| Croatia vs Bosnia and Herzegovina | 4-0 | 85.6 | 11.6 | 2.7 | **Croatia** |
-| Senegal vs Iran | 2-1 | 56.4 | 26.9 | 16.7 | **Senegal** |
-| Scotland vs Czech Republic | 2-1 | 52.9 | 28.1 | 19.0 | **Scotland** |
+| Match | Score | Advances |
+|-------|-------|---------|
+| Mexico vs Canada | 2-0 | **Mexico** |
+| Switzerland vs South Korea | 1-1 | **Switzerland** |
+| Brazil vs Turkey | 2-1 | **Brazil** |
+| United States vs Morocco | 1-1 | **United States** |
+| Germany vs Japan | 1-1 | **Germany** |
+| Netherlands vs Ecuador | 1-1 | **Netherlands** |
+| Belgium vs Uruguay | 1-0 | **Belgium** |
+| Spain vs Egypt | 2-0 | **Spain** |
+| France vs Austria | 2-0 | **France** |
+| Argentina vs Norway | 3-1 | **Argentina** |
+| Portugal vs Croatia | 1-1 | **Portugal** |
+| England vs Colombia | 2-1 | **England** |
+| Panama vs Czech Republic | 2-1 | **Panama** |
+| Ivory Coast vs Iran | 1-1 | **Ivory Coast** |
+| Senegal vs DR Congo | 3-0 | **Senegal** |
+| Tunisia vs Scotland | 1-1 | **Tunisia** |
 
-> ⚡ United States eliminates Brazil 1-1 (on pens) at R32 — 41.2% favourites
+**Round of 16 (R16):**
 
-**Round of 16 (R16) — July 8:**
+| Match | Score | Advances |
+|-------|-------|---------|
+| Mexico vs Switzerland | 1-1 | **Mexico** |
+| Brazil vs United States | 2-0 | **Brazil** |
+| Germany vs Netherlands | 1-1 | **Germany** |
+| Belgium vs Spain | 1-1 | **Spain** ⚡ |
+| France vs Argentina | 1-1 | **France** |
+| Portugal vs England | 1-1 | **Portugal** |
+| Panama vs Ivory Coast | 1-1 | **Panama** |
+| Senegal vs Tunisia | 2-1 | **Senegal** |
 
-| Match | Score | Win% | Draw% | Loss% | Advances |
-|-------|-------|------|-------|-------|---------|
-| Mexico vs Switzerland | 1-1 | 43.7 | 31.3 | 25.0 | **Mexico** |
-| Morocco vs United States | 1-1 | 48.1 | 32.1 | 19.8 | **Morocco** |
-| Germany vs Netherlands | 1-1 | 32.0 | 34.0 | 34.0 | **Netherlands** ⚡ |
-| Belgium vs Spain | 1-1 | 30.8 | 38.4 | 30.8 | **Belgium** ⚡ |
-| France vs Argentina | 1-1 | 43.9 | 31.3 | 24.8 | **France** |
-| Portugal vs England | 1-1 | 28.2 | 33.9 | 37.9 | **England** ⚡ |
-| Ecuador vs Croatia | 1-1 | 35.1 | 37.9 | 27.0 | **Ecuador** ⚡ |
-| Senegal vs Scotland | 2-1 | 63.9 | 22.6 | 13.5 | **Senegal** |
+> ⚡ Spain edges Belgium · Germany knocked out by Netherlands (v1.4 champion) eliminated here
 
-> ⚡ Netherlands eliminate Germany (50/50 split) · Belgium knock out Spain (50/50) · England past Portugal (Portugal only 28.2% to win)
+**Quarter-Finals (QF):**
 
-**Quarter-Finals (QF) — July 11:**
+| Match | Score | Winner |
+|-------|-------|--------|
+| Mexico vs Brazil | 1-1 | **Mexico** ⚡ |
+| Germany vs Spain | 1-1 | **Spain** |
+| France vs Portugal | 2-1 | **France** |
+| Panama vs Senegal | 1-1 | **Panama** ⚡ |
 
-| Match | Score | Win% | Draw% | Loss% | Winner |
-|-------|-------|------|-------|-------|--------|
-| Mexico vs Morocco | 1-1 | 32.6 | 35.2 | 32.1 | **🇲🇽 Mexico** ⚡ |
-| Netherlands vs Belgium | 1-1 | 42.3 | 34.9 | 22.8 | **🇳🇱 Netherlands** |
-| France vs England | 1-1 | 32.2 | 31.7 | 36.0 | **🏴󠁧󠁢󠁥󠁮󠁧󠁿 England** ⚡ |
-| Ecuador vs Senegal | 1-1 | 33.7 | 38.3 | 28.0 | **🇪🇨 Ecuador** ⚡ |
+**Semi-Finals (SF):**
 
-> ⚡ England eliminates France (England slight favourites at 36%) · Mexico through another coin-flip QF
+| Match | Score | Winner |
+|-------|-------|--------|
+| Mexico vs Spain | 1-1 | **Spain** |
+| France vs Panama | 2-0 | **France** |
 
-**Semi-Finals (SF) — July 14:**
-
-| Match | Score | Win% | Draw% | Loss% | Winner |
-|-------|-------|------|-------|-------|--------|
-| Mexico vs Netherlands | 1-1 | 30.5 | 34.4 | 35.0 | **🇳🇱 Netherlands** |
-| England vs Ecuador | 2-1 | 60.1 | 26.0 | 13.9 | **🏴󠁧󠁢󠁥󠁮󠁧󠁿 England** |
-
-**3rd Place — July 18:** Mexico 2-1 Ecuador
+**3rd Place:** Mexico 2-1 Panama
 
 **🏆 Final — July 19, 2026:**
 
-| | Team | | Score | | Team | |
-|-|------|---|-------|---|------|---|
-| | **Netherlands** | | **1 - 1** | | England | |
+**Spain 2-1 France**
 
-> Win probability: **Netherlands 37.9%** · Draw 35.0% · England 27.1%  
-> Netherlands edge England in a tight final — the most evenly contested final in recent WC history
-
-**Predicted champion: 🏆 Spain**
+**Predicted champion: 🏆 Spain**  
+Spain's path: Egypt (R32) → Belgium (R16) → Germany (QF) → Mexico (SF) → France (Final)
 
 > This simulation will be updated as real results come in from June 11, 2026 onward.  
 > Full bracket file: [`predictions_wc2026_full_v1.5.xlsx`](predictions_wc2026_full_v1.5.xlsx)
