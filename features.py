@@ -3,7 +3,6 @@
 import pandas as pd
 import numpy as np
 from collections import defaultdict
-import networkx as nx
 
 ELO_START   = 1500
 ELO_K       = 32
@@ -70,12 +69,6 @@ def set_fifa_rankings_year(year):
     _FIFA_RANKINGS = load_fifa_rankings(year)
 
 
-KALMAN_INIT_STRENGTH    = 0.0
-KALMAN_INIT_UNCERTAINTY = 100.0
-KALMAN_PROCESS_NOISE    = 5.0
-KALMAN_MEASURE_NOISE    = 3.0
-
-
 # ── 1. Elo ─────────────────────────────────────────────────────────────────────
 class EloRating:
     def __init__(self):
@@ -100,41 +93,6 @@ class EloRating:
 
         self.ratings[team_A] += ELO_K * (actual_A - expected_A)
         self.ratings[team_B] += ELO_K * (actual_B - expected_B)
-
-
-# ── 2. Kalman filter — attack & defense split (walk-forward) ─────────────────
-class KalmanRating:
-    """
-    Two independent 1-D Kalman filters per team:
-      - attack:  tracks avg goals scored
-      - defense: tracks avg goals conceded
-    """
-    def __init__(self):
-        self.attack    = defaultdict(lambda: KALMAN_INIT_STRENGTH)
-        self.defense   = defaultdict(lambda: KALMAN_INIT_STRENGTH)
-        self.unc_atk   = defaultdict(lambda: KALMAN_INIT_UNCERTAINTY)
-        self.unc_def   = defaultdict(lambda: KALMAN_INIT_UNCERTAINTY)
-
-    def get_ratings(self, team_A, team_B):
-        return (
-            self.attack[team_A],  self.defense[team_A],
-            self.unc_atk[team_A], self.unc_def[team_A],
-            self.attack[team_B],  self.defense[team_B],
-            self.unc_atk[team_B], self.unc_def[team_B],
-        )
-
-    def _update_one(self, state, unc, observation):
-        P = unc + KALMAN_PROCESS_NOISE
-        K = P / (P + KALMAN_MEASURE_NOISE)
-        new_state = state + K * (observation - state)
-        new_unc   = (1 - K) * P
-        return new_state, new_unc
-
-    def update(self, team, goals_for, goals_against):
-        self.attack[team],  self.unc_atk[team] = self._update_one(
-            self.attack[team],  self.unc_atk[team], goals_for)
-        self.defense[team], self.unc_def[team] = self._update_one(
-            self.defense[team], self.unc_def[team], goals_against)
 
 
 # ── 3. Form features ───────────────────────────────────────────────────────────
@@ -224,88 +182,6 @@ def build_graph(past_matches):
             goals_B = row['goals_B']
         )
     return G
-
-
-# ── 6b. PageRank + HITS graph features ────────────────────────────────────────
-def compute_pagerank_features(matches, decay_lambda=0.5):
-    """
-    Two directed graphs with temporal decay on edge weights:
-      win_graph  : winner → loser,  weight = goal margin × decay  (dominance chain)
-      goal_graph : A → B,           weight = goals A scored vs B × decay  (offensive flow)
-
-    Temporal decay: exp(-decay_lambda * years_ago) so recent matches matter more.
-    decay_lambda=0.5 → half-weight at ~1.4 years ago.
-
-    Computes:
-      win_pr  — PageRank on win_graph  (overall dominance)
-      goal_pr — PageRank on goal_graph (offensive flow)
-      hub     — HITS hub on goal_graph  (scores goals against strong teams = attack quality)
-      auth    — HITS authority on goal_graph (gets scored on by strong attackers = defensive vulnerability)
-    """
-    if len(matches) == 0:
-        return {}
-
-    ref_date = pd.to_datetime(matches['date']).max()
-
-    win_graph  = nx.DiGraph()
-    goal_graph = nx.DiGraph()
-
-    for _, row in matches.iterrows():
-        a, b   = row['team_A'], row['team_B']
-        ga, gb = row['goals_A'], row['goals_B']
-
-        days_ago = max(0, (ref_date - pd.to_datetime(row['date'])).days)
-        decay    = float(np.exp(-decay_lambda * days_ago / 365.0))
-
-        for src, dst, w in [(a, b, float(ga) * decay), (b, a, float(gb) * decay)]:
-            if goal_graph.has_edge(src, dst):
-                goal_graph[src][dst]['weight'] += w
-            else:
-                goal_graph.add_edge(src, dst, weight=w)
-
-        if ga != gb:
-            winner, loser, margin = (a, b, ga - gb) if ga > gb else (b, a, gb - ga)
-            ew = float(margin) * decay
-            if win_graph.has_edge(winner, loser):
-                win_graph[winner][loser]['weight'] += ew
-            else:
-                win_graph.add_edge(winner, loser, weight=ew)
-
-    if len(win_graph.nodes) < 2:
-        return {}
-
-    try:
-        win_pr  = nx.pagerank(win_graph,  weight='weight', max_iter=300)
-    except Exception:
-        win_pr  = {n: 1.0 / len(win_graph) for n in win_graph.nodes}
-    try:
-        goal_pr = nx.pagerank(goal_graph, weight='weight', max_iter=300)
-    except Exception:
-        goal_pr = {n: 1.0 / len(goal_graph) for n in goal_graph.nodes}
-
-    # HITS: hub = attack quality (scores against strong opponents)
-    #       auth = defensive vulnerability (strong attackers score against you)
-    try:
-        hub_scores, auth_scores = nx.hits(goal_graph, max_iter=300, normalized=True)
-    except Exception:
-        n = max(len(goal_graph), 1)
-        hub_scores  = {node: 1.0 / n for node in goal_graph.nodes}
-        auth_scores = {node: 1.0 / n for node in goal_graph.nodes}
-
-    all_teams = set(win_graph.nodes) | set(goal_graph.nodes)
-    return {
-        t: {
-            'win_pr':  win_pr.get(t, 0.0),
-            'goal_pr': goal_pr.get(t, 0.0),
-            'hub':     hub_scores.get(t, 0.0),
-            'auth':    auth_scores.get(t, 0.0),
-        }
-        for t in all_teams
-    }
-
-
-def get_pagerank(pr_features, team):
-    return pr_features.get(team, {'win_pr': 0.0, 'goal_pr': 0.0, 'hub': 0.0, 'auth': 0.0})
 
 
 # ── 6c. Walk-forward neighbourhood aggregation (1-hop message passing) ────────
@@ -451,11 +327,7 @@ def build_features(matches, N=FORM_N):
     """
     matches = matches.sort_values('date').reset_index(drop=True)
 
-    # PageRank: computed from full dataset (structural signal, no target leakage).
-    pr_features = compute_pagerank_features(matches)
-
     elo_system    = EloRating()
-    kalman_system = KalmanRating()
     rows          = []
     ya            = []
     yb            = []
@@ -471,12 +343,6 @@ def build_features(matches, N=FORM_N):
         # Elo: GET first (no leakage), then UPDATE
         elo_A, elo_B, elo_diff = elo_system.get_ratings(team_A, team_B)
         elo_system.update(team_A, team_B, goals_A, goals_B)
-
-        # Kalman: GET first (no leakage), then UPDATE both teams
-        ka_atk, ka_def, ka_unc_atk, ka_unc_def, \
-        kb_atk, kb_def, kb_unc_atk, kb_unc_def = kalman_system.get_ratings(team_A, team_B)
-        kalman_system.update(team_A, goals_A, goals_B)
-        kalman_system.update(team_B, goals_B, goals_A)
 
         # Form (home + away, past only) — last 5 and last 2, opponent-weighted
         wins_A,  draws_A,  losses_A,  scored_A,  conc_A,  wscored_A,  wconc_A  = calculate_form_features(past, team_A, N,   elo_system.ratings)
@@ -495,10 +361,6 @@ def build_features(matches, N=FORM_N):
         match_count_A = int(((past['team_A'] == team_A) | (past['team_B'] == team_A)).sum())
         match_count_B = int(((past['team_A'] == team_B) | (past['team_B'] == team_B)).sum())
 
-        # PageRank (pre-computed from full dataset)
-        pr_A = get_pagerank(pr_features, team_A)
-        pr_B = get_pagerank(pr_features, team_B)
-
         # Neighbourhood aggregation (walk-forward: 1-hop message passing)
         nbr_A = calculate_neighbourhood_features(past, team_A, elo_system.ratings)
         nbr_B = calculate_neighbourhood_features(past, team_B, elo_system.ratings)
@@ -507,10 +369,6 @@ def build_features(matches, N=FORM_N):
             'elo_A':        elo_A,
             'elo_B':        elo_B,
             'elo_diff':     elo_diff,
-            'ka_atk':       ka_atk,   'ka_def':  ka_def,  'ka_unc_atk': ka_unc_atk, 'ka_unc_def': ka_unc_def,
-            'kb_atk':       kb_atk,   'kb_def':  kb_def,  'kb_unc_atk': kb_unc_atk, 'kb_unc_def': kb_unc_def,
-            'kalman_atk_diff': ka_atk - kb_atk,
-            'kalman_def_diff': ka_def - kb_def,
             'wins_A':       wins_A,   'draws_A':  draws_A,  'losses_A': losses_A,
             'scored_A':     scored_A, 'conc_A':   conc_A,
             'wscored_A':    wscored_A,'wconc_A':  wconc_A,
@@ -529,16 +387,6 @@ def build_features(matches, N=FORM_N):
             'fifa_rank_A':    _FIFA_RANKINGS.get(team_A, _FIFA_DEFAULT),
             'fifa_rank_B':    _FIFA_RANKINGS.get(team_B, _FIFA_DEFAULT),
             'fifa_rank_diff': _FIFA_RANKINGS.get(team_A, _FIFA_DEFAULT) - _FIFA_RANKINGS.get(team_B, _FIFA_DEFAULT),
-            # PageRank (global graph dominance, temporally decayed)
-            'win_pr_A':       pr_A['win_pr'],  'win_pr_B':   pr_B['win_pr'],
-            'win_pr_diff':    pr_A['win_pr']  - pr_B['win_pr'],
-            'goal_pr_A':      pr_A['goal_pr'], 'goal_pr_B':  pr_B['goal_pr'],
-            'goal_pr_diff':   pr_A['goal_pr'] - pr_B['goal_pr'],
-            # HITS (hub = attack quality, auth = defensive vulnerability)
-            'hub_A':          pr_A['hub'],     'hub_B':      pr_B['hub'],
-            'hub_diff':       pr_A['hub']     - pr_B['hub'],
-            'auth_A':         pr_A['auth'],    'auth_B':     pr_B['auth'],
-            'auth_diff':      pr_A['auth']    - pr_B['auth'],
             # Neighbourhood / schedule-strength (walk-forward 1-hop aggregation)
             'opp_elo_A':      nbr_A['avg_opp_elo'],        'opp_elo_B':      nbr_B['avg_opp_elo'],
             'opp_elo_diff':   nbr_A['avg_opp_elo']       - nbr_B['avg_opp_elo'],

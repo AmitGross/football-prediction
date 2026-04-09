@@ -7,9 +7,8 @@ from poisson import predict_from_lambdas, score_grid, result_probabilities
 from ensemble import AveragingEnsemble  # needed for pickle to deserialise model.pkl
 import features as _features_module
 from features import (
-    EloRating, KalmanRating, calculate_form_features,
+    EloRating, calculate_form_features,
     calculate_h2h, calculate_days_rest,
-    build_graph, compute_pagerank_features, get_pagerank,
     calculate_neighbourhood_features,
     FORM_N
 )
@@ -33,17 +32,12 @@ def predict_match(team_A, team_B, current_matches):
 
     current_matches = current_matches.sort_values('date').reset_index(drop=True)
 
-    # Replay all past matches to build current Elo and Kalman state
-    elo_system    = EloRating()
-    kalman_system = KalmanRating()
+    # Replay all past matches to build current Elo state
+    elo_system = EloRating()
     for _, row in current_matches.iterrows():
         elo_system.update(row['team_A'], row['team_B'], row['goals_A'], row['goals_B'])
-        kalman_system.update(row['team_A'], row['goals_A'], row['goals_B'])
-        kalman_system.update(row['team_B'], row['goals_B'], row['goals_A'])
 
     elo_A, elo_B, elo_diff = elo_system.get_ratings(team_A, team_B)
-    ka_atk, ka_def, ka_unc_atk, ka_unc_def, \
-    kb_atk, kb_def, kb_unc_atk, kb_unc_def = kalman_system.get_ratings(team_A, team_B)
 
     wins_A,  draws_A,  losses_A,  scored_A,  conc_A,  wscored_A,  wconc_A  = calculate_form_features(current_matches, team_A, FORM_N, elo_system.ratings)
     wins_B,  draws_B,  losses_B,  scored_B,  conc_B,  wscored_B,  wconc_B  = calculate_form_features(current_matches, team_B, FORM_N, elo_system.ratings)
@@ -56,10 +50,6 @@ def predict_match(team_A, team_B, current_matches):
     rest_A = calculate_days_rest(current_matches, team_A, current_date)
     rest_B = calculate_days_rest(current_matches, team_B, current_date)
 
-    pr_features = compute_pagerank_features(current_matches)
-    pr_A = get_pagerank(pr_features, team_A)
-    pr_B = get_pagerank(pr_features, team_B)
-
     nbr_A = calculate_neighbourhood_features(current_matches, team_A, elo_system.ratings)
     nbr_B = calculate_neighbourhood_features(current_matches, team_B, elo_system.ratings)
 
@@ -67,10 +57,6 @@ def predict_match(team_A, team_B, current_matches):
         'elo_A':        elo_A,
         'elo_B':        elo_B,
         'elo_diff':     elo_diff,
-        'ka_atk':       ka_atk,   'ka_def':  ka_def,  'ka_unc_atk': ka_unc_atk, 'ka_unc_def': ka_unc_def,
-        'kb_atk':       kb_atk,   'kb_def':  kb_def,  'kb_unc_atk': kb_unc_atk, 'kb_unc_def': kb_unc_def,
-        'kalman_atk_diff': ka_atk - kb_atk,
-        'kalman_def_diff': ka_def - kb_def,
         'wins_A':       wins_A,   'draws_A':  draws_A,  'losses_A': losses_A,
         'scored_A':     scored_A, 'conc_A':   conc_A,
         'wscored_A':    wscored_A,'wconc_A':  wconc_A,
@@ -90,14 +76,6 @@ def predict_match(team_A, team_B, current_matches):
         'fifa_rank_A':    _features_module._FIFA_RANKINGS.get(team_A, _features_module._FIFA_DEFAULT),
         'fifa_rank_B':    _features_module._FIFA_RANKINGS.get(team_B, _features_module._FIFA_DEFAULT),
         'fifa_rank_diff': _features_module._FIFA_RANKINGS.get(team_A, _features_module._FIFA_DEFAULT) - _features_module._FIFA_RANKINGS.get(team_B, _features_module._FIFA_DEFAULT),
-        'win_pr_A':       pr_A['win_pr'],  'win_pr_B':   pr_B['win_pr'],
-        'win_pr_diff':    pr_A['win_pr']  - pr_B['win_pr'],
-        'goal_pr_A':      pr_A['goal_pr'], 'goal_pr_B':  pr_B['goal_pr'],
-        'goal_pr_diff':   pr_A['goal_pr'] - pr_B['goal_pr'],
-        'hub_A':          pr_A['hub'],     'hub_B':      pr_B['hub'],
-        'hub_diff':       pr_A['hub']     - pr_B['hub'],
-        'auth_A':         pr_A['auth'],    'auth_B':     pr_B['auth'],
-        'auth_diff':      pr_A['auth']    - pr_B['auth'],
         'opp_elo_A':      nbr_A['avg_opp_elo'],       'opp_elo_B':      nbr_B['avg_opp_elo'],
         'opp_elo_diff':   nbr_A['avg_opp_elo']       - nbr_B['avg_opp_elo'],
         'opp_scored_A':   nbr_A['avg_opp_scored'],   'opp_scored_B':   nbr_B['avg_opp_scored'],

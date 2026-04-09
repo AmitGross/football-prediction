@@ -89,7 +89,7 @@ def _metrics_for_subset(pred_A, pred_B, act_A, act_B, rps):
         'Mean_RPS':        round(float(np.mean(rps)), 4),
     }
 
-MODEL_VERSION = 'v1.4'   # bump when features or model architecture changes
+MODEL_VERSION = 'v1.5'   # bump when features or model architecture changes
 
 TRAIN_PATH = 'data/matches.csv'
 _TEST_PATHS = {
