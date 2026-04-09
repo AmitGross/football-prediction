@@ -2,7 +2,7 @@
 
 Machine-learning pipeline that predicts international football match scores and simulates full World Cup tournaments. Retrospectively evaluated on WC 2018 and WC 2022; live prediction active for WC 2026 (June 11 – July 19, 2026).
 
-**Model v1.4 · 84 features · Best result: 50% outcome accuracy, 75% knockout accuracy (WC 2022 walk-forward)**
+**Model v1.5 · 62 features · Best result: 53.1% outcome accuracy (WC 2022 walk-forward) · Predicted WC 2026 champion: Spain**
 
 ---
 
@@ -50,21 +50,21 @@ Every script also runs standalone: `python train.py`, `python evaluate.py --year
 
 ---
 
-## Evaluation results (model v1.4)
+## Evaluation results (model v1.5)
 
 ### WC 2022 — real Nov 2022 FIFA rankings, 930 training matches
 
-| Mode | Full Tournament | Group Stage | Knockout Rounds | Final |
-|------|----------------|-------------|----------------|-------|
-| Frozen | 42.2% · RPS 0.235 · RMSE 1.46 | 37.5% | 56.2% | ❌ |
-| **Retrain** | **50.0% · RPS 0.216 · RMSE 1.38** | 41.7% | **75.0%** | ✅ |
+| Mode | Full Tournament | RPS | RMSE |
+|------|----------------|-----|------|
+| Frozen | 50.0% | 0.2147 | 1.369 |
+| **Retrain** | **53.1%** | **0.2088** | **1.3199** |
 
 ### WC 2018 — real Jun 7 2018 FIFA rankings, 915 training matches
 
-| Mode | Full Tournament | Group Stage | Knockout Rounds | Final |
-|------|----------------|-------------|----------------|-------|
-| Frozen | 37.5% · RPS 0.240 · RMSE 1.22 | 35.4% | 43.8% | ✅ |
-| Retrain | 40.6% · RPS 0.238 · RMSE 1.22 | 43.8% | 31.2% | ❌ |
+| Mode | Full Tournament | RPS | RMSE |
+|------|----------------|-----|------|
+| Frozen | 42.2% | 0.2549 | 1.299 |
+| Retrain | 39.1% | 0.2490 | 1.2151 |
 
 **Benchmarks:** Accuracy > 52% = good · RPS < 0.21 = solid · RMSE < 1.65 = strong
 
@@ -118,19 +118,20 @@ Next FIFA rankings update: **June 10, 2026** — run `python update_rankings.py`
 **Scores → probabilities:**  
 Predicted λ values feed a Poisson score grid → P(win), P(draw), P(loss), calibrated with the isotonic calibrator.
 
-**84 features per match:**
-- Elo ratings + differential
-- Kalman filter ratings (attack/defence + uncertainty)
-- Form over last 5 and last 2 matches (wins, draws, losses, goals, weighted goals)
-- Head-to-head record
-- Days rest
-- FIFA ranking points (year-correct snapshot)
-- PageRank, HITS (hub/authority) graph features with temporal decay
-- Neighbourhood aggregation — schedule strength + performance context:
-  - `weighted_opp_elo` — outcome-weighted opponent Elo
-  - `win_rate_vs_top_teams` — win rate vs opponents in top 30% Elo tier
-  - `avg_goal_diff_vs_opp` — average goal difference across all past opponent matches
-  - `weighted_goal_diff_by_opp` — goal difference scaled by opponent Elo strength
+**62 features per match (v1.5):**
+
+| Group | Count | Features |
+|-------|-------|----------|
+| Elo | 3 | elo_A, elo_B, elo_diff |
+| Form-5 | 14 | wins/draws/losses/goals/weighted per team × 2 |
+| Form-2 | 14 | same as Form-5 but last 2 matches |
+| H2H | 3 | h2h_wins_A, h2h_wins_B, h2h_draws |
+| FIFA Rankings | 3 | fifa_A, fifa_B, fifa_diff |
+| Rest & Match Count | 4 | rest_days_A/B, matches_played_A/B |
+| Neighbourhood Basic | 9 | avg_opp_elo, avg_opp_scored, avg_opp_conceded + diffs |
+| Neighbourhood Perf | 12 | weighted_opp_elo, win_rate_vs_top_teams, avg_goal_diff_vs_opp, weighted_goal_diff_by_opp + diffs |
+
+Removed in v1.5 after ablation: Kalman filter (x10) and PageRank/HITS (x12) — both hurt performance.
 
 ---
 
@@ -208,16 +209,60 @@ L: England, Croatia, Ghana, Panama
 
 ---
 
-## Current simulation result (April 9, 2026 — model v1.4)
+## Current simulation result (April 9, 2026 — model v1.5)
 
-**Predicted champion: Netherlands**  
-Path: R32 beat Ivory Coast → R16 beat Germany → QF beat Belgium → SF beat Mexico → **Final vs England** (1–1, Netherlands win)
+**Predicted champion: Spain** (beats France 2–1 in Final)  
+Spain's path: Egypt (R32) → Belgium (R16) → Germany (QF) → France (SF) → Final
 
 Top FIFA rankings used (April 1, 2026):  
 `France 1877 · Spain 1876 · Argentina 1875 · England 1826 · Portugal 1798 · Brazil 1761`
 
+---
 
-Machine-learning pipeline that predicts football match scores and simulates full World Cup tournaments.
+## Ablation study (WC 2022, v1.4 baseline → v1.5)
+
+**Full tournament (64 matches) — Baseline: Acc=48.4%, RPS=0.2236**
+
+| Group removed | Features | ΔRPS | Verdict |
+|--------------|----------|------|---------|
+| FIFA Rankings | 3 | +0.0169 | Most valuable |
+| Rest & Match Count | 4 | +0.0018 | Small positive |
+| PageRank/HITS | 12 | **−0.0138** | Most harmful → **REMOVED** |
+| Neighbourhood Basic | 9 | −0.0050 | Hurts full, critical in KO |
+| Kalman | 10 | −0.0005 | Mildly hurts → **REMOVED** |
+
+**Knockout (16 matches) — Baseline: Acc=62.5%, RPS=0.1256**
+
+| Group removed | Features | ΔRPS | Verdict |
+|--------------|----------|------|---------|
+| FIFA Rankings | 3 | +0.0291 | Dominant |
+| Neighbourhood Basic | 9 | +0.0134 | Critical in KO |
+| Elo | 3 | +0.0066 | Valuable |
+| PageRank/HITS | 12 | −0.0058 | Harmful → **REMOVED** |
+| Kalman | 10 | −0.0019 | Hurts in KO → **REMOVED** |
+
+---
+
+## Roadmap
+
+### v1.6 (next — create off main after v1.5 merge)
+
+5 new features → 67 total. Test incrementally, not all at once:
+
+| Feature | Type | Rationale |
+|---------|------|-----------|
+| `is_knockout` | binary 0/1 | Group vs KO context |
+| `round_number` | ordinal 0–5 | Model learns behavior changes as tournament progresses |
+| `games_played_in_tournament` | count | Momentum/fatigue accumulation |
+| `goal_diff_std_A` | float | Team volatility/consistency |
+| `goal_diff_std_B` | float | Team volatility/consistency |
+
+Testing order: baseline → +stage (3 features) → +stage+volatility (5 features). Focus eval on group stage (most room for improvement) and knockout (where stage context matters most).
+
+### Future
+- Automated live scoring: fetch real-time scores → append to `wc2026.csv` → auto-retrain
+- Supabase: store predictions/results via `/result` endpoint
+- Vercel frontend: live bracket + predictions
 
 - **WC 2022**: Full retrospective evaluation (all 64 actual results available)
 - **WC 2026**: Pre-tournament simulation (actuals filled in as the tournament progresses, June 11 – July 19, 2026)

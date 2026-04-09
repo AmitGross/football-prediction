@@ -14,7 +14,7 @@ from features import build_features
 from ensemble import AveragingEnsemble
 
 PARAMS_PATH     = 'best_params.json'
-MODEL_VERSION   = 'v1.4'   # bump when features or model architecture changes
+MODEL_VERSION   = 'v1.5'   # bump when features or model architecture changes
 
 
 def _load_best_params():
@@ -27,10 +27,6 @@ def _load_best_params():
 def _apply_feature_params(p):
     if 'elo_k' in p:
         feat_module.ELO_K = p['elo_k']
-    if 'process_noise' in p:
-        feat_module.KALMAN_PROCESS_NOISE = p['process_noise']
-    if 'measure_noise' in p:
-        feat_module.KALMAN_MEASURE_NOISE = p['measure_noise']
 
 
 DATA_PATH       = 'data/matches.csv'
@@ -89,8 +85,11 @@ def train(df):
 
 
 def save_model(model, feature_cols, path=MODEL_PATH):
-    with open(path, 'wb') as f:
+    import os
+    tmp_path = path + '.tmp'
+    with open(tmp_path, 'wb') as f:
         pickle.dump({'model': model, 'features': feature_cols, 'version': MODEL_VERSION}, f)
+    os.replace(tmp_path, path)  # atomic on Windows — no file-lock race condition
     with open('model_version.txt', 'w') as f:
         f.write(f"{MODEL_VERSION} | {len(feature_cols)} features\n")
     print(f"Model saved to {path} [{MODEL_VERSION}, {len(feature_cols)} features]")
