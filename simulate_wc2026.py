@@ -47,8 +47,13 @@ R32_BRACKET = [
 ]
 
 
-def predict(team_A, team_B, history):
-    result = predict_match(team_A, team_B, history)
+def predict(team_A, team_B, history, is_knockout=0, round_number=0,
+            games_in_tournament_A=0, games_in_tournament_B=0):
+    result = predict_match(team_A, team_B, history,
+                           is_knockout=is_knockout,
+                           round_number=round_number,
+                           games_in_tournament_A=games_in_tournament_A,
+                           games_in_tournament_B=games_in_tournament_B)
     new_row = pd.DataFrame([{
         'date': pd.Timestamp('2026-07-01'),
         'team_A': team_A,
@@ -60,14 +65,17 @@ def predict(team_A, team_B, history):
     return result, history
 
 
-def simulate_group_stage(history):
+def simulate_group_stage(history, games_played):
     group_df = pd.read_csv(GROUP_PATH, parse_dates=['date'])
     group_df = group_df.sort_values('date').reset_index(drop=True)
 
     match_results = []
     for _, match in group_df.iterrows():
         team_A, team_B = match['team_A'], match['team_B']
-        result, history = predict(team_A, team_B, history)
+        result, history = predict(team_A, team_B, history,
+                                  is_knockout=0, round_number=1,
+                                  games_in_tournament_A=games_played.get(team_A, 0),
+                                  games_in_tournament_B=games_played.get(team_B, 0))
         match_results.append({
             'stage': 'Group',
             'date': match['date'],
@@ -79,6 +87,8 @@ def simulate_group_stage(history):
             'p_draw': result.get('p_draw'),
             'p_win_B': result.get('p_win_B'),
         })
+        games_played[team_A] = games_played.get(team_A, 0) + 1
+        games_played[team_B] = games_played.get(team_B, 0) + 1
 
     return match_results, history
 
@@ -135,12 +145,17 @@ def get_qualifiers(sorted_groups):
     return firsts, seconds, best8_thirds
 
 
-def simulate_knockout_round(matches, stage, history, date_str):
+def simulate_knockout_round(matches, stage, history, date_str, games_played,
+                            is_knockout=1, round_number=2):
     """Run a list of (teamA, teamB) knockout matches. Returns winners and match records."""
     results = []
     winners = []
     for team_A, team_B in matches:
-        result, history = predict(team_A, team_B, history)
+        result, history = predict(team_A, team_B, history,
+                                  is_knockout=is_knockout,
+                                  round_number=round_number,
+                                  games_in_tournament_A=games_played.get(team_A, 0),
+                                  games_in_tournament_B=games_played.get(team_B, 0))
         ga, gb = result['goals_A'], result['goals_B']
         # In knockouts always have a winner — use probabilities if draw predicted
         if ga > gb:
@@ -163,6 +178,8 @@ def simulate_knockout_round(matches, stage, history, date_str):
             'p_draw': result.get('p_draw'),
             'p_win_B': result.get('p_win_B'),
         })
+        games_played[team_A] = games_played.get(team_A, 0) + 1
+        games_played[team_B] = games_played.get(team_B, 0) + 1
     return results, winners, history
 
 
@@ -171,11 +188,12 @@ if __name__ == '__main__':
     history = pd.read_csv(TRAIN_PATH, parse_dates=['date'])
     history = history.sort_values('date').reset_index(drop=True)
 
+    games_played = {}   # v1.6: track tournament games per team
     all_results = []
 
     # ── Group Stage ───────────────────────────────────────────────────────────
     print("\n=== GROUP STAGE ===")
-    group_results, history = simulate_group_stage(history)
+    group_results, history = simulate_group_stage(history, games_played)
     all_results.extend(group_results)
     for r in group_results:
         print(f"  {r['team_A']:<25} {r['pred_goals_A']}-{r['pred_goals_B']}  {r['team_B']}")
@@ -210,7 +228,7 @@ if __name__ == '__main__':
     extra_pairs = list(zip(third_teams[:4], third_teams[4:]))
     r32_matches.extend(extra_pairs)
 
-    r32_results, r32_winners, history = simulate_knockout_round(r32_matches, 'R32', history, '2026-07-04')
+    r32_results, r32_winners, history = simulate_knockout_round(r32_matches, 'R32', history, '2026-07-04', games_played, is_knockout=1, round_number=2)
     all_results.extend(r32_results)
     for r in r32_results:
         tick = '→'
@@ -219,7 +237,7 @@ if __name__ == '__main__':
     # ── Round of 16 ───────────────────────────────────────────────────────────
     print("\n=== ROUND OF 16 ===")
     r16_matches = [(r32_winners[i], r32_winners[i+1]) for i in range(0, len(r32_winners), 2)]
-    r16_results, r16_winners, history = simulate_knockout_round(r16_matches, 'R16', history, '2026-07-08')
+    r16_results, r16_winners, history = simulate_knockout_round(r16_matches, 'R16', history, '2026-07-08', games_played, is_knockout=1, round_number=2)
     all_results.extend(r16_results)
     for r in r16_results:
         print(f"  {r['team_A']:<25} {r['pred_goals_A']}-{r['pred_goals_B']}  {r['team_B']:<25}  → {r['winner']}")
@@ -227,7 +245,7 @@ if __name__ == '__main__':
     # ── Quarter-Finals ────────────────────────────────────────────────────────
     print("\n=== QUARTER-FINALS ===")
     qf_matches = [(r16_winners[i], r16_winners[i+1]) for i in range(0, len(r16_winners), 2)]
-    qf_results, qf_winners, history = simulate_knockout_round(qf_matches, 'QF', history, '2026-07-11')
+    qf_results, qf_winners, history = simulate_knockout_round(qf_matches, 'QF', history, '2026-07-11', games_played, is_knockout=1, round_number=3)
     all_results.extend(qf_results)
     for r in qf_results:
         print(f"  {r['team_A']:<25} {r['pred_goals_A']}-{r['pred_goals_B']}  {r['team_B']:<25}  → {r['winner']}")
@@ -235,7 +253,7 @@ if __name__ == '__main__':
     # ── Semi-Finals ───────────────────────────────────────────────────────────
     print("\n=== SEMI-FINALS ===")
     sf_matches = [(qf_winners[i], qf_winners[i+1]) for i in range(0, len(qf_winners), 2)]
-    sf_results, sf_winners, history = simulate_knockout_round(sf_matches, 'SF', history, '2026-07-14')
+    sf_results, sf_winners, history = simulate_knockout_round(sf_matches, 'SF', history, '2026-07-14', games_played, is_knockout=1, round_number=4)
     all_results.extend(sf_results)
     sf_losers = []
     for idx, r in enumerate(sf_results):
@@ -246,7 +264,7 @@ if __name__ == '__main__':
     # ── 3rd Place ─────────────────────────────────────────────────────────────
     print("\n=== 3RD PLACE MATCH ===")
     third_results, third_winners, history = simulate_knockout_round(
-        [(sf_losers[0], sf_losers[1])], '3rd Place', history, '2026-07-18')
+        [(sf_losers[0], sf_losers[1])], '3rd Place', history, '2026-07-18', games_played, is_knockout=1, round_number=4)
     all_results.extend(third_results)
     for r in third_results:
         print(f"  {r['team_A']:<25} {r['pred_goals_A']}-{r['pred_goals_B']}  {r['team_B']:<25}  → {r['winner']}")
@@ -254,7 +272,7 @@ if __name__ == '__main__':
     # ── Final ─────────────────────────────────────────────────────────────────
     print("\n=== FINAL ===")
     final_results, final_winners, history = simulate_knockout_round(
-        [(sf_winners[0], sf_winners[1])], 'Final', history, '2026-07-19')
+        [(sf_winners[0], sf_winners[1])], 'Final', history, '2026-07-19', games_played, is_knockout=1, round_number=5)
     all_results.extend(final_results)
     for r in final_results:
         print(f"  {r['team_A']:<25} {r['pred_goals_A']}-{r['pred_goals_B']}  {r['team_B']:<25}  → {r['winner']}")

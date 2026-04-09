@@ -14,7 +14,7 @@ from features import build_features
 from ensemble import AveragingEnsemble
 
 PARAMS_PATH     = 'best_params.json'
-MODEL_VERSION   = 'v1.5'   # bump when features or model architecture changes
+MODEL_VERSION   = 'v1.6'   # bump when features or model architecture changes
 
 
 def _load_best_params():
