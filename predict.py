@@ -10,6 +10,7 @@ from features import (
     EloRating, calculate_form_features,
     calculate_h2h, calculate_days_rest,
     calculate_neighbourhood_features,
+    calculate_goal_diff_std,
     FORM_N
 )
 
@@ -22,11 +23,18 @@ def load_model(path=MODEL_PATH):
     return payload['model'], payload['features']
 
 
-def predict_match(team_A, team_B, current_matches):
+def predict_match(team_A, team_B, current_matches,
+                  is_knockout=0, round_number=0,
+                  games_in_tournament_A=0, games_in_tournament_B=0):
     """
     Predict goals for team_A and team_B.
     Derives outcome from predicted scores.
-    Returns: { goals_A, goals_B, outcome }
+
+    Optional stage features (v1.6):
+        is_knockout              : 0 = group/qualifier, 1 = knockout round
+        round_number             : 0=qualifier, 1=group, 2=R32/R16, 3=QF, 4=SF, 5=Final
+        games_in_tournament_A/B  : games each team has already played in this tournament
+    Returns: { goals_A, goals_B, outcome, ... }
     """
     model, feature_cols = load_model()
 
@@ -52,6 +60,9 @@ def predict_match(team_A, team_B, current_matches):
 
     nbr_A = calculate_neighbourhood_features(current_matches, team_A, elo_system.ratings)
     nbr_B = calculate_neighbourhood_features(current_matches, team_B, elo_system.ratings)
+
+    goal_diff_std_A = calculate_goal_diff_std(current_matches, team_A)
+    goal_diff_std_B = calculate_goal_diff_std(current_matches, team_B)
 
     row = {
         'elo_A':        elo_A,
@@ -93,6 +104,13 @@ def predict_match(team_A, team_B, current_matches):
         'wtd_goal_diff_opp_A':       nbr_A['weighted_goal_diff_by_opp'],
         'wtd_goal_diff_opp_B':       nbr_B['weighted_goal_diff_by_opp'],
         'wtd_goal_diff_opp_diff':    nbr_A['weighted_goal_diff_by_opp'] - nbr_B['weighted_goal_diff_by_opp'],
+        # v1.6 — Stage context + volatility
+        'is_knockout':               is_knockout,
+        'round_number':              round_number,
+        'games_in_tournament_A':     games_in_tournament_A,
+        'games_in_tournament_B':     games_in_tournament_B,
+        'goal_diff_std_A':           goal_diff_std_A,
+        'goal_diff_std_B':           goal_diff_std_B,
     }
 
     X = pd.DataFrame([row])[feature_cols]

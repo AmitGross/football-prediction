@@ -166,6 +166,24 @@ def calculate_days_rest(past_matches, team, current_date):
     return max(0, (current_date - last_date).days)
 
 
+# ── 5b. Goal-difference std (volatility) ──────────────────────────────────────
+def calculate_goal_diff_std(past_matches, team, N=5):
+    """
+    Standard deviation of goal difference (GF-GA) in the team's last N matches.
+    Returns 0.0 if fewer than 2 past matches exist (std undefined).
+    """
+    home = past_matches[past_matches['team_A'] == team][['date', 'goals_A', 'goals_B']].copy()
+    home['gd'] = home['goals_A'] - home['goals_B']
+
+    away = past_matches[past_matches['team_B'] == team][['date', 'goals_A', 'goals_B']].copy()
+    away['gd'] = away['goals_B'] - away['goals_A']
+
+    recent = pd.concat([home[['date', 'gd']], away[['date', 'gd']]]).sort_values('date').tail(N)
+    if len(recent) < 2:
+        return 0.0
+    return float(recent['gd'].std())
+
+
 # ── 6. Graph (undirected, each match = edge with goal attributes) ──────────────
 def build_graph(past_matches):
     """
@@ -321,16 +339,31 @@ def build_features(matches, N=FORM_N):
     """
     Walk-forward: for match i, use only matches[0:i] to build features.
     Returns:
-        X          — feature DataFrame (35 columns)
+        X          — feature DataFrame (68 columns in v1.6)
         y_goals_A  — Series of actual goals scored by team_A
         y_goals_B  — Series of actual goals scored by team_B
     """
     matches = matches.sort_values('date').reset_index(drop=True)
 
+    # Stage feature support: if 'round' column is present, map it to numeric features.
+    # For training data (matches.csv), no round column → all stage features default to 0.
+    _ROUND_TO_STAGE = {
+        'group':    (0, 1),   # (is_knockout, round_number)
+        'r32':      (1, 2),
+        'r16':      (1, 2),
+        'qf':       (1, 3),
+        'sf':       (1, 4),
+        '3rd':      (1, 4),
+        'final':    (1, 5),
+        'f':        (1, 5),
+    }
+    has_round_col = 'round' in matches.columns
+
     elo_system    = EloRating()
     rows          = []
     ya            = []
     yb            = []
+    games_played_in_tournament = {}   # team → count of tournament games played so far
 
     for i, match in matches.iterrows():
         team_A  = match['team_A']
@@ -364,6 +397,20 @@ def build_features(matches, N=FORM_N):
         # Neighbourhood aggregation (walk-forward: 1-hop message passing)
         nbr_A = calculate_neighbourhood_features(past, team_A, elo_system.ratings)
         nbr_B = calculate_neighbourhood_features(past, team_B, elo_system.ratings)
+
+        # Goal-difference std (volatility, last 5 matches) — v1.6
+        goal_diff_std_A = calculate_goal_diff_std(past, team_A)
+        goal_diff_std_B = calculate_goal_diff_std(past, team_B)
+
+        # Stage features — v1.6
+        # If round column present, map to (is_knockout, round_number); else default 0.
+        if has_round_col and pd.notna(match.get('round', None)):
+            rnd_key = str(match['round']).strip().lower()
+            is_knockout, round_number = _ROUND_TO_STAGE.get(rnd_key, (0, 0))
+        else:
+            is_knockout, round_number = 0, 0
+        games_in_tournament_A = games_played_in_tournament.get(team_A, 0)
+        games_in_tournament_B = games_played_in_tournament.get(team_B, 0)
 
         row = {
             'elo_A':        elo_A,
@@ -411,11 +458,23 @@ def build_features(matches, N=FORM_N):
             'wtd_goal_diff_opp_B':       nbr_B['weighted_goal_diff_by_opp'],
             'wtd_goal_diff_opp_diff':    nbr_A['weighted_goal_diff_by_opp'] - nbr_B['weighted_goal_diff_by_opp'],
             # --- NEW FEATURES END ---
+            # v1.6 — Stage context + volatility
+            'is_knockout':                    is_knockout,
+            'round_number':                   round_number,
+            'games_in_tournament_A':          games_in_tournament_A,
+            'games_in_tournament_B':          games_in_tournament_B,
+            'goal_diff_std_A':                goal_diff_std_A,
+            'goal_diff_std_B':                goal_diff_std_B,
         }
 
         rows.append(row)
         ya.append(goals_A)
         yb.append(goals_B)
+
+        # Increment tournament-game counters only for round-tagged rows
+        if has_round_col and pd.notna(match.get('round', None)):
+            games_played_in_tournament[team_A] = games_in_tournament_A + 1
+            games_played_in_tournament[team_B] = games_in_tournament_B + 1
 
     X         = pd.DataFrame(rows)
     y_goals_A = pd.Series(ya, name='goals_A')

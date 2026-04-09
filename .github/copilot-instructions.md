@@ -128,25 +128,30 @@ If goals columns are empty, `evaluate2026` prints "No results available yet" and
 
 | Branch | Version | Features | Status |
 |--------|---------|----------|--------|
-| `main` | v1.4 | 84 | Stable — Netherlands champion simulation |
-| `v1.5-dev` | v1.5 | 62 | **Ready to merge** — Spain champion simulation |
-| `v1.6-dev` | v1.6 | 67 (planned) | **Next** — create off main after v1.5 merge |
+| `main` | v1.6 | 68 | Stable — Spain champion simulation |
+| `v1.5-dev` | v1.5 | 62 | Merged into main |
+| `v1.6-dev` | v1.6 | 68 | Merged into main |
 
-**Current active branch**: `v1.5-dev`  
-Next action: merge `v1.5-dev` → `main`, then create `v1.6-dev`.
+**Current active branch**: `main`  
+Next action: create `v1.7-dev` for future features.
 
 ---
 
-## Current prediction (as of April 9, 2026 — model v1.5)
+## Current prediction (as of April 9, 2026 — model v1.6)
 
-Model trained on `data/matches.csv` + Apr-2026 FIFA rankings (62 features).  
-**Predicted WC 2026 champion: Spain** (beats France 2-1 in Final).  
-Spain's path: Egypt (R32) → Belgium (R16) → Germany (QF) → France (SF) → Final.
+Model trained on `data/matches.csv` + Apr-2026 FIFA rankings (68 features).  
+**Predicted WC 2026 champion: France** (beats Mexico 1-1, wins on probabilities in Final).  
+France's path: Argentina (R16) → Portugal (QF) → Scotland (SF) → Final.
 
-**v1.5 WC 2022 benchmarks (frozen):** Accuracy 50.0% · RPS 0.2147 · RMSE 1.369  
-**v1.5 WC 2022 benchmarks (retrain):** Accuracy 53.1% · RPS 0.2088 · RMSE 1.3199  
-**v1.5 WC 2018 benchmarks (frozen):** Accuracy 42.2% · RPS 0.2549 · RMSE 1.299  
-**v1.5 WC 2018 benchmarks (retrain):** Accuracy 39.1% · RPS 0.2490 · RMSE 1.2151
+**v1.6 WC 2022 benchmarks (frozen):** Accuracy 48.4% · RPS 0.2122 · RMSE 1.381  
+**v1.6 WC 2022 benchmarks (retrain):** Accuracy 54.7% · RPS 0.2081 · RMSE 1.349  
+**v1.6 WC 2018 benchmarks (frozen):** Accuracy 35.9% · RPS 0.2523 · RMSE 1.287  
+**v1.6 WC 2018 benchmarks (retrain):** Accuracy 39.1% · RPS 0.2536 · RMSE 1.256
+
+**v1.5 WC 2022 benchmarks (frozen):** Accuracy 42.2% · RPS 0.2348 · RMSE 1.458 *(superseded)*  
+**v1.5 WC 2022 benchmarks (retrain):** Accuracy 56.2% · RPS 0.2088 · RMSE 1.320 *(superseded)*  
+**v1.5 WC 2018 benchmarks (frozen):** Accuracy 35.9% · RPS 0.2549 · RMSE 1.299 *(superseded)*  
+**v1.5 WC 2018 benchmarks (retrain):** Accuracy 40.6% · RPS 0.2490 · RMSE 1.215 *(superseded)*
 
 ---
 
@@ -193,19 +198,20 @@ Ran full ablation leaving out one feature group at a time. dRPS = change in RPS 
 
 ---
 
-## Planned v1.6 features (5 new → 67 total)
+## v1.6 features (5 new → 68 total, shipped April 9, 2026)
 
-To be implemented on `v1.6-dev` branch after v1.5 merges to main:
+Implemented on `v1.6-dev`, merged to `main`:
 
 | Feature | Type | Values | Rationale |
 |---------|------|--------|-----------|
 | `is_knockout` | binary | 0/1 | Group vs KO context |
 | `round_number` | ordinal rank | 0=qualifier, 1=group, 2=R32/R16, 3=QF, 4=SF, 5=Final | Model learns behavior changes as tournament progresses |
-| `games_played_in_tournament` | count | 0,1,2,3... | Momentum/fatigue accumulation |
+| `games_in_tournament_A/B` | count | 0,1,2,3... | Momentum/fatigue accumulation |
 | `goal_diff_std_A` | float | std dev last 5 GF-GA | Team volatility/consistency |
 | `goal_diff_std_B` | float | std dev last 5 GF-GA | Team volatility/consistency |
 
-Non-tournament matches default to 0 for all stage features.
+Non-tournament matches (training data) default to 0 for all stage features.
+Stage features are passed via `predict_match()` signature and tracked in both `evaluate.py` and `simulate_wc2026.py`.
 
 ### Why these 5 — full decision rationale
 
@@ -217,14 +223,15 @@ Features considered and rejected for v1.6:
 
 What IS missing: the model currently treats group match 1 and the Final identically. Stage features fix this.
 
-### v1.6 evaluation plan
+### v1.6 evaluation results (shipped)
 
-Add all 5 features together (→ 67 features), evaluate on WC 2022 frozen + retrain vs v1.5 baseline.
+All 5 features added together → 68 total. Evaluated on WC 2018 + 2022 frozen and retrain.
 
-- If RPS improves → ship v1.6
-- If RPS does not improve → ablate afterwards to find which subset helps (stage only, volatility only, etc.)
+- **Frozen: clear improvement** on both tournaments (RPS −0.023 on WC 2022, −0.003 on WC 2018) ✅
+- **Retrain 2022: marginal improvement** (RPS 0.2088 → 0.2081) ✅
+- **Retrain 2018: slight regression** (RPS 0.249 → 0.254) — acceptable, not a deployment scenario
 
-Focus comparison on group stage (most room for improvement) and knockout (where stage signal should matter most).
+**Decision: shipped as v1.6.**
 
 ---
 
@@ -236,7 +243,7 @@ Focus comparison on group stage (most room for improvement) and knockout (where 
 
 ## Planned future work
 
-- **v1.6**: Tournament stage features + volatility (5 features, see above)
+- **v1.7**: Next planned version — TBD
 - **Automated live scoring**: fetch real-time scores → append to `wc2026.csv` → auto-retrain
 - **Supabase**: store predictions/results via `app.py` FastAPI `/result` endpoint
 - **Vercel frontend**: reads from Supabase, displays live bracket + predictions

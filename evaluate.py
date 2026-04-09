@@ -19,6 +19,7 @@ import sys
 import shutil
 import pandas as pd
 import numpy as np
+from collections import defaultdict
 from sklearn.metrics import mean_absolute_error
 
 import features
@@ -65,6 +66,19 @@ def _get_stage(date, year: int) -> str:
     return 'Unknown'
 
 
+# Maps stage name → (is_knockout, round_number) for v1.6 stage features
+_STAGE_TO_ROUND_FEATURES = {
+    'Group Stage':  (0, 1),
+    'Round of 32':  (1, 2),
+    'Round of 16':  (1, 2),
+    'Quarter-Final':(1, 3),
+    'Semi-Final':   (1, 4),
+    '3rd Place':    (1, 4),
+    'Final':        (1, 5),
+    'Unknown':      (0, 0),
+}
+
+
 def _metrics_for_subset(pred_A, pred_B, act_A, act_B, rps):
     """Compute all loss metrics for a subset of matches. Returns a dict."""
     n = len(pred_A)
@@ -89,7 +103,7 @@ def _metrics_for_subset(pred_A, pred_B, act_A, act_B, rps):
         'Mean_RPS':        round(float(np.mean(rps)), 4),
     }
 
-MODEL_VERSION = 'v1.5'   # bump when features or model architecture changes
+MODEL_VERSION = 'v1.6'   # bump when features or model architecture changes
 
 TRAIN_PATH = 'data/matches.csv'
 _TEST_PATHS = {
@@ -173,6 +187,7 @@ def evaluate(retrain=False, limit=None, year=2022):
     actuals_A, actuals_B = [], []
     correct_outcomes     = 0
     rps_scores           = []
+    games_played_in_tournament = defaultdict(int)   # v1.6: track per-team tournament game count
 
     mode_label = f"{'RETRAIN' if retrain else 'FROZEN'} model — {len(test_df)} matches"
     col_w = 35
@@ -186,7 +201,17 @@ def evaluate(retrain=False, limit=None, year=2022):
         actual_A = int(match['goals_A'])
         actual_B = int(match['goals_B'])
 
-        result     = predict_match(team_A, team_B, history)
+        # v1.6: stage features
+        stage = _get_stage(match['date'], year)
+        is_knockout, round_number = _STAGE_TO_ROUND_FEATURES.get(stage, (0, 0))
+        games_in_tournament_A = games_played_in_tournament[team_A]
+        games_in_tournament_B = games_played_in_tournament[team_B]
+
+        result     = predict_match(team_A, team_B, history,
+                                   is_knockout=is_knockout,
+                                   round_number=round_number,
+                                   games_in_tournament_A=games_in_tournament_A,
+                                   games_in_tournament_B=games_in_tournament_B)
         pred_A     = result['goals_A']
         pred_B     = result['goals_B']
         pred_out   = result['outcome']
@@ -223,6 +248,10 @@ def evaluate(retrain=False, limit=None, year=2022):
             'goals_B': actual_B,
         }])
         history = pd.concat([history, new_row], ignore_index=True)
+
+        # v1.6: update tournament game count after each match
+        games_played_in_tournament[team_A] += 1
+        games_played_in_tournament[team_B] += 1
 
         # Retrain mode: save updated history and retrain model
         if retrain:

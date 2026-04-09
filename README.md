@@ -2,7 +2,7 @@
 
 Machine-learning pipeline that predicts international football match scores and simulates full World Cup tournaments. Retrospectively evaluated on WC 2018 and WC 2022; live prediction active for WC 2026 (June 11 – July 19, 2026).
 
-**Model v1.5 · 62 features · Best result: 53.1% outcome accuracy (WC 2022 walk-forward) · Predicted WC 2026 champion: Spain**
+**Model v1.6 · 68 features · Best result: 54.7% outcome accuracy (WC 2022 walk-forward) · Predicted WC 2026 champion: Spain**
 
 ---
 
@@ -50,21 +50,21 @@ Every script also runs standalone: `python train.py`, `python evaluate.py --year
 
 ---
 
-## Evaluation results (model v1.5)
+## Evaluation results (model v1.6)
 
 ### WC 2022 — real Nov 2022 FIFA rankings, 930 training matches
 
 | Mode | Full Tournament | RPS | RMSE |
 |------|----------------|-----|------|
-| Frozen | 50.0% | 0.2147 | 1.369 |
-| **Retrain** | **53.1%** | **0.2088** | **1.3199** |
+| Frozen | 48.4% | 0.2122 | 1.381 |
+| **Retrain** | **54.7%** | **0.2081** | **1.349** |
 
-### WC 2018 — real Jun 7 2018 FIFA rankings, 915 training matches
+### WC 2018 — real Jun 2018 FIFA rankings, 915 training matches
 
 | Mode | Full Tournament | RPS | RMSE |
 |------|----------------|-----|------|
-| Frozen | 42.2% | 0.2549 | 1.299 |
-| Retrain | 39.1% | 0.2490 | 1.2151 |
+| Frozen | 35.9% | 0.2523 | 1.287 |
+| Retrain | 39.1% | 0.2536 | 1.256 |
 
 **Benchmarks:** Accuracy > 52% = good · RPS < 0.21 = solid · RMSE < 1.65 = strong
 
@@ -469,8 +469,8 @@ Top FIFA rankings used (April 1, 2026):
 
 | Mode | Outcome Accuracy | Mean RPS | RMSE (goals) |
 |------|-----------------|----------|---------------|
-| **Frozen** | 50.0% | 0.2147 | 1.369 |
-| **Learning (walk-forward)** | **53.1%** | **0.2088** | **1.3199** |
+| **Frozen** | 48.4% | 0.2122 | 1.381 |
+| **Learning (walk-forward)** | **54.7%** | **0.2081** | **1.349** |
 
 > **RPS benchmark**: < 0.21 = solid · < 0.20 = strong · < 0.195 = excellent  
 > **Accuracy benchmark**: > 52% = good for football prediction (high draw rate makes this hard)

@@ -1,1 +1,1 @@
-v1.5 | 62 features
+v1.6 | 68 features
