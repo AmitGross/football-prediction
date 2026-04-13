@@ -107,6 +107,87 @@ Next FIFA rankings update: **June 10, 2026** — run `python update_rankings.py`
 
 ---
 
+## WC 2026 pre-tournament predictions (model v1.6, April 2026)
+
+Predicted champion: **🏆 France** (beats Spain 3-1 in the Final)
+
+### France's path
+| Round | Match | Score |
+|-------|-------|-------|
+| R32 | France vs Austria | 3-0 |
+| R16 | France vs Argentina | 3-1 |
+| QF | France vs England | 1-1 (on pens) |
+| SF | France vs Uruguay | 2-1 |
+| **Final** | **France vs Spain** | **3-1** |
+
+### Group stage — predicted scores (top matches)
+
+| Group | Team A | Score | Team B | P(A win) | P(Draw) | P(B win) |
+|-------|--------|-------|--------|----------|---------|---------|
+| A | Mexico | 3-0 | South Africa | 76.1% | 18.8% | 5.1% |
+| A | South Korea | 2-0 | Czech Republic | 60.9% | 27.9% | 11.2% |
+| B | Canada | 2-1 | Bosnia | 66.2% | 22.2% | 11.7% |
+| B | Qatar | 1-1 | Switzerland | 20.2% | 35.9% | 43.9% |
+| C | Brazil | 1-1 | Morocco | 42.8% | 32.1% | 25.2% |
+| C | Haiti | 0-1 | Scotland | 15.9% | 34.6% | 49.5% |
+| D | United States | 2-1 | Paraguay | 57.3% | 29.0% | 13.7% |
+| E | Germany | 3-0 | Curacao | 84.3% | 14.0% | 1.7% |
+| F | Netherlands | 1-1 | Japan | 39.1% | 32.4% | 28.5% |
+| G | Belgium | 2-1 | Egypt | 52.3% | 27.0% | 20.7% |
+| H | Spain | 3-0 | Cape Verde | 78.0% | 16.4% | 5.6% |
+| I | France | 2-1 | Senegal | 42.0% | 28.8% | 29.2% |
+| J | Argentina | 2-1 | Algeria | 67.0% | 22.3% | 10.7% |
+| K | Portugal | 2-0 | DR Congo | 60.8% | 26.8% | 12.4% |
+| L | England | 2-1 | Croatia | 42.9% | 32.3% | 24.8% |
+
+### Full knockout bracket prediction
+
+```
+R32:   Mexico → Switzerland → Morocco → Brazil → Germany → Netherlands →
+       Iran → Spain → Argentina → France → Portugal → England →
+       Ecuador → Uruguay → Sweden → Egypt
+
+R16:   Mexico → Brazil → Netherlands → Spain → France → England → Uruguay → Egypt
+
+QF:    Brazil → Spain  |  France → Uruguay (on pens)
+
+SF:    Spain → France
+
+Final: FRANCE 🏆
+```
+
+---
+
+## Feature importance analysis (model v1.6)
+
+Computed by averaging RF and XGBoost `feature_importances_` from the trained ensemble.
+
+| Rank | Feature | Avg Imp | RF | XGB | Group |
+|------|---------|---------|-----|-----|-------|
+| 1 | `fifa_rank_diff` | **0.2248** | 0.3795 | 0.0701 | FIFA Rankings |
+| 2 | `fifa_rank_B` | 0.0400 | 0.0610 | 0.0190 | FIFA Rankings |
+| 3 | `wtd_goal_diff_opp_diff` | 0.0353 | 0.0190 | 0.0516 | **Neighbourhood Perf** |
+| 4 | `weighted_opp_elo_diff` | 0.0295 | 0.0428 | 0.0162 | **Neighbourhood Perf** |
+| 5 | `fifa_rank_A` | 0.0286 | 0.0398 | 0.0174 | FIFA Rankings |
+| 6 | `avg_goal_diff_vs_opp_diff` | 0.0197 | 0.0111 | 0.0283 | **Neighbourhood Perf** |
+| 7 | `opp_scored_A` | 0.0184 | 0.0203 | 0.0165 | **Neighbourhood Basic** |
+| 8 | `wtd_goal_diff_opp_A` | 0.0171 | 0.0133 | 0.0210 | **Neighbourhood Perf** |
+| 9 | `opp_conceded_B` | 0.0166 | 0.0169 | 0.0163 | **Neighbourhood Basic** |
+| 10 | `wtd_goal_diff_opp_B` | 0.0161 | 0.0076 | 0.0246 | **Neighbourhood Perf** |
+| ... | `h2h_wins` | 0.0150 | 0.0016 | 0.0284 | H2H |
+| ... | `elo_diff` | 0.0119 | 0.0138 | 0.0099 | Elo |
+| 64-67 | `is_knockout`, `round_number`, `games_in_tournament_A/B` | **0.0000** | 0.0000 | 0.0000 | Stage (v1.6) |
+
+### Key takeaways
+
+- **FIFA rankings dominate**: `fifa_rank_diff` alone accounts for 22% of total importance — by far the most predictive single feature. The ranking gap between teams is the strongest pre-match signal.
+- **Neighbourhood features are highly effective**: 5 of the top 10 features are neighbourhood-based (`wtd_goal_diff_opp_*`, `weighted_opp_elo_*`, `avg_goal_diff_vs_opp_*`). These features capture quality-weighted schedule strength and are far more informative than raw form or Elo.
+- **XGB spreads importance more evenly**: RF relies heavily on `fifa_rank_diff` (0.38) due to its greedy split nature. XGB distributes weight across neighbourhood, H2H, and form features — the ensemble benefits from this complementarity.
+- **H2H is XGB-favoured**: `h2h_wins` scores 0.028 in XGB vs only 0.002 in RF — suggesting XGB picks up historical match-up patterns that RF misses.
+- **Stage features (v1.6) learned nothing**: `is_knockout`, `round_number`, `games_in_tournament_A/B` all score 0.000. Root cause: training data is ~965 regular international matches where all these features are 0. The model never sees enough tournament games to learn they're meaningful. Candidate for removal in v1.7.
+
+---
+
 ## Model overview
 
 **Training pipeline (`python main.py train --year <year>`):**
