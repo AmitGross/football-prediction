@@ -184,7 +184,7 @@ Computed by averaging RF and XGBoost `feature_importances_` from the trained ens
 - **Neighbourhood features are highly effective**: 5 of the top 10 features are neighbourhood-based (`wtd_goal_diff_opp_*`, `weighted_opp_elo_*`, `avg_goal_diff_vs_opp_*`). These features capture quality-weighted schedule strength and are far more informative than raw form or Elo.
 - **XGB spreads importance more evenly**: RF relies heavily on `fifa_rank_diff` (0.38) due to its greedy split nature. XGB distributes weight across neighbourhood, H2H, and form features — the ensemble benefits from this complementarity.
 - **H2H is XGB-favoured**: `h2h_wins` scores 0.028 in XGB vs only 0.002 in RF — suggesting XGB picks up historical match-up patterns that RF misses.
-- **Stage features (v1.6) learned nothing**: `is_knockout`, `round_number`, `games_in_tournament_A/B` all score 0.000. Root cause: training data is ~965 regular international matches where all these features are 0. The model never sees enough tournament games to learn they're meaningful. Candidate for removal in v1.7.
+
 
 ---
 
